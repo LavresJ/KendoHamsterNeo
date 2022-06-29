@@ -1,10 +1,10 @@
-package org.tensorflow.lite.examples.poseestimation.tracker;
+package com.kendohamster.tracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import org.tensorflow.lite.examples.poseestimation.R;
+import com.kendohamster.R;
 
 public class TrainingMenu extends AppCompatActivity {
 

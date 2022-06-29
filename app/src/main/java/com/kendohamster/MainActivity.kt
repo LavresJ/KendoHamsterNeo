@@ -37,6 +37,7 @@ import kotlinx.coroutines.launch
 import com.kendohamster.camera.CameraSource
 import com.kendohamster.data.Device
 import com.kendohamster.ml.*
+import com.kendohamster.R
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 // settings in an effort to convince the user to change their
                 // decision.
                 com.kendohamster.MainActivity.ErrorDialog.Companion.newInstance(
-                    getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_request_permission)
+                    getString(com.kendohamster.R.string.tfe_pe_request_permission)
                 )
                     .show(supportFragmentManager,
                         com.kendohamster.MainActivity.Companion.FRAGMENT_DIALOG
@@ -141,24 +142,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.layout.activity_main)
+        setContentView(com.kendohamster.R.layout.activity_main)
         // keep screen on while app is running
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        tvKeypoint = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvKeypoint)
+        tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
-        tvScore = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvScore)
-        tvFPS = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvFps)
-        spnModel = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.spnModel)
-        spnDevice = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.spnDevice)
-        spnTracker = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.spnTracker)
-        vTrackerOption = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.vTrackerOption)
-        surfaceView = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.surfaceView)
-        tvClassificationValue1 = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvClassificationValue1)
-        tvClassificationValue2 = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvClassificationValue2)
-        tvClassificationValue3 = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvClassificationValue3)
-        swClassification = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.swPoseClassification)
-        vClassificationOption = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.vClassificationOption)
+        tvScore = findViewById(com.kendohamster.R.id.tvScore)
+        tvFPS = findViewById(com.kendohamster.R.id.tvFps)
+        spnModel = findViewById(com.kendohamster.R.id.spnModel)
+        spnDevice = findViewById(com.kendohamster.R.id.spnDevice)
+        spnTracker = findViewById(com.kendohamster.R.id.spnTracker)
+        vTrackerOption = findViewById(com.kendohamster.R.id.vTrackerOption)
+        surfaceView = findViewById(com.kendohamster.R.id.surfaceView)
+        tvClassificationValue1 = findViewById(com.kendohamster.R.id.tvClassificationValue1)
+        tvClassificationValue2 = findViewById(com.kendohamster.R.id.tvClassificationValue2)
+        tvClassificationValue3 = findViewById(com.kendohamster.R.id.tvClassificationValue3)
+        swClassification = findViewById(com.kendohamster.R.id.swPoseClassification)
+        vClassificationOption = findViewById(com.kendohamster.R.id.vClassificationOption)
         initSpinner()
         spnModel.setSelection(modelPos)
         swClassification.setOnCheckedChangeListener(setClassificationListener)
@@ -199,25 +200,25 @@ class MainActivity : AppCompatActivity() {
                 cameraSource =
                     CameraSource(surfaceView, object : CameraSource.CameraSourceListener {
                         override fun onFPSListener(fps: Int) {
-                            tvFPS.text = getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_fps, fps)
+                            tvFPS.text = getString(com.kendohamster.R.string.tfe_pe_tv_fps, fps)
                         }
 
                         override fun onDetectedInfo(
                             personScore: Float?,
                             poseLabels: List<Pair<String, Float>>?
                         ) {
-                            tvScore.text = getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_score, personScore ?: 0f)
+                            tvScore.text = getString(com.kendohamster.R.string.tfe_pe_tv_score, personScore ?: 0f)
                             poseLabels?.sortedByDescending { it.second }?.let {
                                 tvClassificationValue1.text = getString(
-                                    _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_classification_value,
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.isNotEmpty()) it[0] else null)
                                 )
                                 tvClassificationValue2.text = getString(
-                                    _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_classification_value,
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.size >= 2) it[1] else null)
                                 )
                                 tvClassificationValue3.text = getString(
-                                    _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_classification_value,
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.size >= 3) it[2] else null)
                                 )
                             }
@@ -267,7 +268,7 @@ class MainActivity : AppCompatActivity() {
     private fun initSpinner() {
         ArrayAdapter.createFromResource(
             this,
-            _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.array.tfe_pe_models_array,
+            com.kendohamster.R.array.tfe_pe_models_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -279,7 +280,7 @@ class MainActivity : AppCompatActivity() {
 
         ArrayAdapter.createFromResource(
             this,
-            _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.array.tfe_pe_device_name, android.R.layout.simple_spinner_item
+            com.kendohamster.R.array.tfe_pe_device_name, android.R.layout.simple_spinner_item
         ).also { adaper ->
             adaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -289,7 +290,7 @@ class MainActivity : AppCompatActivity() {
 
         ArrayAdapter.createFromResource(
             this,
-            _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.array.tfe_pe_tracker_array, android.R.layout.simple_spinner_item
+            com.kendohamster.R.array.tfe_pe_tracker_array, android.R.layout.simple_spinner_item
         ).also { adaper ->
             adaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -352,7 +353,7 @@ class MainActivity : AppCompatActivity() {
                 showDetectionScore(false)
                 // Movenet MultiPose Dynamic does not support GPUDelegate
                 if (device == Device.GPU) {
-                    showToast(getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_gpu_error))
+                    showToast(getString(com.kendohamster.R.string.tfe_pe_gpu_error))
                 }
                 showTracker(true)
                 MoveNetMultiPose.create(this, device, Type.Dynamic)

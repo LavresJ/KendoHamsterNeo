@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import org.tensorflow.lite.examples.poseestimation.R;
+import com.kendohamster.R;
 
 public class MotionList extends AppCompatActivity {
 
