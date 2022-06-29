@@ -16,6 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoseEstimation">
         <activity
+            android:name=".RecyclerAdapterForHistoryList"
+            android:exported="false" />
+        <activity
+            android:name=".tracker.HistoryDailyRecord"
+            android:exported="false" />
+        <activity
+            android:name=".tracker.History"
+            android:exported="false" />
+        <activity
+            android:name=".tracker.Settings"
+            android:exported="false" />
+        <activity
             android:name=".tracker.TrainingMenu"
             android:exported="false" />
         <activity
