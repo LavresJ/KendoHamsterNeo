@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tensorflow.lite.examples.poseestimation">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kendohamster">
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -15,11 +16,9 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.PoseEstimation">
+
         <activity
-            android:name=".RecyclerAdapterForHistoryList"
-            android:exported="false" />
-        <activity
-            android:name=".tracker.HistoryDailyRecord"
+            android:name="com.kendohamster.tracker.HistoryDailyRecord"
             android:exported="false" />
         <activity
             android:name=".tracker.History"
@@ -31,10 +30,10 @@
             android:name=".tracker.TrainingMenu"
             android:exported="false" />
         <activity
-            android:name=".MotionList"
+            android:name="com.kendohamster.MotionList"
             android:exported="false" />
         <activity
-            android:name=".MainPage"
+            android:name="com.kendohamster.MainPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.kendohamster.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
