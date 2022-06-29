@@ -17,7 +17,7 @@ limitations under the License.
 package com.kendohamster.ml
 
 import android.graphics.Bitmap
-import org.tensorflow.lite.examples.poseestimation.data.Person
+import com.kendohamster.data.Person
 
 interface PoseDetector : AutoCloseable {
 

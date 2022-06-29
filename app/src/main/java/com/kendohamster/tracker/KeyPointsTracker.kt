@@ -17,8 +17,8 @@ limitations under the License.
 package com.kendohamster.tracker
 
 import androidx.annotation.VisibleForTesting
-import org.tensorflow.lite.examples.poseestimation.data.KeyPoint
-import org.tensorflow.lite.examples.poseestimation.data.Person
+import com.kendohamster.data.KeyPoint
+import com.kendohamster.data.Person
 import kotlin.math.exp
 import kotlin.math.max
 import kotlin.math.min

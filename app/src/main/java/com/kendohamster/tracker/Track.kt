@@ -16,7 +16,7 @@ limitations under the License.
 
 package com.kendohamster.tracker
 
-import org.tensorflow.lite.examples.poseestimation.data.Person
+import com.kendohamster.data.Person
 
 data class Track(
     val person: Person,

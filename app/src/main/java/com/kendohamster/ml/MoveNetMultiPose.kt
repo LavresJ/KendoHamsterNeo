@@ -23,11 +23,11 @@ import android.graphics.RectF
 import android.os.SystemClock
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.examples.poseestimation.data.BodyPart
-import org.tensorflow.lite.examples.poseestimation.data.Device
-import org.tensorflow.lite.examples.poseestimation.data.KeyPoint
-import org.tensorflow.lite.examples.poseestimation.data.Person
-import org.tensorflow.lite.examples.poseestimation.tracker.*
+import com.kendohamster.data.BodyPart
+import com.kendohamster.data.Device
+import com.kendohamster.data.KeyPoint
+import com.kendohamster.data.Person
+import com.kendohamster.tracker.*
 import org.tensorflow.lite.gpu.GpuDelegate
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.ImageOperator

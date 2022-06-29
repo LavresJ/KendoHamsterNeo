@@ -18,7 +18,7 @@ package com.kendohamster.ml
 
 import android.content.Context
 import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.examples.poseestimation.data.Person
+import com.kendohamster.data.Person
 import org.tensorflow.lite.support.common.FileUtil
 
 class PoseClassifier(

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import org.tensorflow.lite.examples.poseestimation.R;
+import com.kendohamster.R;
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener{
 

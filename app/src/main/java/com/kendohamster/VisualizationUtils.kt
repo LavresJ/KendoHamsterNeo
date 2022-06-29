@@ -20,8 +20,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import org.tensorflow.lite.examples.poseestimation.data.BodyPart
-import org.tensorflow.lite.examples.poseestimation.data.Person
+import com.kendohamster.data.BodyPart
+import com.kendohamster.data.Person
 import kotlin.math.max
 
 object VisualizationUtils {
