@@ -34,9 +34,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.tensorflow.lite.examples.poseestimation.camera.CameraSource
-import org.tensorflow.lite.examples.poseestimation.data.Device
-import org.tensorflow.lite.examples.poseestimation.ml.*
+import com.kendohamster.camera.CameraSource
+import com.kendohamster.data.Device
+import com.kendohamster.ml.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
