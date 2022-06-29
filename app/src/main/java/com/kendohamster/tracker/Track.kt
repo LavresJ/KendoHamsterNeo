@@ -14,10 +14,11 @@ limitations under the License.
 ==============================================================================
 */
 
-package org.tensorflow.lite.examples.poseestimation.data
+package com.kendohamster.tracker
 
-enum class Device {
-    CPU,
-    NNAPI,
-    GPU
-}
+import org.tensorflow.lite.examples.poseestimation.data.Person
+
+data class Track(
+    val person: Person,
+    val lastTimestamp: Long
+)

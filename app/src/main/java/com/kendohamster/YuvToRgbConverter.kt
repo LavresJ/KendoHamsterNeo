@@ -1,4 +1,4 @@
-package org.tensorflow.lite.examples.poseestimation
+package com.kendohamster
 
 import android.content.Context
 import android.graphics.Bitmap

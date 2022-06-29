@@ -14,8 +14,14 @@ limitations under the License.
 ==============================================================================
 */
 
-package org.tensorflow.lite.examples.poseestimation.data
+package com.kendohamster.ml
 
-import android.graphics.PointF
+import android.graphics.Bitmap
+import org.tensorflow.lite.examples.poseestimation.data.Person
 
-data class KeyPoint(val bodyPart: BodyPart, var coordinate: PointF, val score: Float)
+interface PoseDetector : AutoCloseable {
+
+    fun estimatePoses(bitmap: Bitmap): List<Person>
+
+    fun lastInferenceTimeNanos(): Long
+}

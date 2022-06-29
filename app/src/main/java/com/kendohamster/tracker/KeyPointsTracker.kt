@@ -14,7 +14,7 @@ limitations under the License.
 ==============================================================================
 */
 
-package org.tensorflow.lite.examples.poseestimation.tracker
+package com.kendohamster.tracker
 
 import androidx.annotation.VisibleForTesting
 import org.tensorflow.lite.examples.poseestimation.data.KeyPoint
