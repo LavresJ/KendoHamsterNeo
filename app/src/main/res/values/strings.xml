@@ -27,4 +27,21 @@
         <item>BoundingBox</item>
         <item>Keypoint</item>
     </string-array>
+
+    <string-array name="menu">
+        <item>菜單一</item>
+        <item>菜單二</item>
+        <item>菜單三</item>
+    </string-array>
+
+    <string-array name="PersonalInformation">
+        <item>管理登錄方式</item>
+        <item>通知設定</item>
+        <item>隱私設定</item>
+    </string-array>
+
+    <string-array name="settingsGeneral">
+        <item>校準</item>
+        <item>語言</item>
+    </string-array>
 </resources>

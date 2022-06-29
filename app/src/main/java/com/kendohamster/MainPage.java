@@ -9,6 +9,10 @@ import android.widget.Button;
 
 import com.kendohamster.R;
 
+import com.kendohamster.tracker.History;
+import com.kendohamster.tracker.Settings;
+import com.kendohamster.tracker.TrainingMenu;
+
 public class MainPage extends AppCompatActivity implements View.OnClickListener{
 
     Button btnMotionList,btnHistory,btnTrainingMenu,btnSettings;
@@ -37,13 +41,13 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
                 i = new Intent(this,MotionList.class);
                 break;
             case R.id.btnHistory:
-                //i = new Intent(this,History.class);
+                i = new Intent(this, History.class);
                 break;
             case R.id.btnTrainingMenu:
-                //i = new Intent(this,TrainMenu.class);
+                i = new Intent(this, TrainingMenu.class);
                 break;
             case R.id.btnSettings:
-                i = new Intent(this,MainActivity.class);
+                i = new Intent(this, Settings.class);
                 break;
             default:
                 break;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kendohamster">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -15,6 +16,19 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.PoseEstimation">
+
+        <activity
+            android:name="com.kendohamster.tracker.HistoryDailyRecord"
+            android:exported="false" />
+        <activity
+            android:name=".tracker.History"
+            android:exported="false" />
+        <activity
+            android:name=".tracker.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".tracker.TrainingMenu"
+            android:exported="false" />
         <activity
             android:name="com.kendohamster.MotionList"
             android:exported="false" />
