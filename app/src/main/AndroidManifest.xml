@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoseEstimation">
         <activity
+            android:name=".tracker.TrainingMenu"
+            android:exported="false" />
+        <activity
             android:name=".MotionList"
             android:exported="false" />
         <activity
