@@ -14,7 +14,7 @@ limitations under the License.
 ==============================================================================
 */
 
-package org.tensorflow.lite.examples.poseestimation.camera
+package com.kendohamster.camera
 
 import android.annotation.SuppressLint
 import android.content.Context

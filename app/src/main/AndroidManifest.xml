@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoseEstimation">
         <activity
-            android:name=".MotionList"
+            android:name="com.kendohamster.MotionList"
             android:exported="false" />
         <activity
-            android:name=".MainPage"
+            android:name="com.kendohamster.MainPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.kendohamster.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

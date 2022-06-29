@@ -14,13 +14,12 @@ limitations under the License.
 ==============================================================================
 */
 
-package org.tensorflow.lite.examples.poseestimation
+package com.kendohamster
 
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.pm.PackageManager
-import android.graphics.PointF
 import android.os.Bundle
 import android.os.Process
 import android.view.SurfaceView
@@ -37,7 +36,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tensorflow.lite.examples.poseestimation.camera.CameraSource
 import org.tensorflow.lite.examples.poseestimation.data.Device
-import org.tensorflow.lite.examples.poseestimation.data.Person
 import org.tensorflow.lite.examples.poseestimation.ml.*
 
 class MainActivity : AppCompatActivity() {
@@ -91,8 +89,12 @@ class MainActivity : AppCompatActivity() {
                 // same time, respect the user's decision. Don't link to system
                 // settings in an effort to convince the user to change their
                 // decision.
-                ErrorDialog.newInstance(getString(R.string.tfe_pe_request_permission))
-                    .show(supportFragmentManager, FRAGMENT_DIALOG)
+                com.kendohamster.MainActivity.ErrorDialog.Companion.newInstance(
+                    getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_request_permission)
+                )
+                    .show(supportFragmentManager,
+                        com.kendohamster.MainActivity.Companion.FRAGMENT_DIALOG
+                    )
             }
         }
     private var changeModelListener = object : AdapterView.OnItemSelectedListener {
@@ -139,24 +141,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.layout.activity_main)
         // keep screen on while app is running
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        tvKeypoint = findViewById(R.id.tvKeypoint)
+        tvKeypoint = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvKeypoint)
 
-        tvScore = findViewById(R.id.tvScore)
-        tvFPS = findViewById(R.id.tvFps)
-        spnModel = findViewById(R.id.spnModel)
-        spnDevice = findViewById(R.id.spnDevice)
-        spnTracker = findViewById(R.id.spnTracker)
-        vTrackerOption = findViewById(R.id.vTrackerOption)
-        surfaceView = findViewById(R.id.surfaceView)
-        tvClassificationValue1 = findViewById(R.id.tvClassificationValue1)
-        tvClassificationValue2 = findViewById(R.id.tvClassificationValue2)
-        tvClassificationValue3 = findViewById(R.id.tvClassificationValue3)
-        swClassification = findViewById(R.id.swPoseClassification)
-        vClassificationOption = findViewById(R.id.vClassificationOption)
+        tvScore = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvScore)
+        tvFPS = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvFps)
+        spnModel = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.spnModel)
+        spnDevice = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.spnDevice)
+        spnTracker = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.spnTracker)
+        vTrackerOption = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.vTrackerOption)
+        surfaceView = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.surfaceView)
+        tvClassificationValue1 = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvClassificationValue1)
+        tvClassificationValue2 = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvClassificationValue2)
+        tvClassificationValue3 = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.tvClassificationValue3)
+        swClassification = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.swPoseClassification)
+        vClassificationOption = findViewById(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.id.vClassificationOption)
         initSpinner()
         spnModel.setSelection(modelPos)
         swClassification.setOnCheckedChangeListener(setClassificationListener)
@@ -197,25 +199,25 @@ class MainActivity : AppCompatActivity() {
                 cameraSource =
                     CameraSource(surfaceView, object : CameraSource.CameraSourceListener {
                         override fun onFPSListener(fps: Int) {
-                            tvFPS.text = getString(R.string.tfe_pe_tv_fps, fps)
+                            tvFPS.text = getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_fps, fps)
                         }
 
                         override fun onDetectedInfo(
                             personScore: Float?,
                             poseLabels: List<Pair<String, Float>>?
                         ) {
-                            tvScore.text = getString(R.string.tfe_pe_tv_score, personScore ?: 0f)
+                            tvScore.text = getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_score, personScore ?: 0f)
                             poseLabels?.sortedByDescending { it.second }?.let {
                                 tvClassificationValue1.text = getString(
-                                    R.string.tfe_pe_tv_classification_value,
+                                    _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.isNotEmpty()) it[0] else null)
                                 )
                                 tvClassificationValue2.text = getString(
-                                    R.string.tfe_pe_tv_classification_value,
+                                    _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.size >= 2) it[1] else null)
                                 )
                                 tvClassificationValue3.text = getString(
-                                    R.string.tfe_pe_tv_classification_value,
+                                    _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.size >= 3) it[2] else null)
                                 )
                             }
@@ -265,7 +267,7 @@ class MainActivity : AppCompatActivity() {
     private fun initSpinner() {
         ArrayAdapter.createFromResource(
             this,
-            R.array.tfe_pe_models_array,
+            _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.array.tfe_pe_models_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -277,7 +279,7 @@ class MainActivity : AppCompatActivity() {
 
         ArrayAdapter.createFromResource(
             this,
-            R.array.tfe_pe_device_name, android.R.layout.simple_spinner_item
+            _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.array.tfe_pe_device_name, android.R.layout.simple_spinner_item
         ).also { adaper ->
             adaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -287,7 +289,7 @@ class MainActivity : AppCompatActivity() {
 
         ArrayAdapter.createFromResource(
             this,
-            R.array.tfe_pe_tracker_array, android.R.layout.simple_spinner_item
+            _root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.array.tfe_pe_tracker_array, android.R.layout.simple_spinner_item
         ).also { adaper ->
             adaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -350,7 +352,7 @@ class MainActivity : AppCompatActivity() {
                 showDetectionScore(false)
                 // Movenet MultiPose Dynamic does not support GPUDelegate
                 if (device == Device.GPU) {
-                    showToast(getString(R.string.tfe_pe_gpu_error))
+                    showToast(getString(_root_ide_package_.org.tensorflow.lite.examples.poseestimation.R.string.tfe_pe_gpu_error))
                 }
                 showTracker(true)
                 MoveNetMultiPose.create(this, device, Type.Dynamic)
@@ -435,7 +437,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
             AlertDialog.Builder(activity)
-                .setMessage(requireArguments().getString(ARG_MESSAGE))
+                .setMessage(requireArguments().getString(com.kendohamster.MainActivity.ErrorDialog.Companion.ARG_MESSAGE))
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     // do nothing
                 }
@@ -447,8 +449,9 @@ class MainActivity : AppCompatActivity() {
             private val ARG_MESSAGE = "message"
 
             @JvmStatic
-            fun newInstance(message: String): ErrorDialog = ErrorDialog().apply {
-                arguments = Bundle().apply { putString(ARG_MESSAGE, message) }
+            fun newInstance(message: String): com.kendohamster.MainActivity.ErrorDialog = com.kendohamster.MainActivity.ErrorDialog()
+                .apply {
+                arguments = Bundle().apply { putString(com.kendohamster.MainActivity.ErrorDialog.Companion.ARG_MESSAGE, message) }
             }
         }
     }

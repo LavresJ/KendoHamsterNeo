@@ -14,7 +14,7 @@ limitations under the License.
 ==============================================================================
 */
 
-package org.tensorflow.lite.examples.poseestimation.ml
+package com.kendohamster.ml
 
 import android.content.Context
 import org.tensorflow.lite.Interpreter
