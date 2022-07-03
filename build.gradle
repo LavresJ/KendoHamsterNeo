@@ -16,12 +16,12 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        mavenCentral()
-        maven {
-            name 'ossrh-snapshot'
-            url 'https://oss.sonatype.org/content/repositories/snapshots'
-        }
+        //google()
+        //mavenCentral()
+        //maven {
+        //    name 'ossrh-snapshot'
+        //    url 'https://oss.sonatype.org/content/repositories/snapshots'
+        //}
     }
 }
 
