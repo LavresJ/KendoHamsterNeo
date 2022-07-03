@@ -28,6 +28,7 @@
         <item>Keypoint</item>
     </string-array>
 
+    <string name="app_name">Kendo Hamster</string>
     <string-array name="menu">
         <item>菜單一</item>
         <item>菜單二</item>
@@ -43,5 +44,12 @@
     <string-array name="settingsGeneral">
         <item>校準</item>
         <item>語言</item>
+    </string-array>
+
+    <string-array name="video">
+        <item>一、分解動作一</item>
+        <item>二、分解動作二</item>
+        <item>三、分解動作三</item>
+        <item>四、分解動作四</item>
     </string-array>
 </resources>
