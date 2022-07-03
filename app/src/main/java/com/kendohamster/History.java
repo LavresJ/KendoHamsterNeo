@@ -1,4 +1,4 @@
-package com.kendohamster.tracker;
+package com.kendohamster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-
-import com.kendohamster.R;
 
 public class History extends AppCompatActivity {
     CalendarView calendarView;
@@ -34,7 +32,7 @@ public class History extends AppCompatActivity {
         btnRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(History.this, com.kendohamster.tracker.HistoryDailyRecord.class);
+                Intent i = new Intent(History.this, HistoryDailyRecord.class);
                 startActivity(i);
             }
         });

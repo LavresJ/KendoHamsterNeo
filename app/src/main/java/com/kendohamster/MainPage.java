@@ -7,12 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.kendohamster.R;
-
-import com.kendohamster.tracker.History;
-import com.kendohamster.tracker.Settings;
-import com.kendohamster.tracker.TrainingMenu;
-
 public class MainPage extends AppCompatActivity implements View.OnClickListener{
 
     Button btnMotionList,btnHistory,btnTrainingMenu,btnSettings;

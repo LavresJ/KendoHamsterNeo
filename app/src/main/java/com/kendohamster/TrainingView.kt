@@ -37,9 +37,8 @@ import kotlinx.coroutines.launch
 import com.kendohamster.camera.CameraSource
 import com.kendohamster.data.Device
 import com.kendohamster.ml.*
-import com.kendohamster.R
 
-class MainActivity : AppCompatActivity() {
+class TrainingView : AppCompatActivity() {
     companion object {
         private const val FRAGMENT_DIALOG = "dialog"
     }
@@ -90,11 +89,11 @@ class MainActivity : AppCompatActivity() {
                 // same time, respect the user's decision. Don't link to system
                 // settings in an effort to convince the user to change their
                 // decision.
-                com.kendohamster.MainActivity.ErrorDialog.Companion.newInstance(
+                com.kendohamster.TrainingView.ErrorDialog.Companion.newInstance(
                     getString(com.kendohamster.R.string.tfe_pe_request_permission)
                 )
                     .show(supportFragmentManager,
-                        com.kendohamster.MainActivity.Companion.FRAGMENT_DIALOG
+                        com.kendohamster.TrainingView.Companion.FRAGMENT_DIALOG
                     )
             }
         }
@@ -438,7 +437,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
             AlertDialog.Builder(activity)
-                .setMessage(requireArguments().getString(com.kendohamster.MainActivity.ErrorDialog.Companion.ARG_MESSAGE))
+                .setMessage(requireArguments().getString(com.kendohamster.TrainingView.ErrorDialog.Companion.ARG_MESSAGE))
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     // do nothing
                 }
@@ -450,9 +449,9 @@ class MainActivity : AppCompatActivity() {
             private val ARG_MESSAGE = "message"
 
             @JvmStatic
-            fun newInstance(message: String): com.kendohamster.MainActivity.ErrorDialog = com.kendohamster.MainActivity.ErrorDialog()
+            fun newInstance(message: String): com.kendohamster.TrainingView.ErrorDialog = com.kendohamster.TrainingView.ErrorDialog()
                 .apply {
-                arguments = Bundle().apply { putString(com.kendohamster.MainActivity.ErrorDialog.Companion.ARG_MESSAGE, message) }
+                arguments = Bundle().apply { putString(com.kendohamster.TrainingView.ErrorDialog.Companion.ARG_MESSAGE, message) }
             }
         }
     }

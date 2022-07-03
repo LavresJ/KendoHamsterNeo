@@ -1,13 +1,10 @@
-package com.kendohamster.tracker;
+package com.kendohamster;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-
-import com.kendohamster.R;
-import com.kendohamster.RecyclerAdapterForHistoryList;
 
 import java.util.ArrayList;
 

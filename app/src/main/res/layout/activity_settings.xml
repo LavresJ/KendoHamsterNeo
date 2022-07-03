@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:orientation="vertical"
-    tools:context=".tracker.Settings">
+    tools:context=".Settings">
 
     <TextView
         android:id="@+id/textView"
