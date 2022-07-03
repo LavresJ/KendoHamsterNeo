@@ -141,7 +141,7 @@ class TrainingView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.kendohamster.R.layout.activity_main)
+        setContentView(com.kendohamster.R.layout.activity_training_view)
         // keep screen on while app is running
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
