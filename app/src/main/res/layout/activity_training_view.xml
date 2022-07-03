@@ -20,10 +20,9 @@
             android:id="@+id/tv_motion_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Motion Name"
+            android:text="Motion Name 1"
             android:textAlignment="viewStart"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textColor="#FFFFFF" />
 
 
     </androidx.appcompat.widget.Toolbar>
