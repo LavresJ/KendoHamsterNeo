@@ -42,8 +42,8 @@ public class History extends AppCompatActivity {
         btnDraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(History.this, DrawPictureTry.class);
-                //startActivity(i);
+                Intent i = new Intent(History.this, DrawPictureTry.class);
+                startActivity(i);
             }
         });
     }
