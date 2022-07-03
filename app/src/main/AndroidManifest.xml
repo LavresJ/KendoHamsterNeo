@@ -18,35 +18,31 @@
         android:theme="@style/Theme.PoseEstimation">
 
         <activity
-            android:name="com.kendohamster.tracker.HistoryDailyRecord"
+            android:name=".HistoryDailyRecord"
             android:exported="false" />
         <activity
-            android:name=".tracker.History"
+            android:name=".History"
             android:exported="false" />
         <activity
-            android:name=".tracker.Settings"
+            android:name=".Settings"
             android:exported="false" />
         <activity
-            android:name=".tracker.TrainingMenu"
+            android:name=".TrainingMenu"
             android:exported="false" />
         <activity
-            android:name="com.kendohamster.MotionList"
+            android:name=".MotionList"
             android:exported="false" />
         <activity
-            android:name="com.kendohamster.MainPage"
+            android:name=".MainPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kendohamster.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".TrainingView"
+            android:exported="true">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

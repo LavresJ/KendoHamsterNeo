@@ -1,4 +1,4 @@
-package com.kendohamster.tracker;
+package com.kendohamster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
