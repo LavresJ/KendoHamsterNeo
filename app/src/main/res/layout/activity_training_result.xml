@@ -6,4 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".TrainingResult">
 
+    <TextView
+        android:id="@+id/textResultMotionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="動作名稱"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textResultPracticeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="練習次數"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textResultMotionName" />
+
+    <TextView
+        android:id="@+id/textResultAccuracy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="正確率"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textResultPracticeTime" />
+
+    <Button
+        android:id="@+id/btnPracticeAgain"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:drawableLeft="@drawable/ic_baseline_replay_24"
+        android:text="再訓練一次"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textResultAccuracy" />
+
+    <Button
+        android:id="@+id/btnDownloadVideo"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_baseline_download_24"
+        android:text="下載影片"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPracticeAgain" />
+
+    <Button
+        android:id="@+id/btnBackToMotionList"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
+        android:text="回動作列表"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDownloadVideo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
