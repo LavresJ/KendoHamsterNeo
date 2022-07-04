@@ -19,6 +19,7 @@ package com.kendohamster
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Process
@@ -68,6 +69,7 @@ class TrainingView : AppCompatActivity() {
 
     private lateinit var tvMotionName: TextView
     private lateinit var tvPracticeCount: TextView
+    private lateinit var btnStopPractice: Button
 
     private lateinit var tvScore: TextView
     private lateinit var tvFPS: TextView
@@ -163,6 +165,7 @@ class TrainingView : AppCompatActivity() {
 
         tvMotionName = findViewById(R.id.tv_motion_name)
         tvPracticeCount = findViewById(R.id.tv_practice_count)
+        btnStopPractice = findViewById(R.id.btn_stop_practice)
 
         tvScore = findViewById(com.kendohamster.R.id.tvScore)
         tvFPS = findViewById(com.kendohamster.R.id.tvFps)
@@ -185,6 +188,14 @@ class TrainingView : AppCompatActivity() {
 
         tvMotionName.text = motionName
         tvPracticeCount.text = practiceCount.toString()
+
+        btnStopPractice.setOnClickListener(View.OnClickListener {
+            val i = Intent(this, TrainingResult::class.java)
+            i.putExtra("motionName", motionName)
+            i.putExtra("practiceTime", practiceTime)
+            startActivity(i)
+            finish()
+        })
 
     }
 
