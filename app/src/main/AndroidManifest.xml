@@ -4,6 +4,7 @@
     package="com.kendohamster">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -26,13 +27,25 @@
             android:name=".History"
             android:exported="false" />
         <activity
+            android:name=".HistoryDetails"
+            android:exported="false" />
+        <activity
             android:name=".Settings"
             android:exported="false" />
         <activity
             android:name=".TrainingMenu"
             android:exported="false" />
         <activity
+            android:name=".TrainingResult"
+            android:exported="false" />
+        <activity
             android:name=".MotionList"
+            android:exported="false" />
+        <activity
+            android:name=".MotionVideo2"
+            android:exported="false" />
+        <activity
+            android:name=".MotionVideo"
             android:exported="false" />
         <activity
             android:name=".MainPage"

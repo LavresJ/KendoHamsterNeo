@@ -31,7 +31,7 @@ public class MotionList extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MotionList.this,MotionVideo.class);
+                Intent intent = new Intent(MotionList.this, MotionVideo.class);
                 startActivity(intent);
             }
         });
