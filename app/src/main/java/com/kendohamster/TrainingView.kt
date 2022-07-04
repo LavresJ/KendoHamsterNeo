@@ -32,11 +32,11 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import com.kendohamster.camera.CameraSource
 import com.kendohamster.data.Device
 import com.kendohamster.ml.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TrainingView : AppCompatActivity() {
     companion object {
@@ -61,6 +61,13 @@ class TrainingView : AppCompatActivity() {
     private var lastboolean =true
     private var count = 0//手腕肩膀之間的變化數
     private var countsword = 0//揮劍次數
+
+    private var motionName: String? = null
+    private var practiceTime = 0
+    private var practiceCount:kotlin.Int = 0
+
+    private lateinit var tvMotionName: TextView
+    private lateinit var tvPracticeCount: TextView
 
     private lateinit var tvScore: TextView
     private lateinit var tvFPS: TextView
@@ -145,7 +152,17 @@ class TrainingView : AppCompatActivity() {
         // keep screen on while app is running
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
+
+        //接收intent資料
+        val i = intent
+        motionName = i.getStringExtra("motionName")
+        practiceTime = i.getIntExtra("practiceTime", 0)
+        practiceCount = practiceTime
+
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
+
+        tvMotionName = findViewById(R.id.tv_motion_name)
+        tvPracticeCount = findViewById(R.id.tv_practice_count)
 
         tvScore = findViewById(com.kendohamster.R.id.tvScore)
         tvFPS = findViewById(com.kendohamster.R.id.tvFps)
@@ -165,6 +182,10 @@ class TrainingView : AppCompatActivity() {
         if (!isCameraPermissionGranted()) {
             requestPermission()
         }
+
+        tvMotionName.text = motionName
+        tvPracticeCount.text = practiceCount.toString()
+
     }
 
     override fun onStart() {
