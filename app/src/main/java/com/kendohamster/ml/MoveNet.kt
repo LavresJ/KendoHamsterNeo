@@ -19,6 +19,8 @@ package com.kendohamster.ml
 import android.content.Context
 import android.graphics.*
 import android.os.SystemClock
+import android.util.Log
+import com.kendohamster.TrainingView
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import com.kendohamster.data.*
@@ -37,6 +39,10 @@ enum class ModelType {
     Lightning,
     Thunder
 }
+
+var wristAboveShoulder = true
+var lastBoolean = true
+var count = 0.0
 
 class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: GpuDelegate?) :
     PoseDetector {
@@ -166,6 +172,20 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         }
         lastInferenceTimeNanos =
             SystemClock.elapsedRealtimeNanos() - inferenceStartTimeNanos
+
+        /////////////
+        //判斷手腕是否高於肩膀(數字小的較高)
+
+        val rightShoulder = keyPoints[6].coordinate.y
+        val rightWrist = keyPoints[10].coordinate.y
+        if(rightShoulder != null && rightWrist != null){
+            wristAboveShoulder = rightWrist < rightShoulder
+            if(lastBoolean != wristAboveShoulder){
+                count += 0.5
+            }
+            lastBoolean = wristAboveShoulder
+        }
+
         return listOf(Person(keyPoints = keyPoints, score = totalScore / numKeyPoints))
     }
 
