@@ -36,10 +36,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import com.kendohamster.VisualizationUtils
 import com.kendohamster.YuvToRgbConverter
 import com.kendohamster.data.Person
-import com.kendohamster.ml.MoveNetMultiPose
-import com.kendohamster.ml.PoseClassifier
-import com.kendohamster.ml.PoseDetector
-import com.kendohamster.ml.TrackerType
+import com.kendohamster.ml.*
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
