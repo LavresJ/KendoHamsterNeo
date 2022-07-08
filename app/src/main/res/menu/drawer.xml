@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_home"
+            android:checked="true"
+            android:icon="@drawable/side_action"
+            android:title="動作列表" />
+
+        <item
+            android:id="@+id/action_help"
+            android:icon="@drawable/side_menu"
+            android:title="訓練菜單" />
+
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/side_history"
+            android:title="歷史紀錄" />
+
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/side_setting"
+            android:title="設定" />
+    </group>
+</menu>
+<!--test>
