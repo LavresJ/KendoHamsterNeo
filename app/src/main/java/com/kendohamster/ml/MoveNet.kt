@@ -20,7 +20,7 @@ import android.content.Context
 import android.graphics.*
 import android.os.SystemClock
 import android.util.Log
-import com.kendohamster.TrainingView
+import com.kendohamster.*
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import com.kendohamster.data.*
@@ -40,9 +40,7 @@ enum class ModelType {
     Thunder
 }
 
-var wristAboveShoulder = true
-var lastBoolean = true
-var count = 0.0
+
 
 class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: GpuDelegate?) :
     PoseDetector {
@@ -184,6 +182,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                 count += 0.5
             }
             lastBoolean = wristAboveShoulder
+            Log.d("ESTI", "揮劍次數:"+ count)
         }
 
         return listOf(Person(keyPoints = keyPoints, score = totalScore / numKeyPoints))

@@ -20,17 +20,6 @@
         app:layout_anchorGravity="center">
 
         <TextView
-            android:id="@+id/tv_practice_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="0"
-            android:textColor="#FFFFFF"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-        <TextView
             android:id="@+id/tv_motion_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

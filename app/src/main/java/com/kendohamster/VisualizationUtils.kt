@@ -82,6 +82,14 @@ object VisualizationUtils {
             textAlign = Paint.Align.LEFT
         }
 
+        //////
+        val paintCount = Paint().apply {
+            textSize = 45f
+            isFakeBoldText = true
+            color = Color.BLUE
+            textAlign = Paint.Align.LEFT
+        }
+
         val output = input.copy(Bitmap.Config.ARGB_8888, true)
         val originalSizeCanvas = Canvas(output)
         persons.forEach { person ->
@@ -113,10 +121,22 @@ object VisualizationUtils {
                     CIRCLE_RADIUS,
                     paintCircle
                 )
-                //test
-
             }
         }
+        /////顯示揮劍次數
+        //var c = ""+ (practiceCount - Math.floor(count).toInt())
+        var c = "" + Math.floor(count).toInt()
+        originalSizeCanvas.drawText(
+            c,
+            20.0F,
+            45.0F,
+            paintCount
+        )
         return output
+    }
+
+    //////
+    fun drawSwordWieldCount(){
+
     }
 }
