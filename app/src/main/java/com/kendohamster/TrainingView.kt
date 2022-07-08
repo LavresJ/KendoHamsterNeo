@@ -40,6 +40,11 @@ import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+var wristAboveShoulder = true
+var lastBoolean = true
+var count = 0.0
+var practiceCount = 0
+
 class TrainingView : AppCompatActivity() {
     companion object {
         private const val FRAGMENT_DIALOG = "dialog"
@@ -63,10 +68,8 @@ class TrainingView : AppCompatActivity() {
 
     private var motionName: String? = null
     private var practiceTime = 0
-    private var practiceCount:kotlin.Int = 0
 
     private lateinit var tvMotionName: TextView
-    private lateinit var tvPracticeCount: TextView
     private lateinit var btnStopPractice: Button
 
     private lateinit var tvScore: TextView
@@ -159,10 +162,14 @@ class TrainingView : AppCompatActivity() {
         practiceTime = i.getIntExtra("practiceTime", 0)
         practiceCount = practiceTime
 
+        /////
+        wristAboveShoulder = true
+        lastBoolean = true
+        count = 0.0
+
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
         tvMotionName = findViewById(R.id.tv_motion_name)
-        tvPracticeCount = findViewById(R.id.tv_practice_count)
         btnStopPractice = findViewById(R.id.btn_stop_practice)
 
         tvScore = findViewById(com.kendohamster.R.id.tvScore)
@@ -185,7 +192,6 @@ class TrainingView : AppCompatActivity() {
         }
 
         tvMotionName.text = motionName
-        tvPracticeCount.text = practiceCount.toString()
 
         btnStopPractice.setOnClickListener(View.OnClickListener {
             val i = Intent(this, TrainingResult::class.java)
