@@ -1,8 +1,14 @@
 package com.kendohamster;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.kendohamster.R;
 
 public class TrainingMenu extends AppCompatActivity {
@@ -43,6 +50,63 @@ public class TrainingMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super .onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super .onDrawerOpened(drawerView);
+            }
+        };
+
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                int id = item.getItemId();
+                if (id == R.id.action_action){
+                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                else if (id == R.id.action_menu){
+                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+
+                    return true;
+                }
+                else if (id == R.id.action_history){
+                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                else if (id == R.id.action_setting){
+                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                return false;
             }
         });
     }

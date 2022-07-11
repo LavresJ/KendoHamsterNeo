@@ -1,7 +1,9 @@
 package com.kendohamster;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -35,7 +37,22 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
         btnSettings.setOnClickListener(this);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super .onDrawerClosed(drawerView);
+            }
 
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super .onDrawerOpened(drawerView);
+            }
+        };
+
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -98,4 +115,5 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
         }
         startActivity(i);
     }
+
 }
