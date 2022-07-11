@@ -1,12 +1,21 @@
 package com.kendohamster;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class History extends AppCompatActivity {
     CalendarView calendarView;
@@ -19,6 +28,8 @@ public class History extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         btnRecord = findViewById(R.id.btnRecord);
         btnDraw = findViewById(R.id.btnDraw);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         /*calendarView.getDate();
         calendarView.setOnClickListener(new View.OnClickListener() {

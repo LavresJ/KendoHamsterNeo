@@ -12,12 +12,28 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".History">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
 
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="?attr/actionModeCloseDrawable"
+            android:background="@color/purple_500"
+            android:textColor="#fff"
+            app:title="KendoHamster"
+            app:titleTextColor="@color/white"
+            />
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="55dp"
             android:firstDayOfWeek="3"
             android:shownWeekCount="4"
             app:layout_constraintBottom_toBottomOf="parent"
