@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'com.chaquo.python'
 }
 
 android {
@@ -16,25 +17,50 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+
+        python {
+            //buildPython "C:/Users/user/AndroidStudioProjects/Chaquopy_1/app/src/main/python/rarW8/python.exe"
+            //buildPython "C:/Users/user/anaconda3/envs/rarW7/python.exe"
+            File pyPath = file('src/main/python/rarW8/python.exe')
+            //File pyPath_abs = file(pyPath.absolutePath)
+            buildPython pyPath.toString()
+
+            pip {
+                install "numpy==1.19.5"
+                install "matplotlib"
+                install "pyyaml"
+                install "joblib"
+                install "scipy"
+                //install "threadpoolctl"
+                //install "wheel"
+                //install "cython"
+                install "scikit-learn==0.22.1"
+                install "sklearn"
+            }
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
 }
 
 // Download tflite model
-apply from:"download.gradle"
+apply from: "download.gradle"
 
 dependencies {
 
