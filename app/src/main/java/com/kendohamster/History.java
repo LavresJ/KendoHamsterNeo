@@ -35,8 +35,7 @@ public class History extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         btnRecord = findViewById(R.id.btnRecord);
         btnDraw = findViewById(R.id.btnDraw);
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         btnTestPython = findViewById(R.id.btnTestPython);
         txtResults = findViewById(R.id.txtResults);
 
@@ -103,5 +102,45 @@ public class History extends AppCompatActivity {
                 txtResults.setText(results.toString());
             }
         });
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super .onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super .onDrawerOpened(drawerView);
+            }
+        };
+
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+    }
+    public void selectItem(int position) {
+        Intent i = null;
+        switch(position) {
+            case (R.id.action_action):
+                i = new Intent(this,MotionList.class);
+                break;
+            case R.id.action_history:
+                i = new Intent(this, History.class);
+                break;
+            case R.id.action_menu:
+                i = new Intent(this, TrainingMenu.class);
+                break;
+            case R.id.action_setting:
+                i = new Intent(this, Settings.class);
+                break;
+            default:
+                break;
+        }
+
+        startActivity(i);
     }
 }
