@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,14 +79,14 @@ public class TrainingMenu extends AppCompatActivity {
 
                 int id = item.getItemId();
                 if (id == R.id.action_action){
-                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_action);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
                     return true;
                 }
                 else if (id == R.id.action_menu){
-                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_menu);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
@@ -93,14 +94,14 @@ public class TrainingMenu extends AppCompatActivity {
                     return true;
                 }
                 else if (id == R.id.action_history){
-                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_history);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
                     return true;
                 }
                 else if (id == R.id.action_setting){
-                    Toast.makeText(TrainingMenu.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_setting);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
@@ -109,5 +110,26 @@ public class TrainingMenu extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    public void selectItem(int position) {
+        Intent i = null;
+        switch(position) {
+            case (R.id.action_action):
+                i = new Intent(this,MotionList.class);
+                break;
+            case R.id.action_history:
+                i = new Intent(this, History.class);
+                break;
+            case R.id.action_menu:
+                i = new Intent(this, TrainingMenu.class);
+                break;
+            case R.id.action_setting:
+                i = new Intent(this, Settings.class);
+                break;
+            default:
+                break;
+        }
+
+        startActivity(i);
     }
 }

@@ -61,14 +61,14 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
 
                 int id = item.getItemId();
                 if (id == R.id.action_action){
-                    Toast.makeText(MainPage.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_action);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
                     return true;
                 }
                 else if (id == R.id.action_menu){
-                    Toast.makeText(MainPage.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_menu);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
@@ -76,14 +76,14 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
                     return true;
                 }
                 else if (id == R.id.action_history){
-                    Toast.makeText(MainPage.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_history);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
                     return true;
                 }
                 else if (id == R.id.action_setting){
-                    Toast.makeText(MainPage.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_setting);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
@@ -93,12 +93,22 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
             }
         });
     }
-
-    @Override
-    public void onClick(View v) {
+    public void selectItem(int position) {
         Intent i = null;
-        switch (v.getId()) {
-            case R.id.btnMotionList:
+        switch(position) {
+            case (R.id.action_action):
+                i = new Intent(this,MotionList.class);
+                break;
+            case R.id.action_history:
+                i = new Intent(this, History.class);
+                break;
+            case R.id.action_menu:
+                i = new Intent(this, TrainingMenu.class);
+                break;
+            case R.id.action_setting:
+                i = new Intent(this, Settings.class);
+                break;
+            case (R.id.btnMotionList):
                 i = new Intent(this,MotionList.class);
                 break;
             case R.id.btnHistory:
@@ -113,7 +123,12 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
             default:
                 break;
         }
+
         startActivity(i);
+    }
+    @Override
+    public void onClick(View v) {
+        selectItem(v.getId());
     }
 
 }

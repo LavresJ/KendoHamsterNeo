@@ -69,14 +69,14 @@ public class MotionList extends AppCompatActivity {
 
                 int id = item.getItemId();
                 if (id == R.id.action_action){
-                    Toast.makeText(MotionList.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_action);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
                     return true;
                 }
                 else if (id == R.id.action_menu){
-                    Toast.makeText(MotionList.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_menu);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
@@ -84,14 +84,14 @@ public class MotionList extends AppCompatActivity {
                     return true;
                 }
                 else if (id == R.id.action_history){
-                    Toast.makeText(MotionList.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_history);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
                     return true;
                 }
                 else if (id == R.id.action_setting){
-                    Toast.makeText(MotionList.this, item.getTitle() + " pressed", Toast.LENGTH_LONG).show();
+                    selectItem(R.id.action_setting);
 
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
@@ -100,6 +100,27 @@ public class MotionList extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    public void selectItem(int position) {
+        Intent i = null;
+        switch(position) {
+            case (R.id.action_action):
+                i = new Intent(this,MotionList.class);
+                break;
+            case R.id.action_history:
+                i = new Intent(this, History.class);
+                break;
+            case R.id.action_menu:
+                i = new Intent(this, TrainingMenu.class);
+                break;
+            case R.id.action_setting:
+                i = new Intent(this, Settings.class);
+                break;
+            default:
+                break;
+        }
+
+        startActivity(i);
     }
 
     public void fillArray(){
