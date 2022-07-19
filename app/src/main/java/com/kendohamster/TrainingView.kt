@@ -22,6 +22,8 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Process
 import android.util.Log
 import android.view.SurfaceView
@@ -39,11 +41,11 @@ import com.kendohamster.data.Device
 import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 var wristAboveShoulder = true
 var lastBoolean = true
 var count = 0.0
-var practiceCount = 0
 
 class TrainingView : AppCompatActivity() {
     companion object {
@@ -59,6 +61,12 @@ class TrainingView : AppCompatActivity() {
      * 2 == MoveNet MultiPose model
      * 3 == PoseNet model
      **/
+
+    ///handler test
+    private var countHandler: Handler = Handler(Looper.getMainLooper())
+    private lateinit var countRunnable: Runnable
+    ///
+
     private var modelPos = 1
 
     /** Default device is CPU */
@@ -70,6 +78,7 @@ class TrainingView : AppCompatActivity() {
     private var practiceTime = 0
 
     private lateinit var tvMotionName: TextView
+    private lateinit var tvPracticeCount: TextView
     private lateinit var btnStopPractice: Button
 
     private lateinit var tvScore: TextView
@@ -160,7 +169,6 @@ class TrainingView : AppCompatActivity() {
         val i = intent
         motionName = i.getStringExtra("motionName")
         practiceTime = i.getIntExtra("practiceTime", 0)
-        practiceCount = practiceTime
 
         /////
         wristAboveShoulder = true
@@ -171,6 +179,7 @@ class TrainingView : AppCompatActivity() {
 
         tvMotionName = findViewById(R.id.tv_motion_name)
         btnStopPractice = findViewById(R.id.btn_stop_practice)
+        tvPracticeCount = findViewById(R.id.tvPracticeCount)
 
         tvScore = findViewById(com.kendohamster.R.id.tvScore)
         tvFPS = findViewById(com.kendohamster.R.id.tvFps)
@@ -211,11 +220,35 @@ class TrainingView : AppCompatActivity() {
     override fun onResume() {
         cameraSource?.resume()
         super.onResume()
+
+        ///handler test
+        countRunnable = Runnable(){
+            @Override
+            fun run(){
+
+                if ((practiceTime - Math.floor(count).toInt()) <= 0){
+                    val i = Intent(this, TrainingResult::class.java)
+                    i.putExtra("motionName", motionName)
+                    i.putExtra("practiceTime", practiceTime)
+                    showToast("完成訓練")
+                    startActivity(i)
+                    finish()
+                }
+
+                tvPracticeCount.text = "" + (practiceTime - Math.floor(count).toInt())
+                countHandler.postDelayed(countRunnable, 1000)
+            }
+            run()
+        }
+
+        countHandler.postDelayed(countRunnable, 1000)
+        ///
     }
 
     override fun onPause() {
         cameraSource?.close()
         cameraSource = null
+        countHandler.removeCallbacks(countRunnable)
         super.onPause()
     }
 
