@@ -124,7 +124,7 @@ object VisualizationUtils {
             }
         }
         /////顯示揮劍次數
-        //var c = ""+ (practiceCount - Math.floor(count).toInt())
+        /*
         var c = "" + Math.floor(count).toInt()
         originalSizeCanvas.drawText(
             c,
@@ -132,11 +132,9 @@ object VisualizationUtils {
             45.0F,
             paintCount
         )
+
+         */
         return output
     }
-
-    //////
-    fun drawSwordWieldCount(){
-
-    }
 }
+
