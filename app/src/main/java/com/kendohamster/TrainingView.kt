@@ -236,12 +236,12 @@ class TrainingView : AppCompatActivity() {
                 }
 
                 tvPracticeCount.text = "" + (practiceTime - Math.floor(count).toInt())
-                countHandler.postDelayed(countRunnable, 1000)
+                countHandler.postDelayed(countRunnable, 200)
             }
             run()
         }
 
-        countHandler.postDelayed(countRunnable, 1000)
+        countHandler.postDelayed(countRunnable, 200)
         ///
     }
 
