@@ -36,12 +36,13 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.kendohamster.camera.CameraSource
 import com.kendohamster.data.Device
 import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 
 var wristAboveShoulder = true
 var lastBoolean = true
@@ -382,20 +383,28 @@ class TrainingView : AppCompatActivity() {
     private fun createPoseEstimator() {
         // For MoveNet MultiPose, hide score and disable pose classifier as the model returns
         // multiple Person instances.
+        if (!Python.isStarted()) {
+            //Python.start(AndroidPlatform(this@TrainingView))
+            Python.start(AndroidPlatform(this))
+        }
+        val py = Python.getInstance()
+        val pyobj = py.getModule("src/try")
+
+
         val poseDetector = when (modelPos) {
             0 -> {
                 // MoveNet Lightning (SinglePose)
                 showPoseClassifier(true)
                 showDetectionScore(true)
                 showTracker(false)
-                MoveNet.create(this, device, ModelType.Lightning)
+                MoveNet.create(this, device, ModelType.Lightning, pyobj)
             }
             1 -> {
                 // MoveNet Thunder (SinglePose)
                 showPoseClassifier(true)
                 showDetectionScore(true)
                 showTracker(false)
-                MoveNet.create(this, device, ModelType.Thunder)
+                MoveNet.create(this, device, ModelType.Thunder, pyobj)
             }
             2 -> {
                 // MoveNet (Lightning) MultiPose
