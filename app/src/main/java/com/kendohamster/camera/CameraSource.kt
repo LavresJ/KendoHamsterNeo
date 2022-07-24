@@ -171,6 +171,7 @@ class CameraSource(
                 continue
             }
             this.cameraId = cameraId
+            //this.cameraId = "0"
         }
     }
 

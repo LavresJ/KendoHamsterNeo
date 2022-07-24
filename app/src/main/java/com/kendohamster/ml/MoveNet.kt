@@ -20,10 +20,11 @@ import android.content.Context
 import android.graphics.*
 import android.os.SystemClock
 import android.util.Log
+import com.chaquo.python.PyObject
 import com.kendohamster.*
+import com.kendohamster.data.*
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
-import com.kendohamster.data.*
 import org.tensorflow.lite.gpu.GpuDelegate
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.ImageProcessor
@@ -58,8 +59,13 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         private const val LIGHTNING_FILENAME = "movenet_lightning.tflite"
         private const val THUNDER_FILENAME = "movenet_thunder.tflite"
 
+        // Python object
+        private lateinit var pyobj:PyObject
+
         // allow specifying model type.
-        fun create(context: Context, device: Device, modelType: ModelType): MoveNet {
+        fun create(context: Context, device: Device, modelType: ModelType, pyobj: PyObject): MoveNet {
+            this.pyobj = pyobj
+
             val options = Interpreter.Options()
             var gpuDelegate: GpuDelegate? = null
             options.setNumThreads(CPU_NUM_THREADS)
@@ -85,8 +91,8 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         }
 
         // default to lightning.
-        fun create(context: Context, device: Device): MoveNet =
-            create(context, device, ModelType.Lightning)
+        fun create(context: Context, device: Device, pyobj: PyObject): MoveNet =
+            create(context, device, ModelType.Lightning, pyobj)
     }
 
     private var cropRegion: RectF? = null
@@ -94,8 +100,11 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
     private val inputWidth = interpreter.getInputTensor(0).shape()[1]
     private val inputHeight = interpreter.getInputTensor(0).shape()[2]
     private var outputShape: IntArray = interpreter.getOutputTensor(0).shape()
+    private var scale_h = 640 / 480.toFloat()
+    private var skeleton = DoubleArray(36)
 
     override fun estimatePoses(bitmap: Bitmap): List<Person> {
+        Log.d("scale_h", scale_h.toString())
         val inferenceStartTimeNanos = SystemClock.elapsedRealtimeNanos()
         if (cropRegion == null) {
             cropRegion = initRectF(bitmap.width, bitmap.height)
@@ -104,6 +113,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
 
         val numKeyPoints = outputShape[2]
         val keyPoints = mutableListOf<KeyPoint>()
+        val keyPoints_float = mutableListOf<KeyPoint>()
 
         cropRegion?.run {
             val rect = RectF(
@@ -150,6 +160,18 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                             score
                         )
                     )
+
+                    keyPoints_float.add(
+                        KeyPoint(
+                            BodyPart.fromInt(idx),
+                            PointF(
+                                x,
+                                y
+                            ),
+                            score
+                        )
+                    )
+
                     totalScore += score
                 }
             }
@@ -163,6 +185,13 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                     PointF(
                         points[index * 2],
                         points[index * 2 + 1]
+                    )
+            }
+            keyPoints_float.forEachIndexed { index, keyPoint ->
+                keyPoint.coordinate =
+                    PointF(
+                        points[index * 2] / 480,
+                        points[index * 2 + 1] / 640 * scale_h
                     )
             }
             // new crop region
@@ -184,6 +213,15 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             lastBoolean = wristAboveShoulder
             Log.d("ESTI", "揮劍次數:"+ count)
         }
+
+        //Log.d("left_wtist", "x:" + keyPoints[9].coordinate.x.toString() + " y:" + keyPoints[9].coordinate.y.toString())
+        Log.d("keyPoints", keyPoints.toString())
+        Log.d("keyPoints_float", keyPoints_float.toString())
+
+        skeleton = keyPoints_to_skeleton(keyPoints_float)
+        Log.d("skeleton", skeleton.contentToString())
+        val obj = pyobj.callAttr("main", skeleton)
+        Log.d("result", obj.toString())
 
         return listOf(Person(keyPoints = keyPoints, score = totalScore / numKeyPoints))
     }
@@ -368,5 +406,68 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             maxBodyYRange,
             maxBodyXRange
         )
+    }
+    private fun keyPoints_to_skeleton(keyPoints_float : MutableList<KeyPoint>): DoubleArray{
+        var skeleton = DoubleArray(36)
+        //0: nose
+        skeleton[0] = keyPoints_float[0].coordinate.x.toDouble()
+        skeleton[1] = keyPoints_float[0].coordinate.y.toDouble()
+        //1: left_eye
+        skeleton[30] = keyPoints_float[1].coordinate.x.toDouble()
+        skeleton[31] = keyPoints_float[1].coordinate.y.toDouble()
+        //2: right_eye
+        skeleton[28] = keyPoints_float[2].coordinate.x.toDouble()
+        skeleton[29] = keyPoints_float[2].coordinate.y.toDouble()
+        //3: left_ear
+        skeleton[34] = keyPoints_float[3].coordinate.x.toDouble()
+        skeleton[35] = keyPoints_float[3].coordinate.y.toDouble()
+        //4: right_ear
+        skeleton[32] = keyPoints_float[4].coordinate.x.toDouble()
+        skeleton[33] = keyPoints_float[4].coordinate.y.toDouble()
+        //5: left_shoulder
+        skeleton[10] = keyPoints_float[5].coordinate.x.toDouble()
+        skeleton[11] = keyPoints_float[5].coordinate.y.toDouble()
+        //6: right_shoulder
+        skeleton[4] = keyPoints_float[6].coordinate.x.toDouble()
+        skeleton[5] = keyPoints_float[6].coordinate.y.toDouble()
+        //7: left_elbow
+        skeleton[12] = keyPoints_float[7].coordinate.x.toDouble()
+        skeleton[13] = keyPoints_float[7].coordinate.y.toDouble()
+        //8: right_elbow
+        skeleton[6] = keyPoints_float[8].coordinate.x.toDouble()
+        skeleton[7] = keyPoints_float[8].coordinate.y.toDouble()
+        //9: left_wrist
+        skeleton[14] = keyPoints_float[9].coordinate.x.toDouble()
+        skeleton[15] = keyPoints_float[9].coordinate.y.toDouble()
+        //10: right_wrist
+        skeleton[8] = keyPoints_float[10].coordinate.x.toDouble()
+        skeleton[9] = keyPoints_float[10].coordinate.y.toDouble()
+        //11: left_hip
+        skeleton[22] = keyPoints_float[11].coordinate.x.toDouble()
+        skeleton[23] = keyPoints_float[11].coordinate.y.toDouble()
+        //12: right_hip
+        skeleton[16] = keyPoints_float[12].coordinate.x.toDouble()
+        skeleton[17] = keyPoints_float[12].coordinate.y.toDouble()
+        //13: left_knee
+        skeleton[24] = keyPoints_float[13].coordinate.x.toDouble()
+        skeleton[25] = keyPoints_float[13].coordinate.y.toDouble()
+        //14: right_knee
+        skeleton[18] = keyPoints_float[14].coordinate.x.toDouble()
+        skeleton[19] = keyPoints_float[14].coordinate.y.toDouble()
+        //15: left_ankle
+        skeleton[26] = keyPoints_float[15].coordinate.x.toDouble()
+        skeleton[27] = keyPoints_float[15].coordinate.y.toDouble()
+        //16: right_ankle
+        skeleton[20] = keyPoints_float[16].coordinate.x.toDouble()
+        skeleton[21] = keyPoints_float[16].coordinate.y.toDouble()
+        //17: neck
+        /*
+        skeleton[2] = 0.0
+        skeleton[3] = 0.0
+         */
+        skeleton[2] = (skeleton[10] + skeleton[4]) / 2
+        skeleton[3] = (skeleton[11] + skeleton[5]) / 2
+
+        return skeleton
     }
 }

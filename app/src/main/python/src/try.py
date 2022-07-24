@@ -321,24 +321,25 @@ def main(sk):
 
     predict_label = ""
 
-    print("\nsk: " + str(sk))
-    print("sk[0] = " + str(sk[0]))
-    print("sk[1] = " + str(sk[1]))
-    print("sk[2] = " + str(sk[2]))
+    #print("\nsk: " + str(sk))
+    #print("sk[0] = " + str(sk[0]))
+    #print("sk[1] = " + str(sk[1]))
+    #print("sk[2] = " + str(sk[2]))
 
     sk = list(jarray(jfloat)(sk))
     sk = [sk]
-    print("sk = " + str(sk))
+    #print("sk = " + str(sk))
 
     # -- Track people
     # dict_id2skeleton: 把骨架x, y四捨五入加上人的id
     dict_id2skeleton = multiperson_tracker.track(
         sk)  # int id -> np.array() skeleton
 
-    print("\ndict_id2skeleton: " + str(dict_id2skeleton))
+    #print("\ndict_id2skeleton: " + str(dict_id2skeleton))
 
     # -- Recognize action of each person
     # dict_id2label: 存預測動作結果的label
+
     if len(dict_id2skeleton):
         dict_id2label = multiperson_classifier.classify(
             dict_id2skeleton)
