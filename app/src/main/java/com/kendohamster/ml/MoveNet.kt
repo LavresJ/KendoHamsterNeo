@@ -213,6 +213,22 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             lastBoolean = wristAboveShoulder
             Log.d("ESTI", "揮劍次數:"+ count)
         }
+        /////判斷腳步步數
+        val rightAnkle = keyPoints[16].coordinate.x
+        val leftAnkle = keyPoints[15].coordinate.x
+        if(rightAnkle != null && leftAnkle != null){
+            if(leftAnkle - rightAnkle > 100){
+                AnkleStep = true
+            }
+            else{
+                AnkleStep = false
+            }
+            if(lastAnkleStep != AnkleStep){
+                stepCount += 0.5
+            }
+            lastAnkleStep = AnkleStep
+            Log.d("123456", "腳步移動次數:"+ stepCount)
+        }
 
         //Log.d("left_wtist", "x:" + keyPoints[9].coordinate.x.toString() + " y:" + keyPoints[9].coordinate.y.toString())
         Log.d("keyPoints", keyPoints.toString())
