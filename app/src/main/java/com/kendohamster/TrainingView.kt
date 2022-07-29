@@ -25,7 +25,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
-import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.view.WindowManager
@@ -49,7 +48,7 @@ var stepCount = 0.0
 var lastAnkleStep = false
 var wristAboveShoulder = true
 var lastBoolean = true
-var count = 0.0
+var frontCount = 0.0
 
 class TrainingView : AppCompatActivity() {
     companion object {
@@ -177,7 +176,7 @@ class TrainingView : AppCompatActivity() {
         /////
         wristAboveShoulder = true
         lastBoolean = true
-        count = 0.0
+        frontCount = 0.0
 
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
@@ -230,17 +229,33 @@ class TrainingView : AppCompatActivity() {
             @Override
             fun run(){
 
-                if ((practiceTime - Math.floor(count).toInt()) <= 0){
-                    val i = Intent(this, TrainingResult::class.java)
-                    i.putExtra("motionName", motionName)
-                    i.putExtra("practiceTime", practiceTime)
-                    showToast("完成訓練")
-                    startActivity(i)
-                    finish()
+                when (motionName){
+                    "正面劈刀" -> {if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
+                        val i = Intent(this, TrainingResult::class.java)
+                        i.putExtra("motionName", motionName)
+                        i.putExtra("practiceTime", practiceTime)
+                        showToast("完成訓練")
+                        startActivity(i)
+                        finish()
+                        }
+                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt())
+                        countHandler.postDelayed(countRunnable, 200)
+                    }
+
+                    "腳步" -> { if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
+                        val i = Intent(this, TrainingResult::class.java)
+                        i.putExtra("motionName", motionName)
+                        i.putExtra("practiceTime", practiceTime)
+                        showToast("完成訓練")
+                        startActivity(i)
+                        finish()
+                    }
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt())
+                        countHandler.postDelayed(countRunnable, 200)
+                    }
                 }
 
-                tvPracticeCount.text = "" + (practiceTime - Math.floor(count).toInt())
-                countHandler.postDelayed(countRunnable, 200)
+
             }
             run()
         }

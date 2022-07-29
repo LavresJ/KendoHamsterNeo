@@ -208,10 +208,10 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         if(rightShoulder != null && rightWrist != null){
             wristAboveShoulder = rightWrist < rightShoulder
             if(lastBoolean != wristAboveShoulder){
-                count += 0.5
+                frontCount += 0.5
             }
             lastBoolean = wristAboveShoulder
-            Log.d("ESTI", "揮劍次數:"+ count)
+            Log.d("ESTI", "揮劍次數:"+ frontCount)
         }
         /////判斷腳步步數
         val rightAnkle = keyPoints[16].coordinate.x
