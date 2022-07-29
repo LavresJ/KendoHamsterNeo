@@ -126,15 +126,7 @@ public class MotionList extends AppCompatActivity {
 
     public void fillArray(){
         text.add("正面劈刀");
-        text.add("動作二");
-        text.add("動作三");
-        text.add("動作四");
-        text.add("動作五");
-        text.add("動作六");
-        text.add("動作七");
-        text.add("動作八");
-        text.add("動作九");
-
+        text.add("腳步");
     }
 
 
