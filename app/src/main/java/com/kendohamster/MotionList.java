@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MotionList extends AppCompatActivity {
 
     GridView gridView;
-    ArrayList<String> text = new ArrayList<>();
+    static ArrayList<String> text = new ArrayList<>();
 //    ArrayList<Integer> image = new ArrayList<>();
 
     @Override
@@ -40,6 +40,7 @@ public class MotionList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MotionList.this, MotionVideo.class);
+                intent.putExtra("position", i);
                 startActivity(intent);
             }
         });
@@ -124,7 +125,7 @@ public class MotionList extends AppCompatActivity {
     }
 
     public void fillArray(){
-        text.add("動作一");
+        text.add("正面劈刀");
         text.add("動作二");
         text.add("動作三");
         text.add("動作四");

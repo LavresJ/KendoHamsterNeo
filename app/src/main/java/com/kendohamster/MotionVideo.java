@@ -24,15 +24,19 @@ public class MotionVideo extends AppCompatActivity {
 
     Button btnStartPractice, btnAddToMenu;
     String motionName;
+    long motionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motion_video);
 
+        Intent i = getIntent();
+        motionId = i.getIntExtra("position", 0);
+
         btnStartPractice = findViewById(R.id.btnStartPractice);
         btnAddToMenu = findViewById(R.id.btnAddToMenu);
-        motionName = "正面劈刀";
+        motionName = MotionList.text.get(Math.toIntExact(motionId));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
