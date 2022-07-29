@@ -44,6 +44,9 @@ import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+var AnkleStep = true
+var stepCount = 0.0
+var lastAnkleStep = false
 var wristAboveShoulder = true
 var lastBoolean = true
 var count = 0.0
