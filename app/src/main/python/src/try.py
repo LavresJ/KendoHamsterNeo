@@ -174,6 +174,7 @@ class MultiPersonClassifier(object):
     ''' This is a wrapper around ClassifierOnlineTest
         for recognizing actions of multiple people.
     '''
+    mean_score = []
 
     def __init__(self, model_path, classes):
 
@@ -205,6 +206,7 @@ class MultiPersonClassifier(object):
             # print("\n\nPredicting label for human{}".format(id))
             # print("  skeleton: {}".format(skeleton))
             # print("  label: {}".format(id2label[id]))
+            MultiPersonClassifier.mean_score = classifier.mean_score
 
         return id2label
 
@@ -350,4 +352,6 @@ def main(sk):
         print("prediced label(sk) is :", dict_id2label[min_id])
         predict_label = dict_id2label[min_id]
 
-    return  predict_label
+    mean_score_list = multiperson_classifier.mean_score
+    return mean_score_list
+    #return  predict_label

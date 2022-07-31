@@ -25,6 +25,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
+import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.view.WindowManager
@@ -42,13 +43,19 @@ import com.kendohamster.data.Device
 import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 var AnkleStep = true
 var stepCount = 0.0
 var lastAnkleStep = false
 var wristAboveShoulder = true
-var lastBoolean = true
+var lastBoolean = false
+var start_motion = false
+var single_swing_frames = 0.0
+var single_swing_accuracy_sum = 0.0
+var total_swing_accuracy = 0.0
 var frontCount = 0.0
+var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
     companion object {
@@ -175,8 +182,12 @@ class TrainingView : AppCompatActivity() {
 
         /////
         wristAboveShoulder = true
-        lastBoolean = true
+        lastBoolean = false
+        stepCount = 0.0
         frontCount = 0.0
+        single_swing_frames = 0.0
+        single_swing_accuracy_sum = 0.0
+        total_swing_accuracy = 0.0
 
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
@@ -239,7 +250,7 @@ class TrainingView : AppCompatActivity() {
                         finish()
                         }
                     tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt())
-                        countHandler.postDelayed(countRunnable, 200)
+                        countHandler.postDelayed(countRunnable, 100)
                     }
 
                     "腳步" -> { if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
@@ -251,7 +262,7 @@ class TrainingView : AppCompatActivity() {
                         finish()
                     }
                         tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt())
-                        countHandler.postDelayed(countRunnable, 200)
+                        countHandler.postDelayed(countRunnable, 100)
                     }
                 }
 
@@ -260,7 +271,7 @@ class TrainingView : AppCompatActivity() {
             run()
         }
 
-        countHandler.postDelayed(countRunnable, 200)
+        countHandler.postDelayed(countRunnable, 100)
         ///
     }
 
@@ -268,6 +279,32 @@ class TrainingView : AppCompatActivity() {
         cameraSource?.close()
         cameraSource = null
         countHandler.removeCallbacks(countRunnable)
+
+        when (motionName){
+            "正面劈刀" -> {if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
+                val i = Intent(this, TrainingResult::class.java)
+                i.putExtra("motionName", motionName)
+                i.putExtra("practiceTime", practiceTime)
+                i.putExtra("accuracyList", accuracyList.toFloatArray())
+                showToast("完成訓練")
+                startActivity(i)
+                finish()
+                }
+            }
+
+            "腳步" -> { if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
+                val i = Intent(this, TrainingResult::class.java)
+                i.putExtra("motionName", motionName)
+                i.putExtra("practiceTime", practiceTime)
+                i.putExtra("accuracyList", accuracyList.toFloatArray())
+                showToast("完成訓練")
+                startActivity(i)
+                finish()
+                }
+            }
+        }
+        //Log.d("accuracyList", Arrays.toString(accuracyList.toFloatArray()))
+
         super.onPause()
     }
 

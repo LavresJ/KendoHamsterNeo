@@ -32,6 +32,7 @@ import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.image.ops.ResizeWithCropOrPadOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.util.*
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -101,7 +102,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
     private val inputHeight = interpreter.getInputTensor(0).shape()[2]
     private var outputShape: IntArray = interpreter.getOutputTensor(0).shape()
     private var scale_h = 640 / 480.toFloat()
-    private var skeleton = DoubleArray(36)
+    private var skeleton = FloatArray(36)
 
     override fun estimatePoses(bitmap: Bitmap): List<Person> {
         Log.d("scale_h", scale_h.toString())
@@ -200,24 +201,62 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         lastInferenceTimeNanos =
             SystemClock.elapsedRealtimeNanos() - inferenceStartTimeNanos
 
+        //餵骨架進模型
+        skeleton = keyPoints_to_skeleton(keyPoints_float)
+        Log.d("skeleton", skeleton.contentToString())
+        val obj = pyobj.callAttr("main", skeleton)
+        Log.d("result", obj.toString())
+
+        var class_probabilities: ArrayList<Float> = arrayListOf()
+        if(obj.toString().length > 2) {
+            class_probabilities = convert_string_to_float(obj.toString())
+            /*
+            Log.d("class_probabilities.get(0):", class_probabilities.get(0).toString())
+            Log.d("class_probabilities.get(1):", class_probabilities.get(1).toString())
+
+             */
+        }
+
         /////////////
         //判斷手腕是否高於肩膀(數字小的較高)
 
         val rightShoulder = keyPoints[6].coordinate.y
         val rightWrist = keyPoints[10].coordinate.y
-        if(rightShoulder != null && rightWrist != null){
+        if(keyPoints[6].score > 0.2 && keyPoints[10].score > 0.2){ //rightShoulder != null && rightWrist != null
             wristAboveShoulder = rightWrist < rightShoulder
+            //Log.d("wristAboveShoulder", wristAboveShoulder.toString())
+            //Log.d("lastBoolean", lastBoolean.toString())
             if(lastBoolean != wristAboveShoulder){
                 frontCount += 0.5
+                if((frontCount * 2).toInt() % 2 == 0 && frontCount.toInt() >= 1) {   //揮劍次數第二次以後的case
+                    total_swing_accuracy = single_swing_accuracy_sum / single_swing_frames
+                    accuracyList.add(total_swing_accuracy.toFloat())
+                    Log.d("total_swing_accuracy", total_swing_accuracy.toString())
+
+                    single_swing_frames = 0.0
+                    single_swing_accuracy_sum = 0.0
+                    total_swing_accuracy = 0.0
+                }
+                else if(frontCount.toInt() < 1){ //揮劍次數第一次以後的case
+                    start_motion = true
+                    single_swing_frames = 0.0
+                    single_swing_accuracy_sum = 0.0
+                    total_swing_accuracy = 0.0
+                }
+            }
+            if(start_motion){
+                single_swing_frames += 1
+                single_swing_accuracy_sum += class_probabilities.get(1)
             }
             lastBoolean = wristAboveShoulder
             Log.d("ESTI", "揮劍次數:"+ frontCount)
+            //Log.d("single_swing_frames", single_swing_frames.toString())
         }
         /////判斷腳步步數
         val rightAnkle = keyPoints[16].coordinate.x
         val leftAnkle = keyPoints[15].coordinate.x
-        if(rightAnkle != null && leftAnkle != null){
-            if(leftAnkle - rightAnkle > 100){
+        if(keyPoints[16].score > 0.2 && keyPoints[15].score > 0.2){       //rightAnkle != null && leftAnkle != null
+            if(leftAnkle - rightAnkle > 75){ //100
                 AnkleStep = true
             }
             else{
@@ -225,19 +264,14 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             }
             if(lastAnkleStep != AnkleStep){
                 stepCount += 0.5
+                Log.d("stepCount", "腳步移動次數:"+ stepCount)
             }
             lastAnkleStep = AnkleStep
-            Log.d("123456", "腳步移動次數:"+ stepCount)
         }
 
-        //Log.d("left_wtist", "x:" + keyPoints[9].coordinate.x.toString() + " y:" + keyPoints[9].coordinate.y.toString())
         Log.d("keyPoints", keyPoints.toString())
-        Log.d("keyPoints_float", keyPoints_float.toString())
+        //Log.d("keyPoints_float", keyPoints_float.toString())
 
-        skeleton = keyPoints_to_skeleton(keyPoints_float)
-        Log.d("skeleton", skeleton.contentToString())
-        val obj = pyobj.callAttr("main", skeleton)
-        Log.d("result", obj.toString())
 
         return listOf(Person(keyPoints = keyPoints, score = totalScore / numKeyPoints))
     }
@@ -423,59 +457,59 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             maxBodyXRange
         )
     }
-    private fun keyPoints_to_skeleton(keyPoints_float : MutableList<KeyPoint>): DoubleArray{
-        var skeleton = DoubleArray(36)
+    private fun keyPoints_to_skeleton(keyPoints_float : MutableList<KeyPoint>): FloatArray{
+        var skeleton = FloatArray(36)
         //0: nose
-        skeleton[0] = keyPoints_float[0].coordinate.x.toDouble()
-        skeleton[1] = keyPoints_float[0].coordinate.y.toDouble()
+        skeleton[0] = keyPoints_float[0].coordinate.x
+        skeleton[1] = keyPoints_float[0].coordinate.y
         //1: left_eye
-        skeleton[30] = keyPoints_float[1].coordinate.x.toDouble()
-        skeleton[31] = keyPoints_float[1].coordinate.y.toDouble()
+        skeleton[30] = keyPoints_float[1].coordinate.x
+        skeleton[31] = keyPoints_float[1].coordinate.y
         //2: right_eye
-        skeleton[28] = keyPoints_float[2].coordinate.x.toDouble()
-        skeleton[29] = keyPoints_float[2].coordinate.y.toDouble()
+        skeleton[28] = keyPoints_float[2].coordinate.x
+        skeleton[29] = keyPoints_float[2].coordinate.y
         //3: left_ear
-        skeleton[34] = keyPoints_float[3].coordinate.x.toDouble()
-        skeleton[35] = keyPoints_float[3].coordinate.y.toDouble()
+        skeleton[34] = keyPoints_float[3].coordinate.x
+        skeleton[35] = keyPoints_float[3].coordinate.y
         //4: right_ear
-        skeleton[32] = keyPoints_float[4].coordinate.x.toDouble()
-        skeleton[33] = keyPoints_float[4].coordinate.y.toDouble()
+        skeleton[32] = keyPoints_float[4].coordinate.x
+        skeleton[33] = keyPoints_float[4].coordinate.y
         //5: left_shoulder
-        skeleton[10] = keyPoints_float[5].coordinate.x.toDouble()
-        skeleton[11] = keyPoints_float[5].coordinate.y.toDouble()
+        skeleton[10] = keyPoints_float[5].coordinate.x
+        skeleton[11] = keyPoints_float[5].coordinate.y
         //6: right_shoulder
-        skeleton[4] = keyPoints_float[6].coordinate.x.toDouble()
-        skeleton[5] = keyPoints_float[6].coordinate.y.toDouble()
+        skeleton[4] = keyPoints_float[6].coordinate.x
+        skeleton[5] = keyPoints_float[6].coordinate.y
         //7: left_elbow
-        skeleton[12] = keyPoints_float[7].coordinate.x.toDouble()
-        skeleton[13] = keyPoints_float[7].coordinate.y.toDouble()
+        skeleton[12] = keyPoints_float[7].coordinate.x
+        skeleton[13] = keyPoints_float[7].coordinate.y
         //8: right_elbow
-        skeleton[6] = keyPoints_float[8].coordinate.x.toDouble()
-        skeleton[7] = keyPoints_float[8].coordinate.y.toDouble()
+        skeleton[6] = keyPoints_float[8].coordinate.x
+        skeleton[7] = keyPoints_float[8].coordinate.y
         //9: left_wrist
-        skeleton[14] = keyPoints_float[9].coordinate.x.toDouble()
-        skeleton[15] = keyPoints_float[9].coordinate.y.toDouble()
+        skeleton[14] = keyPoints_float[9].coordinate.x
+        skeleton[15] = keyPoints_float[9].coordinate.y
         //10: right_wrist
-        skeleton[8] = keyPoints_float[10].coordinate.x.toDouble()
-        skeleton[9] = keyPoints_float[10].coordinate.y.toDouble()
+        skeleton[8] = keyPoints_float[10].coordinate.x
+        skeleton[9] = keyPoints_float[10].coordinate.y
         //11: left_hip
-        skeleton[22] = keyPoints_float[11].coordinate.x.toDouble()
-        skeleton[23] = keyPoints_float[11].coordinate.y.toDouble()
+        skeleton[22] = keyPoints_float[11].coordinate.x
+        skeleton[23] = keyPoints_float[11].coordinate.y
         //12: right_hip
-        skeleton[16] = keyPoints_float[12].coordinate.x.toDouble()
-        skeleton[17] = keyPoints_float[12].coordinate.y.toDouble()
+        skeleton[16] = keyPoints_float[12].coordinate.x
+        skeleton[17] = keyPoints_float[12].coordinate.y
         //13: left_knee
-        skeleton[24] = keyPoints_float[13].coordinate.x.toDouble()
-        skeleton[25] = keyPoints_float[13].coordinate.y.toDouble()
+        skeleton[24] = keyPoints_float[13].coordinate.x
+        skeleton[25] = keyPoints_float[13].coordinate.y
         //14: right_knee
-        skeleton[18] = keyPoints_float[14].coordinate.x.toDouble()
-        skeleton[19] = keyPoints_float[14].coordinate.y.toDouble()
+        skeleton[18] = keyPoints_float[14].coordinate.x
+        skeleton[19] = keyPoints_float[14].coordinate.y
         //15: left_ankle
-        skeleton[26] = keyPoints_float[15].coordinate.x.toDouble()
-        skeleton[27] = keyPoints_float[15].coordinate.y.toDouble()
+        skeleton[26] = keyPoints_float[15].coordinate.x
+        skeleton[27] = keyPoints_float[15].coordinate.y
         //16: right_ankle
-        skeleton[20] = keyPoints_float[16].coordinate.x.toDouble()
-        skeleton[21] = keyPoints_float[16].coordinate.y.toDouble()
+        skeleton[20] = keyPoints_float[16].coordinate.x
+        skeleton[21] = keyPoints_float[16].coordinate.y
         //17: neck
         /*
         skeleton[2] = 0.0
@@ -483,7 +517,21 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
          */
         skeleton[2] = (skeleton[10] + skeleton[4]) / 2
         skeleton[3] = (skeleton[11] + skeleton[5]) / 2
-
         return skeleton
+    }
+    private fun convert_string_to_float(json: String): ArrayList<Float> {
+        val probability = ArrayList<Float>()
+        val jsonD: String //去除json字串的 "[", "]"
+        val jsonString: Array<String> //將json字串分割儲存成字串陣列
+        jsonD = json.substring(1, json.length - 1)
+        jsonString = jsonD.split(" ").toTypedArray()
+
+        //將string陣列轉成ArrayList
+        val jsonStringList = Arrays.asList(*jsonString)
+        val jsonStringArrayList = ArrayList(jsonStringList)
+        for (i in jsonStringArrayList.indices) {
+            probability.add(jsonStringArrayList[i].toFloat())
+        }
+        return probability
     }
 }
