@@ -127,6 +127,7 @@ class ClassifierOnlineTest(object):
             are processed by `class FeatureGenerator` before sending to the
             self.model trained by `class ClassifierOfflineTrain`. 
     '''
+    mean_score = []
 
     def __init__(self, model_path, action_labels, window_size, human_id=0):
 
@@ -186,6 +187,7 @@ class ClassifierOnlineTest(object):
                 score_sums += score
             score_sums /= len(self.scores_hist)
             print("\nMean score:\n", score_sums)
+            ClassifierOnlineTest.mean_score = score_sums
             return score_sums
 
         else:  # Use multiply

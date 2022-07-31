@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Arrays;
 
 public class TrainingResult extends AppCompatActivity {
 
@@ -15,7 +18,8 @@ public class TrainingResult extends AppCompatActivity {
     Button btnPracticeAgain, btnDownloadVideo, btnBackToMotionList;
     String motionName;
     int practiceTime;
-    Double accuracy;
+    double accuracy = 0.0;
+    float[] accuracyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,15 @@ public class TrainingResult extends AppCompatActivity {
         Intent i = getIntent();
         motionName = i.getStringExtra("motionName");
         practiceTime = i.getIntExtra("practiceTime", 0);
-        accuracy = 0.8;
+        accuracyList = i.getFloatArrayExtra("accuracyList");
+
+        //Log.d("accuracyList", Arrays.toString(accuracyList));
+        accuracy = 0.0;
+        for(int j = 0; j < accuracyList.length; j++){
+            if(accuracyList[j] >= 0.6){
+                accuracy += (float)(1.0 / accuracyList.length);
+            }
+        }
 
         textResultMotionName = findViewById(R.id.textResultMotionName);
         textResultPracticeTime = findViewById(R.id.textResultPracticeTime);
@@ -36,7 +48,7 @@ public class TrainingResult extends AppCompatActivity {
 
         textResultMotionName.setText(motionName);
         textResultPracticeTime.setText("練習次數：" + String.valueOf(practiceTime) + "次");
-        textResultAccuracy.setText("正確率：" + String.valueOf(accuracy*100) + "%");
+        textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy*100) + "%");
 
         btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
             @Override
