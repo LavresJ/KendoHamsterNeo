@@ -49,6 +49,7 @@ public class TrainingResult extends AppCompatActivity {
         textResultMotionName.setText(motionName);
         textResultPracticeTime.setText("練習次數：" + String.valueOf(practiceTime) + "次");
         textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy*100) + "%");
+        Log.d("accuracy", String.format("%.2f", accuracy*100));
 
         btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
             @Override
