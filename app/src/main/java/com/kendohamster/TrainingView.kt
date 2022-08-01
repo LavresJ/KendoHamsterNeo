@@ -188,6 +188,7 @@ class TrainingView : AppCompatActivity() {
         single_swing_frames = 0.0
         single_swing_accuracy_sum = 0.0
         total_swing_accuracy = 0.0
+        accuracyList.clear()
 
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
