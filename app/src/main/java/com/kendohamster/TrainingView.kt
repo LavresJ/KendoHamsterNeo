@@ -245,6 +245,7 @@ class TrainingView : AppCompatActivity() {
                         val i = Intent(this, TrainingResult::class.java)
                         i.putExtra("motionName", motionName)
                         i.putExtra("practiceTime", practiceTime)
+                        i.putExtra("accuracyList", accuracyList.toFloatArray())
                         showToast("完成訓練")
                         startActivity(i)
                         finish()
@@ -253,10 +254,11 @@ class TrainingView : AppCompatActivity() {
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
-                    "腳步" -> { if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
+                    "擦足" -> { if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
                         val i = Intent(this, TrainingResult::class.java)
                         i.putExtra("motionName", motionName)
                         i.putExtra("practiceTime", practiceTime)
+                        i.putExtra("accuracyList", accuracyList.toFloatArray())
                         showToast("完成訓練")
                         startActivity(i)
                         finish()
@@ -279,31 +281,6 @@ class TrainingView : AppCompatActivity() {
         cameraSource?.close()
         cameraSource = null
         countHandler.removeCallbacks(countRunnable)
-
-        when (motionName){
-            "正面劈刀" -> {if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
-                val i = Intent(this, TrainingResult::class.java)
-                i.putExtra("motionName", motionName)
-                i.putExtra("practiceTime", practiceTime)
-                i.putExtra("accuracyList", accuracyList.toFloatArray())
-                showToast("完成訓練")
-                startActivity(i)
-                finish()
-                }
-            }
-
-            "腳步" -> { if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
-                val i = Intent(this, TrainingResult::class.java)
-                i.putExtra("motionName", motionName)
-                i.putExtra("practiceTime", practiceTime)
-                i.putExtra("accuracyList", accuracyList.toFloatArray())
-                showToast("完成訓練")
-                startActivity(i)
-                finish()
-                }
-            }
-        }
-        //Log.d("accuracyList", Arrays.toString(accuracyList.toFloatArray()))
 
         super.onPause()
     }
