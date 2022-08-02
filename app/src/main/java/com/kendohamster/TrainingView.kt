@@ -192,6 +192,9 @@ class TrainingView : AppCompatActivity() {
         total_swing_accuracy = 0.0
         hold_sword_count = 0.0
 
+        accuracyList.clear()
+
+
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
         tvMotionName = findViewById(R.id.tv_motion_name)
