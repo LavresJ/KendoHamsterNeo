@@ -31,14 +31,6 @@ public class TrainingResult extends AppCompatActivity {
         practiceTime = i.getIntExtra("practiceTime", 0);
         accuracyList = i.getFloatArrayExtra("accuracyList");
 
-        //Log.d("accuracyList", Arrays.toString(accuracyList));
-        accuracy = 0.0;
-        for(int j = 0; j < accuracyList.length; j++){
-            if(accuracyList[j] >= 0.6){
-                accuracy += (float)(1.0 / accuracyList.length);
-            }
-        }
-
         textResultMotionName = findViewById(R.id.textResultMotionName);
         textResultPracticeTime = findViewById(R.id.textResultPracticeTime);
         textResultAccuracy = findViewById(R.id.textResultAccuracy);
@@ -46,10 +38,24 @@ public class TrainingResult extends AppCompatActivity {
         btnDownloadVideo = findViewById(R.id.btnDownloadVideo);
         btnBackToMotionList = findViewById(R.id.btnBackToMotionList);
 
-        textResultMotionName.setText(motionName);
-        textResultPracticeTime.setText("練習次數：" + String.valueOf(practiceTime) + "次");
-        textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy*100) + "%");
-        Log.d("accuracy", String.format("%.2f", accuracy*100));
+
+        //Log.d("accuracyList", Arrays.toString(accuracyList));
+        if(accuracyList.length != 0) { //是動態動作
+            accuracy = 0.0;
+            for (int j = 0; j < accuracyList.length; j++) {
+                if (accuracyList[j] >= 0.6) {
+                    accuracy += (float) (1.0 / accuracyList.length);
+                }
+            }
+            textResultMotionName.setText(motionName);
+            textResultPracticeTime.setText("練習次數：" + String.valueOf(practiceTime) + "次");
+            textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy*100) + "%");
+            Log.d("accuracy", String.format("%.2f", accuracy*100));
+        }else{ //是靜態動作
+            textResultMotionName.setText(motionName);
+            textResultPracticeTime.setText("練習時間：" + String.valueOf(practiceTime) + "秒");
+            textResultAccuracy.setText("");
+        }
 
         btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
             @Override
