@@ -107,22 +107,34 @@ public class MotionVideo extends AppCompatActivity {
         btnStartPractice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                switch(motionName){
+                    //動態動作
+                    case "正面劈刀":
+                    case"擦足":
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        PracticeTimeFragment practiceTimeFragment = new PracticeTimeFragment();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("motionName", motionName);
+                        practiceTimeFragment.setArguments(bundle);
+
+                        fragmentTransaction.addToBackStack("PracticeTimeFragment");
+                        fragmentTransaction.add(R.id.framePracticeTime, practiceTimeFragment);
+                        fragmentTransaction.commit();
+                        break;
+                    //靜態動作
+                    case "托刀":
+                        startPracticing(motionName, 10);
+                        break;
+                }
 /*
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame);
                 if(fragment != null) { getSupportFragmentManager().beginTransaction().remove(fragment).commit(); }
 */
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                PracticeTimeFragment practiceTimeFragment = new PracticeTimeFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("motionName", motionName);
-                practiceTimeFragment.setArguments(bundle);
-
-                fragmentTransaction.addToBackStack("PracticeTimeFragment");
-                fragmentTransaction.add(R.id.framePracticeTime, practiceTimeFragment);
-                fragmentTransaction.commit();
 
             }
         });

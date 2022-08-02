@@ -40,6 +40,7 @@ import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import com.kendohamster.camera.CameraSource
 import com.kendohamster.data.Device
+import com.kendohamster.data.KeyPoint
 import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,6 +56,7 @@ var single_swing_frames = 0.0
 var single_swing_accuracy_sum = 0.0
 var total_swing_accuracy = 0.0
 var frontCount = 0.0
+var hold_sword_count = 0.0
 var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
@@ -188,7 +190,10 @@ class TrainingView : AppCompatActivity() {
         single_swing_frames = 0.0
         single_swing_accuracy_sum = 0.0
         total_swing_accuracy = 0.0
+        hold_sword_count = 0.0
+
         accuracyList.clear()
+
 
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
@@ -221,6 +226,7 @@ class TrainingView : AppCompatActivity() {
             val i = Intent(this, TrainingResult::class.java)
             i.putExtra("motionName", motionName)
             i.putExtra("practiceTime", practiceTime)
+            i.putExtra("accuracyList", accuracyList.toFloatArray())
             startActivity(i)
             finish()
         })
@@ -242,29 +248,60 @@ class TrainingView : AppCompatActivity() {
             fun run(){
 
                 when (motionName){
-                    "正面劈刀" -> {if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
-                        val i = Intent(this, TrainingResult::class.java)
-                        i.putExtra("motionName", motionName)
-                        i.putExtra("practiceTime", practiceTime)
-                        i.putExtra("accuracyList", accuracyList.toFloatArray())
-                        showToast("完成訓練")
-                        startActivity(i)
-                        finish()
+                    "正面劈刀" -> {
+                        if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
+                            val i = Intent(this, TrainingResult::class.java)
+                            i.putExtra("motionName", motionName)
+                            i.putExtra("practiceTime", practiceTime)
+                            i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            showToast("完成訓練")
+                            startActivity(i)
+                            finish()
                         }
                     tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt())
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
-                    "擦足" -> { if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
-                        val i = Intent(this, TrainingResult::class.java)
-                        i.putExtra("motionName", motionName)
-                        i.putExtra("practiceTime", practiceTime)
-                        i.putExtra("accuracyList", accuracyList.toFloatArray())
-                        showToast("完成訓練")
-                        startActivity(i)
-                        finish()
-                    }
+                    "擦足" -> {
+                        if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
+                            val i = Intent(this, TrainingResult::class.java)
+                            i.putExtra("motionName", motionName)
+                            i.putExtra("practiceTime", practiceTime)
+                            i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            showToast("完成訓練")
+                            startActivity(i)
+                            finish()
+                        }
                         tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt())
+                        countHandler.postDelayed(countRunnable, 100)
+                    }
+
+                    "托刀" -> {
+                        //這個部分每0.1秒會執行一次
+                        //使用者需要連續十次被偵測到動作正確，倒數的秒數才會-1
+
+                        if(practiceTime - hold_sword_count <= 0){
+                            val i = Intent(this, TrainingResult::class.java)
+                            i.putExtra("motionName", motionName)
+                            i.putExtra("practiceTime", practiceTime)
+                            i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            showToast("完成訓練")
+                            startActivity(i)
+                            finish()
+                        }
+
+                        val person = cameraSource?.getPersons()?.get(0)
+                        val keypoints = person?.keyPoints
+
+                        //此處判斷動作是否正確
+                        //若動作正確則hold_sword_count+=0.1
+                        //動作不正確則hold_sword_count無條件捨棄小數點
+                        if( true ){ //動作正確
+                            hold_sword_count += 0.1
+                        }else{
+                            hold_sword_count = Math.floor(hold_sword_count)
+                        }
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt())
                         countHandler.postDelayed(countRunnable, 100)
                     }
                 }
