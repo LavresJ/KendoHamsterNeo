@@ -5,7 +5,8 @@
 #     In src/s2_put_skeleton_txts_to_a_single_txt.py,
 #     The image whose label is not in `classes` will be filtered out. 
 
-classes: ['sideGrip', 'swingHead']
+classes: ['swingHead',  'rubFeet', 'sideGrip']
+#classes: ['sideGrip', 'swingHead']
 #classes: ['stand', 'walk', 'run', 'jump', 'sit', 'squat', 'kick', 'punch', 'wave']
 #classes: ['lying', 'other', 'sitting', 'standing']
 

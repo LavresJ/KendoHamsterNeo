@@ -40,23 +40,25 @@ import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import com.kendohamster.camera.CameraSource
 import com.kendohamster.data.Device
-import com.kendohamster.data.KeyPoint
 import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
+var motionName_public: String? = null
 var AnkleStep = true
 var stepCount = 0.0
 var lastAnkleStep = false
 var wristAboveShoulder = true
 var lastBoolean = false
 var start_motion = false
-var single_swing_frames = 0.0
-var single_swing_accuracy_sum = 0.0
-var total_swing_accuracy = 0.0
+var single_dynamic_motion_frames = 0.0
+var single_dynamic_motion_accuracy_sum = 0.0
+var total_dynamic_motion_accuracy = 0.0
 var frontCount = 0.0
+var hold_sword = false
 var hold_sword_count = 0.0
+var hold_sword_tem_max_pro = 0.0
 var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
@@ -182,15 +184,19 @@ class TrainingView : AppCompatActivity() {
         motionName = i.getStringExtra("motionName")
         practiceTime = i.getIntExtra("practiceTime", 0)
 
+        motionName_public = motionName.toString()
+        Log.d("motionName_public", motionName_public.toString())
         /////
         wristAboveShoulder = true
         lastBoolean = false
         stepCount = 0.0
         frontCount = 0.0
-        single_swing_frames = 0.0
-        single_swing_accuracy_sum = 0.0
-        total_swing_accuracy = 0.0
+        single_dynamic_motion_frames = 0.0
+        single_dynamic_motion_accuracy_sum = 0.0
+        total_dynamic_motion_accuracy = 0.0
         hold_sword_count = 0.0
+        hold_sword = false
+        hold_sword_tem_max_pro = 0.0
 
         accuracyList.clear()
 
@@ -277,7 +283,7 @@ class TrainingView : AppCompatActivity() {
                     }
 
                     "托刀" -> {
-                        //這個部分每0.1秒會執行一次
+                        //這個部分每0.1(0.2)秒會執行一次
                         //使用者需要連續十次被偵測到動作正確，倒數的秒數才會-1
 
                         if(practiceTime - hold_sword_count <= 0){
@@ -290,19 +296,21 @@ class TrainingView : AppCompatActivity() {
                             finish()
                         }
 
-                        val person = cameraSource?.getPersons()?.get(0)
-                        val keypoints = person?.keyPoints
+                        //val person = cameraSource?.getPersons()?.get(0)
+                        //val keypoints = person?.keyPoints
 
                         //此處判斷動作是否正確
                         //若動作正確則hold_sword_count+=0.1
                         //動作不正確則hold_sword_count無條件捨棄小數點
-                        if( true ){ //動作正確
-                            hold_sword_count += 0.1
+                        if(hold_sword){ //動作正確 hold_sword
+                            hold_sword_count += 0.2 //0.1
                         }else{
                             hold_sword_count = Math.floor(hold_sword_count)
                         }
+                        hold_sword = false
+                        hold_sword_tem_max_pro = 0.0
                         tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt())
-                        countHandler.postDelayed(countRunnable, 100)
+                        countHandler.postDelayed(countRunnable, 200)    //100
                     }
                 }
 
