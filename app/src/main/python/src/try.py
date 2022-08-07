@@ -352,6 +352,9 @@ def main(sk):
         print("prediced label(sk) is :", dict_id2label[min_id])
         predict_label = dict_id2label[min_id]
 
-    mean_score_list = multiperson_classifier.mean_score
+    mean_score_list = []
+    for value in multiperson_classifier.mean_score:
+        mean_score_list.append(value)
+    #mean_score_list = multiperson_classifier.mean_score
     return mean_score_list
     #return  predict_label

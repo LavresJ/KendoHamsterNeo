@@ -31,6 +31,7 @@ public class MotionList extends AppCompatActivity {
         setContentView(R.layout.activity_motion_list);
 
         gridView = findViewById(R.id.gridView);
+        text.clear();
         fillArray();
 
         GridAdapter adapter = new GridAdapter(this, text);
