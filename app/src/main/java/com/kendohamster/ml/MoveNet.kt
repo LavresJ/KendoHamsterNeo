@@ -232,6 +232,12 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                             accuracyList.add(total_dynamic_motion_accuracy.toFloat())
                             Log.d("total_dynamic_motion_accuracy", total_dynamic_motion_accuracy.toString())
 
+                            if(total_dynamic_motion_accuracy > 0.6){
+                                dynamic_motion_judgement = true
+                            }else{
+                                dynamic_motion_judgement = false
+                            }
+                            dynamic_motion_complete = true
                             single_dynamic_motion_frames = 0.0
                             single_dynamic_motion_accuracy_sum = 0.0
                             total_dynamic_motion_accuracy = 0.0
@@ -269,6 +275,12 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                             accuracyList.add(total_dynamic_motion_accuracy.toFloat())
                             Log.d("total_dynamic_motion_accuracy", total_dynamic_motion_accuracy.toString())
 
+                            if(total_dynamic_motion_accuracy > 0.6){
+                                dynamic_motion_judgement = true
+                            }else{
+                                dynamic_motion_judgement = false
+                            }
+                            dynamic_motion_complete = true
                             single_dynamic_motion_frames = 0.0
                             single_dynamic_motion_accuracy_sum = 0.0
                             total_dynamic_motion_accuracy = 0.0
@@ -290,11 +302,10 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             //判斷托刀動作
             "托刀" -> {
                 if (obj.toString().length > 2) {
-                    if (class_probabilities.get(2) > hold_sword_tem_max_pro) {
-                        hold_sword_tem_max_pro = class_probabilities.get(2).toDouble()
-                    }
-                    if (hold_sword_tem_max_pro > 0.6) {
+                    if (class_probabilities.get(2) > 0.6) {
                         hold_sword = true
+                    }else{
+                        hold_sword = false
                     }
                 }
             }

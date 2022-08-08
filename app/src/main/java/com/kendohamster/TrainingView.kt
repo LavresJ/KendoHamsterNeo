@@ -58,7 +58,8 @@ var total_dynamic_motion_accuracy = 0.0
 var frontCount = 0.0
 var hold_sword = false
 var hold_sword_count = 0.0
-var hold_sword_tem_max_pro = 0.0
+var dynamic_motion_complete = false //判斷動態動作有沒有完成一個週期
+var dynamic_motion_judgement = true //判斷該週期的動態動作是正確or錯誤
 var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
@@ -196,7 +197,8 @@ class TrainingView : AppCompatActivity() {
         total_dynamic_motion_accuracy = 0.0
         hold_sword_count = 0.0
         hold_sword = false
-        hold_sword_tem_max_pro = 0.0
+        dynamic_motion_complete = false
+        dynamic_motion_judgement = false
 
         accuracyList.clear()
 
@@ -303,14 +305,13 @@ class TrainingView : AppCompatActivity() {
                         //若動作正確則hold_sword_count+=0.1
                         //動作不正確則hold_sword_count無條件捨棄小數點
                         if(hold_sword){ //動作正確 hold_sword
-                            hold_sword_count += 0.2 //0.1
+                            hold_sword_count += 0.1
                         }else{
                             hold_sword_count = Math.floor(hold_sword_count)
                         }
-                        hold_sword = false
-                        hold_sword_tem_max_pro = 0.0
+
                         tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt())
-                        countHandler.postDelayed(countRunnable, 200)    //100
+                        countHandler.postDelayed(countRunnable, 100)
                     }
                 }
 
