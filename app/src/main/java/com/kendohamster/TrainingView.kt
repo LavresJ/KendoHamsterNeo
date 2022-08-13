@@ -34,6 +34,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.chaquo.python.Python
@@ -95,7 +96,8 @@ class TrainingView : AppCompatActivity() {
     private lateinit var tvMotionName: TextView
     private lateinit var tvPracticeCount: TextView
     private lateinit var btnStopPractice: Button
-
+    private lateinit var falseView: ImageView//動作錯誤圖示
+    private lateinit var trueView:ImageView//動作正確圖示
     private lateinit var tvScore: TextView
     private lateinit var tvFPS: TextView
     private lateinit var spnDevice: Spinner
@@ -221,6 +223,10 @@ class TrainingView : AppCompatActivity() {
         tvClassificationValue3 = findViewById(com.kendohamster.R.id.tvClassificationValue3)
         swClassification = findViewById(com.kendohamster.R.id.swPoseClassification)
         vClassificationOption = findViewById(com.kendohamster.R.id.vClassificationOption)
+        falseView = findViewById(R.id.falseView)
+        trueView = findViewById(R.id.trueView)
+        falseView.visibility = View.GONE
+        trueView.visibility = View.GONE
         initSpinner()
         spnModel.setSelection(modelPos)
         swClassification.setOnCheckedChangeListener(setClassificationListener)
@@ -254,7 +260,14 @@ class TrainingView : AppCompatActivity() {
         countRunnable = Runnable(){
             @Override
             fun run(){
-
+                if(dynamic_motion_judgement==true){
+                    trueView.visibility = View.VISIBLE//顯示動作正確圖示
+                    falseView.visibility = View.GONE//不顯示錯誤圖示
+                }
+                else{
+                    trueView.visibility = View.GONE//不顯示動作正確圖示
+                    falseView.visibility = View.VISIBLE//顯示錯誤圖示
+                }
                 when (motionName){
                     "正面劈刀" -> {
                         if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
@@ -266,7 +279,8 @@ class TrainingView : AppCompatActivity() {
                             startActivity(i)
                             finish()
                         }
-                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt())
+
+                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt()) + "次"
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
@@ -280,7 +294,8 @@ class TrainingView : AppCompatActivity() {
                             startActivity(i)
                             finish()
                         }
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt())
+
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt()) + "次"
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
@@ -309,17 +324,16 @@ class TrainingView : AppCompatActivity() {
                         }else{
                             hold_sword_count = Math.floor(hold_sword_count)
                         }
+                        trueView.visibility = View.GONE//不顯示動作正確圖示
+                        falseView.visibility = View.GONE//不顯示錯誤圖示
 
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt())
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + "秒"
                         countHandler.postDelayed(countRunnable, 100)
                     }
                 }
-
-
             }
             run()
         }
-
         countHandler.postDelayed(countRunnable, 100)
         ///
     }

@@ -52,4 +52,18 @@
 
 
     <include layout="@layout/bottom_sheet_layout"/>
+
+    <ImageView
+        android:id="@+id/falseView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|left"
+        app:srcCompat="@drawable/cross" />
+
+    <ImageView
+        android:id="@+id/trueView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|right"
+        app:srcCompat="@drawable/accept" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
