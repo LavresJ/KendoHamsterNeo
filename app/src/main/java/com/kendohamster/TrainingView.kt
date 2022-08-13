@@ -109,6 +109,8 @@ class TrainingView : AppCompatActivity() {
     private lateinit var vClassificationOption: View
     private var cameraSource: CameraSource? = null
     private var isClassifyPose = false
+    private lateinit var falseView: ImageView//動作錯誤圖示
+    private lateinit var trueView:ImageView//動作正確圖示
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -202,6 +204,10 @@ class TrainingView : AppCompatActivity() {
 
         accuracyList.clear()
 
+        falseView = findViewById(R.id.falseView)
+        trueView = findViewById(R.id.trueView)
+        falseView.visibility = View.GONE
+        trueView.visibility = View.GONE
 
         tvKeypoint = findViewById(com.kendohamster.R.id.tvKeypoint)
 
@@ -254,7 +260,14 @@ class TrainingView : AppCompatActivity() {
         countRunnable = Runnable(){
             @Override
             fun run(){
-
+                if(dynamic_motion_judgement==true){
+                    trueView.visibility = View.VISIBLE//顯示動作正確圖示
+                    falseView.visibility = View.GONE//不顯示錯誤圖示
+                }
+                else{
+                    trueView.visibility = View.GONE//不顯示動作正確圖示
+                    falseView.visibility = View.VISIBLE//顯示錯誤圖示
+                }
                 when (motionName){
                     "正面劈刀" -> {
                         if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
@@ -266,7 +279,7 @@ class TrainingView : AppCompatActivity() {
                             startActivity(i)
                             finish()
                         }
-                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt())
+                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt()) + "次"
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
@@ -280,7 +293,7 @@ class TrainingView : AppCompatActivity() {
                             startActivity(i)
                             finish()
                         }
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt())
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt()) + "次"
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
@@ -309,8 +322,10 @@ class TrainingView : AppCompatActivity() {
                         }else{
                             hold_sword_count = Math.floor(hold_sword_count)
                         }
+                        trueView.visibility = View.GONE//不顯示動作正確圖示
+                        falseView.visibility = View.GONE//不顯示錯誤圖示
 
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt())
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + "秒"
                         countHandler.postDelayed(countRunnable, 100)
                     }
                 }
