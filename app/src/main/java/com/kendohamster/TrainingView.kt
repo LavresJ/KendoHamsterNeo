@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 var motionName_public: String? = null
+var classes_probability: ArrayList<Float> = arrayListOf()
 var AnkleStep = true
 var stepCount = 0.0
 var lastAnkleStep = false
@@ -58,8 +59,10 @@ var total_dynamic_motion_accuracy = 0.0
 var frontCount = 0.0
 var hold_sword = false
 var hold_sword_count = 0.0
+var is_dynamic_motion = false
 var dynamic_motion_complete = false //判斷動態動作有沒有完成一個週期
 var dynamic_motion_judgement = true //判斷該週期的動態動作是正確or錯誤
+var dynamic_motion_times_count = 0.0
 var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
@@ -188,7 +191,12 @@ class TrainingView : AppCompatActivity() {
         practiceTime = i.getIntExtra("practiceTime", 0)
 
         motionName_public = motionName.toString()
-        Log.d("motionName_public", motionName_public.toString())
+        if(motionName.equals("正面劈刀") || motionName.equals("擦足")){
+            is_dynamic_motion = true
+        }else{
+            is_dynamic_motion = false
+        }
+        //Log.d("motionName_public", motionName_public.toString())
         /////
         wristAboveShoulder = true
         lastBoolean = false
@@ -201,6 +209,7 @@ class TrainingView : AppCompatActivity() {
         hold_sword = false
         dynamic_motion_complete = false
         dynamic_motion_judgement = false
+        dynamic_motion_times_count = 0.0
 
         accuracyList.clear()
 
@@ -260,13 +269,24 @@ class TrainingView : AppCompatActivity() {
         countRunnable = Runnable(){
             @Override
             fun run(){
-                if(dynamic_motion_judgement==true){
-                    trueView.visibility = View.VISIBLE//顯示動作正確圖示
-                    falseView.visibility = View.GONE//不顯示錯誤圖示
-                }
-                else{
-                    trueView.visibility = View.GONE//不顯示動作正確圖示
-                    falseView.visibility = View.VISIBLE//顯示錯誤圖示
+                if(is_dynamic_motion) {
+                    if (dynamic_motion_complete) {
+                        if (dynamic_motion_judgement) {
+                            trueView.visibility = View.VISIBLE     //顯示動作正確圖示
+                            falseView.visibility = View.GONE    //不顯示錯誤圖示
+                        } else {
+                            trueView.visibility = View.GONE //不顯示動作正確圖示
+                            falseView.visibility = View.VISIBLE //顯示錯誤圖示
+                        }
+                        dynamic_motion_times_count = 0.0
+                        dynamic_motion_complete = false
+                    }
+
+                    if(dynamic_motion_times_count > 1){ //顯示1秒的時間
+                        trueView.visibility = View.GONE
+                        falseView.visibility = View.GONE
+                    }
+                    dynamic_motion_times_count += 0.1
                 }
                 when (motionName){
                     "正面劈刀" -> {
