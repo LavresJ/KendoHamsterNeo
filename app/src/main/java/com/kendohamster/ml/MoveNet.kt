@@ -207,9 +207,9 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         val obj = pyobj.callAttr("main", skeleton)
         Log.d("result", obj.toString())
 
-        var class_probabilities: ArrayList<Float> = arrayListOf()
+        //var class_probabilities: ArrayList<Float> = arrayListOf()
         if(obj.toString().length > 2) {
-            class_probabilities = convert_string_to_float(obj.toString())
+            classes_probability = convert_string_to_float(obj.toString())//class_probabilities = convert_string_to_float(obj.toString())
             /*
             Log.d("swingHead", class_probabilities.get(0).toString())
             Log.d("rubFeet", class_probabilities.get(1).toString())
@@ -250,7 +250,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                     }
                     if (start_motion) {
                         single_dynamic_motion_frames += 1
-                        single_dynamic_motion_accuracy_sum += class_probabilities.get(0)
+                        single_dynamic_motion_accuracy_sum += classes_probability.get(0)
                     }
                     lastBoolean = wristAboveShoulder
                     Log.d("ESTI", "揮劍次數:" + frontCount)
@@ -295,14 +295,14 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                 }
                 if (start_motion) {
                     single_dynamic_motion_frames += 1
-                    single_dynamic_motion_accuracy_sum += class_probabilities.get(1)
+                    single_dynamic_motion_accuracy_sum += classes_probability.get(1)
                 }
             }
 
             //判斷托刀動作
             "托刀" -> {
                 if (obj.toString().length > 2) {
-                    if (class_probabilities.get(2) > 0.6) {
+                    if (classes_probability.get(2) > 0.6) {
                         hold_sword = true
                     }else{
                         hold_sword = false

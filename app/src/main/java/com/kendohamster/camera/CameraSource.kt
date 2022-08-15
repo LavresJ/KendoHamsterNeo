@@ -40,6 +40,7 @@ import com.kendohamster.ml.*
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import com.kendohamster.classes_probability
 
 class CameraSource(
     private val surfaceView: SurfaceView,
@@ -66,6 +67,7 @@ class CameraSource(
     private var fpsTimer: Timer? = null
     private var frameProcessedInOneSecondInterval = 0
     private var framesPerSecond = 0
+    private val motion_labels = listOf("正面劈刀", "擦足", "托刀")
 
     /** Detects, characterizes, and connects to a CameraDevice (used for all camera operations) */
     private val cameraManager: CameraManager by lazy {
@@ -241,17 +243,20 @@ class CameraSource(
     private fun processImage(bitmap: Bitmap) {
         val persons = mutableListOf<Person>()
         var classificationResult: List<Pair<String, Float>>? = null
-
+        val model_output = mutableListOf<Pair<String, Float>>()
         synchronized(lock) {
             detector?.estimatePoses(bitmap)?.let {
                 persons.addAll(it)
 
                 // if the model only returns one item, allow running the Pose classifier.
+                /*
                 if (persons.isNotEmpty()) {
                     classifier?.run {
                         classificationResult = classify(persons[0])
                     }
                 }
+
+                 */
             }
         }
         frameProcessedInOneSecondInterval++
@@ -261,8 +266,12 @@ class CameraSource(
         }
 
         // if the model returns only one item, show that item's score.
+        classes_probability.forEachIndexed { index, probability ->
+            model_output.add(Pair(motion_labels[index], probability))
+        }
         if (persons.isNotEmpty()) {
-            listener?.onDetectedInfo(persons[0].score, classificationResult)
+            //listener?.onDetectedInfo(persons[0].score, classificationResult)
+            listener?.onDetectedInfo(persons[0].score, model_output)
         }
         visualize(persons, bitmap)
     }
