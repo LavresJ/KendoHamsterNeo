@@ -60,7 +60,7 @@ public class TrainingResult extends AppCompatActivity {
 
         accuracy = 0.0;
         for (int j = 0; j < accuracyList.length; j++) {
-            if (accuracyList[j] >= 0.6) {
+            if (accuracyList[j] >= 0.5) {
                 accuracy += (float) (1.0 / accuracyList.length);
             }
         }
@@ -115,6 +115,7 @@ public class TrainingResult extends AppCompatActivity {
                 Intent i = new Intent(TrainingResult.this, TrainingView.class);
                 i.putExtra("motionName", motionName);
                 i.putExtra("practiceTime", practiceTime);
+                i.putExtra("camera_back", true);
                 startActivity(i);
                 TrainingResult.this.finish();
             }

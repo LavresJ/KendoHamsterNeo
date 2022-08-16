@@ -25,7 +25,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
-import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.view.WindowManager
@@ -38,12 +37,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
-import com.kendohamster.camera.CameraSource
 import com.kendohamster.data.Device
 import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
+import com.kendohamster.camera.CameraSource as Camera_back
+import com.kendohamster.camera.CameraSourceReverse as Camera_front
 
 var motionName_public: String? = null
 var classes_probability: ArrayList<Float> = arrayListOf()
@@ -64,6 +64,7 @@ var dynamic_motion_complete = false //判斷動態動作有沒有完成一個週
 var dynamic_motion_judgement = true //判斷該週期的動態動作是正確or錯誤
 var dynamic_motion_times_count = 0.0
 var normal_end = true
+var camera_back = true  //是否是後鏡頭
 var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
@@ -99,6 +100,7 @@ class TrainingView : AppCompatActivity() {
     private lateinit var tvMotionName: TextView
     private lateinit var tvPracticeCount: TextView
     private lateinit var btnStopPractice: Button
+    private lateinit var viewReverseCamera: ImageView
 
     private lateinit var tvScore: TextView
     private lateinit var tvFPS: TextView
@@ -111,7 +113,9 @@ class TrainingView : AppCompatActivity() {
     private lateinit var tvClassificationValue3: TextView
     private lateinit var swClassification: SwitchCompat
     private lateinit var vClassificationOption: View
-    private var cameraSource: CameraSource? = null
+    private var cameraSource_back: Camera_back? = null
+    private var cameraSource_front: Camera_front? = null
+
     private var isClassifyPose = false
     private lateinit var falseView: ImageView//動作錯誤圖示
     private lateinit var trueView:ImageView//動作正確圖示
@@ -190,6 +194,7 @@ class TrainingView : AppCompatActivity() {
         val i = intent
         motionName = i.getStringExtra("motionName")
         practiceTime = i.getIntExtra("practiceTime", 0)
+        camera_back = i.getBooleanExtra("camera_back", true)
 
         motionName_public = motionName.toString()
         if(motionName.equals("正面劈刀") || motionName.equals("擦足")){
@@ -225,6 +230,7 @@ class TrainingView : AppCompatActivity() {
         tvMotionName = findViewById(R.id.tv_motion_name)
         btnStopPractice = findViewById(R.id.btn_stop_practice)
         tvPracticeCount = findViewById(R.id.tvPracticeCount)
+        viewReverseCamera = findViewById(R.id.reverseCameraView)
 
         tvScore = findViewById(com.kendohamster.R.id.tvScore)
         tvFPS = findViewById(com.kendohamster.R.id.tvFps)
@@ -261,6 +267,35 @@ class TrainingView : AppCompatActivity() {
             finish()
         })
 
+        viewReverseCamera.setOnClickListener(View.OnClickListener {
+            /*
+            if(camera_back) {
+                cameraSource_back?.close()
+                cameraSource_back = null
+            }else{
+                cameraSource_front?.close()
+                cameraSource_front = null
+            }
+             */
+
+            cameraSource_back?.close()
+            cameraSource_back = null
+            cameraSource_front?.close()
+            cameraSource_front = null
+
+            if(camera_back){
+                camera_back = false
+            }else{
+                camera_back = true
+            }
+
+            val i = Intent(this, TrainingView::class.java)
+            i.putExtra("motionName", motionName)
+            i.putExtra("practiceTime", practiceTime)
+            i.putExtra("camera_back", camera_back)
+            this.finish()   //MotionVideo.this.finish();
+            startActivity(i)
+        })
     }
 
     override fun onStart() {
@@ -269,7 +304,11 @@ class TrainingView : AppCompatActivity() {
     }
 
     override fun onResume() {
-        cameraSource?.resume()
+        if(camera_back) {
+            cameraSource_back?.resume()
+        }else{
+            cameraSource_front?.resume()
+        }
         super.onResume()
 
         ///handler test
@@ -289,7 +328,7 @@ class TrainingView : AppCompatActivity() {
                         dynamic_motion_complete = false
                     }
 
-                    if(dynamic_motion_times_count > 1){ //顯示1秒的時間
+                    if(dynamic_motion_times_count > 0.8){ //顯示0.8秒的時間
                         trueView.visibility = View.GONE
                         falseView.visibility = View.GONE
                     }
@@ -302,6 +341,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            i.putExtra("frontCount", frontCount)
                             i.putExtra("normal_end", normal_end)
                             showToast("完成訓練")
                             startActivity(i)
@@ -317,6 +357,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            i.putExtra("stepCount", stepCount)
                             i.putExtra("normal_end", normal_end)
                             showToast("完成訓練")
                             startActivity(i)
@@ -335,6 +376,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            i.putExtra("hold_sword_count", hold_sword_count)
                             i.putExtra("normal_end", normal_end)
                             showToast("完成訓練")
                             startActivity(i)
@@ -370,8 +412,20 @@ class TrainingView : AppCompatActivity() {
     }
 
     override fun onPause() {
-        cameraSource?.close()
-        cameraSource = null
+        /*
+        if(camera_back) {
+            cameraSource_back?.close()
+            cameraSource_back = null
+        }else{
+            cameraSource_front?.close()
+            cameraSource_front = null
+        }
+         */
+        cameraSource_back?.close()
+        cameraSource_back = null
+        cameraSource_front?.close()
+        cameraSource_front = null
+
         countHandler.removeCallbacks(countRunnable)
 
         super.onPause()
@@ -389,9 +443,9 @@ class TrainingView : AppCompatActivity() {
     // open camera
     private fun openCamera() {
         if (isCameraPermissionGranted()) {
-            if (cameraSource == null) {
-                cameraSource =
-                    CameraSource(surfaceView, object : CameraSource.CameraSourceListener {
+            if (cameraSource_back == null && camera_back) {
+                cameraSource_back =
+                    Camera_back(surfaceView, object : Camera_back.CameraSourceListener {
                         override fun onFPSListener(fps: Int) {
                             tvFPS.text = getString(com.kendohamster.R.string.tfe_pe_tv_fps, fps)
                         }
@@ -423,7 +477,44 @@ class TrainingView : AppCompatActivity() {
                     }
                 isPoseClassifier()
                 lifecycleScope.launch(Dispatchers.Main) {
-                    cameraSource?.initCamera()
+                    cameraSource_back?.initCamera()
+                }
+            }
+            if (cameraSource_front == null && !camera_back) {
+                cameraSource_front =
+                    Camera_front(surfaceView, object : Camera_front.CameraSourceListener {
+                        override fun onFPSListener(fps: Int) {
+                            tvFPS.text = getString(com.kendohamster.R.string.tfe_pe_tv_fps, fps)
+                        }
+
+                        override fun onDetectedInfo(
+                            personScore: Float?,
+                            poseLabels: List<Pair<String, Float>>?
+                        ) {
+                            tvScore.text = getString(com.kendohamster.R.string.tfe_pe_tv_score, personScore ?: 0f)
+                            poseLabels?.sortedByDescending { it.second }?.let {
+                                tvClassificationValue1.text = getString(
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
+                                    convertPoseLabels(if (it.isNotEmpty()) it[0] else null)
+                                )
+                                tvClassificationValue2.text = getString(
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
+                                    convertPoseLabels(if (it.size >= 2) it[1] else null)
+                                )
+                                tvClassificationValue3.text = getString(
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
+                                    convertPoseLabels(if (it.size >= 3) it[2] else null)
+                                )
+                            }
+                        }
+
+
+                    }).apply {
+                        prepareCamera()
+                    }
+                isPoseClassifier()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    cameraSource_front?.initCamera()
                 }
             }
             createPoseEstimator()
@@ -436,7 +527,11 @@ class TrainingView : AppCompatActivity() {
     }
 
     private fun isPoseClassifier() {
-        cameraSource?.setClassifier(if (isClassifyPose) PoseClassifier.create(this) else null)
+        if(camera_back) {
+            cameraSource_back?.setClassifier(if (isClassifyPose) PoseClassifier.create(this) else null)
+        }else{
+            cameraSource_front?.setClassifier(if (isClassifyPose) PoseClassifier.create(this) else null)
+        }
     }
 
     // Initialize spinners to let user select model/accelerator/tracker.
@@ -495,13 +590,23 @@ class TrainingView : AppCompatActivity() {
 
     // Change tracker for Movenet MultiPose model
     private fun changeTracker(position: Int) {
-        cameraSource?.setTracker(
-            when (position) {
-                1 -> TrackerType.BOUNDING_BOX
-                2 -> TrackerType.KEYPOINTS
-                else -> TrackerType.OFF
-            }
-        )
+        if(camera_back) {
+            cameraSource_back?.setTracker(
+                when (position) {
+                    1 -> TrackerType.BOUNDING_BOX
+                    2 -> TrackerType.KEYPOINTS
+                    else -> TrackerType.OFF
+                }
+            )
+        }else{
+            cameraSource_front?.setTracker(
+                when (position) {
+                    1 -> TrackerType.BOUNDING_BOX
+                    2 -> TrackerType.KEYPOINTS
+                    else -> TrackerType.OFF
+                }
+            )
+        }
     }
 
     private fun createPoseEstimator() {
@@ -552,8 +657,14 @@ class TrainingView : AppCompatActivity() {
                 null
             }
         }
-        poseDetector?.let { detector ->
-            cameraSource?.setDetector(detector) //重置detector
+        if(camera_back) {
+            poseDetector?.let { detector ->
+                cameraSource_back?.setDetector(detector) //重置detector
+            }
+        }else{
+            poseDetector?.let { detector ->
+                cameraSource_front?.setDetector(detector) //重置detector
+            }
         }
     }
 

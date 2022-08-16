@@ -44,7 +44,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 
-class CameraSource(
+class CameraSourceReverse(
     private val surfaceView: SurfaceView,
     private val listener: CameraSourceListener? = null
 ) {
@@ -111,14 +111,22 @@ class CameraSource(
                 yuvConverter.yuvToRgb(image, imageBitmap)
                 // Create rotated version for portrait display
                 val rotateMatrix = Matrix()
-                rotateMatrix.postRotate(90.0f)
+                rotateMatrix.postRotate(270.0f)
 
                 val rotatedBitmap = Bitmap.createBitmap(
                     imageBitmap, 0, 0, PREVIEW_WIDTH, PREVIEW_HEIGHT,
                     rotateMatrix, false
                 )
+                val MirroredMatrix = Matrix()
 
-                processImage(rotatedBitmap)
+                MirroredMatrix.preScale(-1.0f, 1.0f)
+                val MirroredBitmap: Bitmap = Bitmap.createBitmap(
+                    rotatedBitmap, 0, 0,
+                    PREVIEW_HEIGHT, PREVIEW_WIDTH, MirroredMatrix, false
+                )
+
+                //processImage(rotatedBitmap)
+                processImage(MirroredBitmap)
                 image.close()
             }
         }, imageReaderHandler)
@@ -169,16 +177,21 @@ class CameraSource(
             val characteristics = cameraManager.getCameraCharacteristics(cameraId)
 
             // We don't use a front facing camera in this sample.
-
+            /*
             val cameraDirection = characteristics.get(CameraCharacteristics.LENS_FACING)
             if (cameraDirection != null &&
                 cameraDirection == CameraCharacteristics.LENS_FACING_FRONT
             ) {
                 continue
             }
-
+             */
+            val cameraDirection = characteristics.get(CameraCharacteristics.LENS_FACING)
+            if (cameraDirection != null &&
+                cameraDirection == CameraCharacteristics.LENS_FACING_BACK
+            ) {
+                continue
+            }
             this.cameraId = cameraId
-            break
             //this.cameraId = "0"
         }
     }
@@ -344,7 +357,9 @@ class CameraSource(
     ///////
     fun getPersons(): List<Person> {
         val rotateMatrix = Matrix()
-        rotateMatrix.postRotate(90.0f)
+        val MirroredMatrix = Matrix()
+        //rotateMatrix.postRotate(90.0f)
+        rotateMatrix.postRotate(270.0f)
 
         var bitmap =
             Bitmap.createBitmap(
@@ -356,7 +371,15 @@ class CameraSource(
         val rotatedBitmap = Bitmap.createBitmap(
             bitmap, 0, 0, PREVIEW_WIDTH, PREVIEW_HEIGHT,
             rotateMatrix, false)
+        /*
+        MirroredMatrix.preScale(-1.0f, 1.0f)
+        val MirroredBitmap: Bitmap = Bitmap.createBitmap(
+            rotatedBitmap, 0, 0,
+            PREVIEW_HEIGHT, PREVIEW_WIDTH, MirroredMatrix, false
+        )
 
+
+         */
 
         val persons = mutableListOf<Person>()
         /*
@@ -367,7 +390,7 @@ class CameraSource(
         }
          */
         synchronized(lock) {
-            detector?.estimatePoses(rotatedBitmap)?.let {
+            detector?.estimatePoses(rotatedBitmap)?.let {  //MirroredBitmap
                 persons.addAll(it)
             }
         }

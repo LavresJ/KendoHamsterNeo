@@ -68,4 +68,15 @@
         app:layout_anchorGravity="bottom|center_horizontal"
         android:layout_gravity="bottom|center_horizontal"
         app:srcCompat="@drawable/accept" />
+
+    <ImageView
+        android:id="@+id/reverseCameraView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_flip_camera_ios_48"
+        app:layout_anchor="@+id/toolbar"
+        app:layout_anchorGravity="bottom|left"
+        android:layout_gravity="bottom|left"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
