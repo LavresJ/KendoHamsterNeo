@@ -560,6 +560,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         skeleton[3] = (skeleton[11] + skeleton[5]) / 2
         return skeleton
     }
+
     private fun convert_string_to_float(json: String): ArrayList<Float> {
         val probability = ArrayList<Float>()
         val jsonD: String //去除json字串的 "[", "]"
