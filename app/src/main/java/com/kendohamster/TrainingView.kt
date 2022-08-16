@@ -63,6 +63,7 @@ var is_dynamic_motion = false
 var dynamic_motion_complete = false //判斷動態動作有沒有完成一個週期
 var dynamic_motion_judgement = true //判斷該週期的動態動作是正確or錯誤
 var dynamic_motion_times_count = 0.0
+var normal_end = true
 var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
@@ -210,6 +211,7 @@ class TrainingView : AppCompatActivity() {
         dynamic_motion_complete = false
         dynamic_motion_judgement = false
         dynamic_motion_times_count = 0.0
+        normal_end = true
 
         accuracyList.clear()
 
@@ -246,10 +248,15 @@ class TrainingView : AppCompatActivity() {
         tvMotionName.text = motionName
 
         btnStopPractice.setOnClickListener(View.OnClickListener {
+            normal_end = false
             val i = Intent(this, TrainingResult::class.java)
             i.putExtra("motionName", motionName)
             i.putExtra("practiceTime", practiceTime)
             i.putExtra("accuracyList", accuracyList.toFloatArray())
+            i.putExtra("normal_end", normal_end)
+            i.putExtra("frontCount", frontCount)
+            i.putExtra("stepCount", stepCount)
+            i.putExtra("hold_sword_count", hold_sword_count)
             startActivity(i)
             finish()
         })
@@ -295,6 +302,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            i.putExtra("normal_end", normal_end)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()
@@ -309,6 +317,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            i.putExtra("normal_end", normal_end)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()
@@ -326,6 +335,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            i.putExtra("normal_end", normal_end)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()
@@ -422,7 +432,7 @@ class TrainingView : AppCompatActivity() {
 
     private fun convertPoseLabels(pair: Pair<String, Float>?): String {
         if (pair == null) return "empty"
-        return "${pair.first} (${String.format("%.2f", pair.second)})"
+        return "${pair.first} (${String.format("%.3f", pair.second)})"
     }
 
     private fun isPoseClassifier() {
