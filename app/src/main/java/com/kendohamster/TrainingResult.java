@@ -24,7 +24,7 @@ import java.util.List;
 
 public class TrainingResult extends AppCompatActivity {
 
-    TextView textResultMotionName, textResultPracticeTime, textResultAccuracy;
+    TextView textResultMotionName, textExpectedPracticeTime,textResultPracticeTime, textResultAccuracy;
     Button btnPracticeAgain, btnDownloadVideo, btnBackToMotionList;
     String motionName;
     int practiceTime;
@@ -34,6 +34,10 @@ public class TrainingResult extends AppCompatActivity {
     String jsonF, jsonA;
     ArrayList<Float> inputF = new ArrayList<>();
     ArrayList<Float> inputA = new ArrayList<>();
+    boolean normal_end;
+    double frontCount = 0.0;
+    double stepCount = 0.0;
+    double hold_sword_count = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +48,49 @@ public class TrainingResult extends AppCompatActivity {
         motionName = i.getStringExtra("motionName");
         practiceTime = i.getIntExtra("practiceTime", 0);
         accuracyList = i.getFloatArrayExtra("accuracyList");
+        normal_end = i.getBooleanExtra("normal_end", true);
 
         textResultMotionName = findViewById(R.id.textResultMotionName);
+        textExpectedPracticeTime = findViewById(R.id.textExpectedPracticeTime);
         textResultPracticeTime = findViewById(R.id.textResultPracticeTime);
         textResultAccuracy = findViewById(R.id.textResultAccuracy);
         btnPracticeAgain = findViewById(R.id.btnPracticeAgain);
         btnDownloadVideo = findViewById(R.id.btnDownloadVideo);
         btnBackToMotionList = findViewById(R.id.btnBackToMotionList);
 
+        accuracy = 0.0;
+        for (int j = 0; j < accuracyList.length; j++) {
+            if (accuracyList[j] >= 0.6) {
+                accuracy += (float) (1.0 / accuracyList.length);
+            }
+        }
 
         //Log.d("accuracyList", Arrays.toString(accuracyList));
+        switch (motionName) {
+            case "正面劈刀":
+                frontCount = i.getDoubleExtra("frontCount", 0);
+                textResultMotionName.setText(motionName);
+                textExpectedPracticeTime.setText("預計練習次數: "+ practiceTime +"次");
+                textResultPracticeTime.setText("已練習次數：" + String.format("%.0f",Math.floor(frontCount)) + "次");
+                textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy * 100) + "%");
+                break;
+
+            case "擦足":
+                stepCount = i.getDoubleExtra("stepCount", 0);
+                textResultMotionName.setText(motionName);
+                textExpectedPracticeTime.setText("預計練習次數: "+ practiceTime +"次");
+                textResultPracticeTime.setText("已練習次數：" + String.format("%.0f", Math.floor(stepCount)) + "次");
+                textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy * 100) + "%");
+                break;
+
+            case "托刀":
+                hold_sword_count = i.getDoubleExtra("hold_sword_count", 0);
+                textResultMotionName.setText(motionName);
+                textExpectedPracticeTime.setText("預計練習時間: "+ practiceTime +"秒");
+                textResultPracticeTime.setText("已練習時間：" +  String.format("%.0f", Math.floor(hold_sword_count)) + "秒");
+                textResultAccuracy.setText("");
+        }
+        /*
         if(accuracyList.length != 0) { //是動態動作
             accuracy = 0.0;
             for (int j = 0; j < accuracyList.length; j++) {
@@ -70,6 +107,7 @@ public class TrainingResult extends AppCompatActivity {
             textResultPracticeTime.setText("練習時間：" + String.valueOf(practiceTime) + "秒");
             textResultAccuracy.setText("");
         }
+         */
 
         btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
             @Override
