@@ -60,7 +60,7 @@ public class TrainingResult extends AppCompatActivity {
         accuracyList = i.getFloatArrayExtra("accuracyList");
         normal_end = i.getBooleanExtra("normal_end", true);
         timestamp_str = i.getStringExtra("time_start");
-        Log.d("time_start", timestamp_str);
+        //Log.d("time_start", timestamp_str);
 
         textResultMotionName = findViewById(R.id.textResultMotionName);
         textExpectedPracticeTime = findViewById(R.id.textExpectedPracticeTime);
@@ -132,12 +132,6 @@ public class TrainingResult extends AppCompatActivity {
                 i.putExtra("camera_back", true);
                 startActivity(i);
                 TrainingResult.this.finish();
-            }
-        });
-        btnStoreData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Download Video",Toast.LENGTH_SHORT).show();
             }
         });
 
