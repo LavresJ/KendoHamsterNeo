@@ -57,6 +57,7 @@ var start_motion = false
 var single_dynamic_motion_frames = 0.0
 var single_dynamic_motion_accuracy_sum = 0.0
 var total_dynamic_motion_accuracy = 0.0
+var static_motion_detect = false
 var frontCount = 0.0
 var hold_sword = false
 var hold_sword_count = 0.0
@@ -220,6 +221,7 @@ class TrainingView : AppCompatActivity() {
         dynamic_motion_complete = false
         dynamic_motion_judgement = false
         dynamic_motion_times_count = 0.0
+        static_motion_detect = false
         normal_end = true
 
         accuracyList.clear()
@@ -267,8 +269,8 @@ class TrainingView : AppCompatActivity() {
             i.putExtra("frontCount", frontCount)
             i.putExtra("stepCount", stepCount)
             i.putExtra("hold_sword_count", hold_sword_count)
-            startActivity(i)
             finish()
+            startActivity(i)
         })
 
         viewReverseCamera.setOnClickListener(View.OnClickListener {
@@ -297,6 +299,7 @@ class TrainingView : AppCompatActivity() {
             i.putExtra("motionName", motionName)
             i.putExtra("practiceTime", practiceTime)
             i.putExtra("camera_back", camera_back)
+            i.putExtra("time_start", timestamp_str)
             this.finish()   //MotionVideo.this.finish();
             startActivity(i)
         })
@@ -396,13 +399,20 @@ class TrainingView : AppCompatActivity() {
                         //此處判斷動作是否正確
                         //若動作正確則hold_sword_count+=0.1
                         //動作不正確則hold_sword_count無條件捨棄小數點
-                        if(hold_sword){ //動作正確 hold_sword
-                            hold_sword_count += 0.1
+                        if(static_motion_detect) {
+                            if (hold_sword) { //動作正確 hold_sword
+                                hold_sword_count += 0.1
+                                trueView.visibility = View.VISIBLE     //顯示動作正確圖示
+                                falseView.visibility = View.GONE    //不顯示錯誤圖示
+                            } else {
+                                hold_sword_count = Math.floor(hold_sword_count)
+                                trueView.visibility = View.GONE
+                                falseView.visibility = View.VISIBLE
+                            }
                         }else{
-                            hold_sword_count = Math.floor(hold_sword_count)
+                            trueView.visibility = View.GONE
+                            falseView.visibility = View.GONE
                         }
-                        trueView.visibility = View.GONE//不顯示動作正確圖示
-                        falseView.visibility = View.GONE//不顯示錯誤圖示
 
                         tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + "秒"
                         countHandler.postDelayed(countRunnable, 100)

@@ -202,7 +202,11 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             SystemClock.elapsedRealtimeNanos() - inferenceStartTimeNanos
 
         //餵骨架進模型
-        skeleton = keyPoints_to_skeleton(keyPoints_float)
+        if(camera_back){
+            skeleton = keyPoints_to_skeleton(keyPoints_float)
+        }else{
+            skeleton = keyPoints_to_skeleton_mirror(keyPoints_float)
+        }
         Log.d("skeleton", skeleton.contentToString())
         val obj = pyobj.callAttr("main", skeleton)
         Log.d("result", obj.toString())
@@ -217,102 +221,227 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
              */
         }
 
-        when(motionName_public) {
-            "正面劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
-                val rightShoulder = keyPoints[6].coordinate.y
-                val rightWrist = keyPoints[10].coordinate.y
-                if (keyPoints[6].score > 0.2 && keyPoints[10].score > 0.2) { //rightShoulder != null && rightWrist != null
-                    wristAboveShoulder = rightWrist < rightShoulder
-                    //Log.d("wristAboveShoulder", wristAboveShoulder.toString())
-                    //Log.d("lastBoolean", lastBoolean.toString())
-                    if (lastBoolean != wristAboveShoulder) {
-                        frontCount += 0.5
-                        if ((frontCount * 2).toInt() % 2 == 0 && frontCount.toInt() >= 1) {   //揮劍次數第二次以後的case
-                            total_dynamic_motion_accuracy = single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
-                            accuracyList.add(total_dynamic_motion_accuracy.toFloat())
-                            Log.d("total_dynamic_motion_accuracy", total_dynamic_motion_accuracy.toString())
+        if(camera_back) {
+            when (motionName_public) {
+                "正面劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                    val rightShoulder = keyPoints[6].coordinate.y
+                    val rightWrist = keyPoints[10].coordinate.y
+                    if (keyPoints[6].score > 0.2 && keyPoints[10].score > 0.2) { //rightShoulder != null && rightWrist != null
+                        wristAboveShoulder = rightWrist < rightShoulder
+                        //Log.d("wristAboveShoulder", wristAboveShoulder.toString())
+                        //Log.d("lastBoolean", lastBoolean.toString())
+                        if (lastBoolean != wristAboveShoulder) {
+                            frontCount += 0.5
+                            if ((frontCount * 2).toInt() % 2 == 0 && frontCount.toInt() >= 1) {   //揮劍次數第二次以後的case
+                                total_dynamic_motion_accuracy =
+                                    single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
+                                accuracyList.add(total_dynamic_motion_accuracy.toFloat())
+                                Log.d(
+                                    "total_dynamic_motion_accuracy",
+                                    total_dynamic_motion_accuracy.toString()
+                                )
 
-                            if(total_dynamic_motion_accuracy > 0.5){
-                                dynamic_motion_judgement = true
-                            }else{
-                                dynamic_motion_judgement = false
+                                if (total_dynamic_motion_accuracy > 0.5) {
+                                    dynamic_motion_judgement = true
+                                } else {
+                                    dynamic_motion_judgement = false
+                                }
+                                dynamic_motion_complete = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            } else if (frontCount.toInt() < 1) { //揮劍次數第一次的case
+                                start_motion = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
                             }
-                            dynamic_motion_complete = true
-                            single_dynamic_motion_frames = 0.0
-                            single_dynamic_motion_accuracy_sum = 0.0
-                            total_dynamic_motion_accuracy = 0.0
-                        } else if (frontCount.toInt() < 1) { //揮劍次數第一次的case
-                            start_motion = true
-                            single_dynamic_motion_frames = 0.0
-                            single_dynamic_motion_accuracy_sum = 0.0
-                            total_dynamic_motion_accuracy = 0.0
                         }
+                        if (start_motion) {
+                            single_dynamic_motion_frames += 1
+                            single_dynamic_motion_accuracy_sum += classes_probability.get(0)
+                        }
+                        lastBoolean = wristAboveShoulder
+                        Log.d("ESTI", "揮劍次數:" + frontCount)
+                        //Log.d("single_dynamic_motion_frames", single_dynamic_motion_frames.toString())
+                    }
+                }
+                //判斷腳步步數
+                "擦足" -> {
+                    val rightAnkle = keyPoints[16].coordinate.x
+                    val leftAnkle = keyPoints[15].coordinate.x
+                    if (keyPoints[16].score > 0.2 && keyPoints[15].score > 0.2) {       //rightAnkle != null && leftAnkle != null
+                        if (leftAnkle - rightAnkle > 100) { //100
+                            AnkleStep = true
+                        } else {
+                            AnkleStep = false
+                        }
+                        if (lastAnkleStep != AnkleStep) {
+                            stepCount += 0.5
+                            Log.d("stepCount", "腳步移動次數:" + stepCount)
+                            if ((stepCount * 2).toInt() % 2 == 0 && stepCount.toInt() >= 1) {   //擦足次數第二次以後的case
+                                total_dynamic_motion_accuracy =
+                                    single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
+                                accuracyList.add(total_dynamic_motion_accuracy.toFloat())
+                                Log.d(
+                                    "total_dynamic_motion_accuracy",
+                                    total_dynamic_motion_accuracy.toString()
+                                )
+
+                                if (total_dynamic_motion_accuracy > 0.5) {
+                                    dynamic_motion_judgement = true
+                                } else {
+                                    dynamic_motion_judgement = false
+                                }
+                                dynamic_motion_complete = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            } else if (stepCount.toInt() < 1) { //擦足次數第一次的case
+                                start_motion = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            }
+                        }
+                        lastAnkleStep = AnkleStep
                     }
                     if (start_motion) {
                         single_dynamic_motion_frames += 1
-                        single_dynamic_motion_accuracy_sum += classes_probability.get(0)
+                        single_dynamic_motion_accuracy_sum += classes_probability.get(1)
                     }
-                    lastBoolean = wristAboveShoulder
-                    Log.d("ESTI", "揮劍次數:" + frontCount)
-                    //Log.d("single_dynamic_motion_frames", single_dynamic_motion_frames.toString())
                 }
-            }
-            //判斷腳步步數
-            "擦足" -> {
-                val rightAnkle = keyPoints[16].coordinate.x
-                val leftAnkle = keyPoints[15].coordinate.x
-                if (keyPoints[16].score > 0.2 && keyPoints[15].score > 0.2) {       //rightAnkle != null && leftAnkle != null
-                    if (leftAnkle - rightAnkle > 100) { //100
-                        AnkleStep = true
-                    } else {
-                        AnkleStep = false
-                    }
-                    if (lastAnkleStep != AnkleStep) {
-                        stepCount += 0.5
-                        Log.d("stepCount", "腳步移動次數:" + stepCount)
-                        if ((stepCount * 2).toInt() % 2 == 0 && stepCount.toInt() >= 1) {   //擦足次數第二次以後的case
-                            total_dynamic_motion_accuracy = single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
-                            accuracyList.add(total_dynamic_motion_accuracy.toFloat())
-                            Log.d("total_dynamic_motion_accuracy", total_dynamic_motion_accuracy.toString())
 
-                            if(total_dynamic_motion_accuracy > 0.5){
-                                dynamic_motion_judgement = true
-                            }else{
-                                dynamic_motion_judgement = false
+                //判斷托刀動作
+                "托刀" -> {
+                    if (obj.toString().length > 2) {
+                        if(keyPoints[0].score > 0.2) {
+                            if (classes_probability.get(2) > 0.5) {
+                                hold_sword = true
+                            } else {
+                                hold_sword = false
                             }
-                            dynamic_motion_complete = true
-                            single_dynamic_motion_frames = 0.0
-                            single_dynamic_motion_accuracy_sum = 0.0
-                            total_dynamic_motion_accuracy = 0.0
-                        } else if (stepCount.toInt() < 1) { //擦足次數第一次的case
-                            start_motion = true
-                            single_dynamic_motion_frames = 0.0
-                            single_dynamic_motion_accuracy_sum = 0.0
-                            total_dynamic_motion_accuracy = 0.0
+                            static_motion_detect = true
+                        }else{
+                            static_motion_detect = false
                         }
                     }
-                    lastAnkleStep = AnkleStep
-                }
-                if (start_motion) {
-                    single_dynamic_motion_frames += 1
-                    single_dynamic_motion_accuracy_sum += classes_probability.get(1)
                 }
             }
+            Log.d("keyPoints", keyPoints.toString())
+            //Log.d("keyPoints_float", keyPoints_float.toString())
+        }else{
+            when (motionName_public) {
+                "正面劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                    val rightShoulder = keyPoints[5].coordinate.y   //keyPoints[6].coordinate.y
+                    val rightWrist = keyPoints[9].coordinate.y  //keyPoints[10].coordinate.y
+                    if (keyPoints[5].score > 0.2 && keyPoints[9].score > 0.2) { //rightShoulder != null && rightWrist != null
+                        wristAboveShoulder = rightWrist < rightShoulder
+                        //Log.d("wristAboveShoulder", wristAboveShoulder.toString())
+                        //Log.d("lastBoolean", lastBoolean.toString())
+                        if (lastBoolean != wristAboveShoulder) {
+                            frontCount += 0.5
+                            if ((frontCount * 2).toInt() % 2 == 0 && frontCount.toInt() >= 1) {   //揮劍次數第二次以後的case
+                                total_dynamic_motion_accuracy =
+                                    single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
+                                accuracyList.add(total_dynamic_motion_accuracy.toFloat())
+                                Log.d(
+                                    "total_dynamic_motion_accuracy",
+                                    total_dynamic_motion_accuracy.toString()
+                                )
 
-            //判斷托刀動作
-            "托刀" -> {
-                if (obj.toString().length > 2) {
-                    if (classes_probability.get(2) > 0.6) {
-                        hold_sword = true
-                    }else{
-                        hold_sword = false
+                                if (total_dynamic_motion_accuracy > 0.5) {
+                                    dynamic_motion_judgement = true
+                                } else {
+                                    dynamic_motion_judgement = false
+                                }
+                                dynamic_motion_complete = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            } else if (frontCount.toInt() < 1) { //揮劍次數第一次的case
+                                start_motion = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            }
+                        }
+                        if (start_motion) {
+                            single_dynamic_motion_frames += 1
+                            single_dynamic_motion_accuracy_sum += classes_probability.get(0)
+                        }
+                        lastBoolean = wristAboveShoulder
+                        Log.d("ESTI", "揮劍次數:" + frontCount)
+                        //Log.d("single_dynamic_motion_frames", single_dynamic_motion_frames.toString())
+                    }
+                }
+                //判斷腳步步數
+                "擦足" -> {
+                    val rightAnkle = 1 -  keyPoints[15].coordinate.x  //keyPoints[16].coordinate.x
+                    val leftAnkle = 1 -  keyPoints[16].coordinate.x   //keyPoints[15].coordinate.x
+                    Log.d("rightAnkle", rightAnkle.toString())
+                    Log.d("leftAnkle", leftAnkle.toString())
+                    if (keyPoints[15].score > 0.2 && keyPoints[16].score > 0.2) {       //rightAnkle != null && leftAnkle != null
+                        if (leftAnkle - rightAnkle > 100) { //100
+                            AnkleStep = true
+                        } else {
+                            AnkleStep = false
+                        }
+                        if (lastAnkleStep != AnkleStep) {
+                            stepCount += 0.5
+                            Log.d("stepCount", "腳步移動次數:" + stepCount)
+                            if ((stepCount * 2).toInt() % 2 == 0 && stepCount.toInt() >= 1) {   //擦足次數第二次以後的case
+                                total_dynamic_motion_accuracy =
+                                    single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
+                                accuracyList.add(total_dynamic_motion_accuracy.toFloat())
+                                Log.d(
+                                    "total_dynamic_motion_accuracy",
+                                    total_dynamic_motion_accuracy.toString()
+                                )
+
+                                if (total_dynamic_motion_accuracy > 0.5) {
+                                    dynamic_motion_judgement = true
+                                } else {
+                                    dynamic_motion_judgement = false
+                                }
+                                dynamic_motion_complete = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            } else if (stepCount.toInt() < 1) { //擦足次數第一次的case
+                                start_motion = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            }
+                        }
+                        lastAnkleStep = AnkleStep
+                    }
+                    if (start_motion) {
+                        single_dynamic_motion_frames += 1
+                        single_dynamic_motion_accuracy_sum += classes_probability.get(1)
+                    }
+                }
+
+                //判斷托刀動作
+                "托刀" -> {
+                    if (obj.toString().length > 2) {
+                        if(keyPoints[0].score > 0.2) {
+                            if (classes_probability.get(2) > 0.5) {
+                                hold_sword = true
+                            } else {
+                                hold_sword = false
+                            }
+                            static_motion_detect = true
+                        }else{
+                            static_motion_detect = false
+                        }
                     }
                 }
             }
+            Log.d("keyPoints", keyPoints.toString())
+            //Log.d("keyPoints_float", keyPoints_float.toString())
         }
-        Log.d("keyPoints", keyPoints.toString())
-        //Log.d("keyPoints_float", keyPoints_float.toString())
-
 
         return listOf(Person(keyPoints = keyPoints, score = totalScore / numKeyPoints))
     }
@@ -551,6 +680,69 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
         //16: right_ankle
         skeleton[20] = keyPoints_float[16].coordinate.x
         skeleton[21] = keyPoints_float[16].coordinate.y
+        //17: neck
+        /*
+        skeleton[2] = 0.0
+        skeleton[3] = 0.0
+         */
+        skeleton[2] = (skeleton[10] + skeleton[4]) / 2
+        skeleton[3] = (skeleton[11] + skeleton[5]) / 2
+        return skeleton
+    }
+
+    private fun keyPoints_to_skeleton_mirror(keyPoints_float : MutableList<KeyPoint>): FloatArray{
+        var skeleton = FloatArray(36)
+        //0: nose
+        skeleton[0] = 1 - keyPoints_float[0].coordinate.x      //240 - (keyPoints_float[0].coordinate.x - 240)
+        skeleton[1] = keyPoints_float[0].coordinate.y
+        //1: left_eye
+        skeleton[30] = 1 - keyPoints_float[2].coordinate.x
+        skeleton[31] = keyPoints_float[2].coordinate.y
+        //2: right_eye
+        skeleton[28] = 1 - keyPoints_float[1].coordinate.x
+        skeleton[29] = keyPoints_float[1].coordinate.y
+        //3: left_ear
+        skeleton[34] = 1 - keyPoints_float[4].coordinate.x
+        skeleton[35] = keyPoints_float[4].coordinate.y
+        //4: right_ear
+        skeleton[32] = 1 - keyPoints_float[3].coordinate.x
+        skeleton[33] = keyPoints_float[3].coordinate.y
+        //5: left_shoulder
+        skeleton[10] = 1 - keyPoints_float[6].coordinate.x
+        skeleton[11] = keyPoints_float[6].coordinate.y
+        //6: right_shoulder
+        skeleton[4] = 1 - keyPoints_float[5].coordinate.x
+        skeleton[5] = keyPoints_float[5].coordinate.y
+        //7: left_elbow
+        skeleton[12] = 1 - keyPoints_float[8].coordinate.x
+        skeleton[13] = keyPoints_float[8].coordinate.y
+        //8: right_elbow
+        skeleton[6] = 1 - keyPoints_float[7].coordinate.x
+        skeleton[7] = keyPoints_float[7].coordinate.y
+        //9: left_wrist
+        skeleton[14] = 1 - keyPoints_float[10].coordinate.x
+        skeleton[15] = keyPoints_float[10].coordinate.y
+        //10: right_wrist
+        skeleton[8] = 1 - keyPoints_float[9].coordinate.x
+        skeleton[9] = keyPoints_float[9].coordinate.y
+        //11: left_hip
+        skeleton[22] = 1 - keyPoints_float[12].coordinate.x
+        skeleton[23] = keyPoints_float[12].coordinate.y
+        //12: right_hip
+        skeleton[16] = 1 - keyPoints_float[11].coordinate.x
+        skeleton[17] = keyPoints_float[11].coordinate.y
+        //13: left_knee
+        skeleton[24] = 1 - keyPoints_float[14].coordinate.x
+        skeleton[25] = keyPoints_float[14].coordinate.y
+        //14: right_knee
+        skeleton[18] = 1 - keyPoints_float[13].coordinate.x
+        skeleton[19] = keyPoints_float[13].coordinate.y
+        //15: left_ankle
+        skeleton[26] = 1 - keyPoints_float[16].coordinate.x
+        skeleton[27] =  keyPoints_float[16].coordinate.y
+        //16: right_ankle
+        skeleton[20] = 1 - keyPoints_float[15].coordinate.x
+        skeleton[21] =keyPoints_float[15].coordinate.y
         //17: neck
         /*
         skeleton[2] = 0.0
