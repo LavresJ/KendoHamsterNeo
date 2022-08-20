@@ -13,12 +13,15 @@ import androidx.fragment.app.ListFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.sql.Timestamp;
 
 public class MotionVideo extends AppCompatActivity {
 
@@ -151,10 +154,16 @@ public class MotionVideo extends AppCompatActivity {
     }
 
     public void startPracticing(String motionName, int practiceTime){
+        Long datetime = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(datetime);
+        String timestamp_str = timestamp.toString();
+        Log.d("timestamp_str", timestamp_str);
+
         Intent i = new Intent(this, TrainingView.class);
         i.putExtra("motionName", motionName);
         i.putExtra("practiceTime", practiceTime);
         i.putExtra("camera_back", true);
+        i.putExtra("time_start", timestamp_str);
         startActivity(i);
         MotionVideo.this.finish();
     }
