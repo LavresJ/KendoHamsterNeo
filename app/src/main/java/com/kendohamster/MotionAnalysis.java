@@ -131,6 +131,8 @@ public class MotionAnalysis {
         int swing_num = swing_middle_pt.size();
         //ArrayList<Float> F_avg = cal_F_avg(swing_middle_pt, swing_end_pt, swing_num);
         //ArrayList<Float> delta_theta = cal_delta_theta(swing_middle_pt, swing_end_pt, time_sec, swing_num);
+        F_avg.clear();
+        delta_theta.clear();
         F_avg = cal_F_avg(swing_middle_pt, swing_end_pt, swing_num);
         delta_theta = cal_delta_theta(swing_middle_pt, swing_end_pt, time_sec, swing_num);
 

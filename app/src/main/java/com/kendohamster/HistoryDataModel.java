@@ -1,15 +1,19 @@
 package com.kendohamster;
 
-public class HistoryDataModel {
-    String timestamp, action_name, accuracy, practice_time, F_avg, delta_theta;
+import java.sql.Timestamp;
 
-    public HistoryDataModel(String timestamp, String action_name, String accuracy, String practice_time, String f_avg, String delta_theta) {
+public class HistoryDataModel {
+    String timestamp, action_name, F_avg, delta_theta;
+    float accuracy;
+    int practice_time;
+
+    public HistoryDataModel(String timestamp, String action_name, String f_avg, String delta_theta, float accuracy, int practice_time) {
         this.timestamp = timestamp;
         this.action_name = action_name;
+        F_avg = f_avg;
+        this.delta_theta = delta_theta;
         this.accuracy = accuracy;
         this.practice_time = practice_time;
-        this.F_avg = f_avg;
-        this.delta_theta = delta_theta;
     }
 
     public String getTimestamp() {
@@ -28,22 +32,6 @@ public class HistoryDataModel {
         this.action_name = action_name;
     }
 
-    public String getAccuracy() {
-        return accuracy;
-    }
-
-    public void setAccuracy(String accuracy) {
-        this.accuracy = accuracy;
-    }
-
-    public String getPractice_time() {
-        return practice_time;
-    }
-
-    public void setPractice_time(String practice_time) {
-        this.practice_time = practice_time;
-    }
-
     public String getF_avg() {
         return F_avg;
     }
@@ -58,5 +46,21 @@ public class HistoryDataModel {
 
     public void setDelta_theta(String delta_theta) {
         this.delta_theta = delta_theta;
+    }
+
+    public float getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(float accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    public int getPractice_time() {
+        return practice_time;
+    }
+
+    public void setPractice_time(int practice_time) {
+        this.practice_time = practice_time;
     }
 }

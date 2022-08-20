@@ -156,6 +156,7 @@ public class TrainingResult extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 MA.getData();
+                Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -231,31 +232,31 @@ public class TrainingResult extends AppCompatActivity {
         btnStoreData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HistoryDataModel result = new HistoryDataModel(timestamp_str, motionName, "",  "",  "", "");
+                HistoryDataModel result = new HistoryDataModel(timestamp_str, motionName, "",  "",  (float) accuracy, practiceTime);
                 DAOHistoryDataModel dao = new DAOHistoryDataModel();
                 switch (motionName) {
                     case ("正面劈刀"):
                         F_avg = MA.F_avg;
                         delta_theta = MA.delta_theta;
-                        result = new HistoryDataModel(timestamp_str, motionName, String.valueOf(accuracy), String.valueOf(practiceTime), F_avg.toString(), delta_theta.toString());
+                        result = new HistoryDataModel(timestamp_str, motionName, F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
                         break;
                     case ("擦足"):
-                        result = new HistoryDataModel(timestamp_str, motionName, String.valueOf(accuracy), String.valueOf(practiceTime), "", "");
+                        result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) accuracy, practiceTime);
                         break;
                     case ("托刀"):
-                        result = new HistoryDataModel(timestamp_str, motionName, String.valueOf(1), String.valueOf(practiceTime), "", "");
+                        result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) 1.0, practiceTime);
                         break;
                 }
                 dao.add(result).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(TrainingResult.this, "Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, "儲存成功", Toast.LENGTH_SHORT).show();
                         //Log.d("send", "success");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(TrainingResult.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, "儲存失敗" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         //Log.d("send", "false");
                     }
                 });
