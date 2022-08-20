@@ -25,6 +25,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
+import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.view.WindowManager
@@ -65,6 +66,7 @@ var dynamic_motion_judgement = true //判斷該週期的動態動作是正確or�
 var dynamic_motion_times_count = 0.0
 var normal_end = true
 var camera_back = true  //是否是後鏡頭
+var timestamp_str: String? = null
 var accuracyList: ArrayList<Float> = arrayListOf()
 
 class TrainingView : AppCompatActivity() {
@@ -195,6 +197,8 @@ class TrainingView : AppCompatActivity() {
         motionName = i.getStringExtra("motionName")
         practiceTime = i.getIntExtra("practiceTime", 0)
         camera_back = i.getBooleanExtra("camera_back", true)
+        timestamp_str = i.getStringExtra("time_start")
+        //Log.d("time_start", timestamp_str.toString())
 
         motionName_public = motionName.toString()
         if(motionName.equals("正面劈刀") || motionName.equals("擦足")){
@@ -343,6 +347,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
                             i.putExtra("frontCount", frontCount)
                             i.putExtra("normal_end", normal_end)
+                            i.putExtra("time_start", timestamp_str)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()
@@ -359,6 +364,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
                             i.putExtra("stepCount", stepCount)
                             i.putExtra("normal_end", normal_end)
+                            i.putExtra("time_start", timestamp_str)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()
@@ -378,6 +384,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("accuracyList", accuracyList.toFloatArray())
                             i.putExtra("hold_sword_count", hold_sword_count)
                             i.putExtra("normal_end", normal_end)
+                            i.putExtra("time_start", timestamp_str)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()

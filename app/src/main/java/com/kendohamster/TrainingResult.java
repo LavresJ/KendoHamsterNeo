@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +27,7 @@ import java.util.List;
 public class TrainingResult extends AppCompatActivity {
 
     TextView textResultMotionName, textExpectedPracticeTime,textResultPracticeTime, textResultAccuracy;
-    Button btnPracticeAgain, btnDownloadVideo, btnBackToMotionList;
+    Button btnPracticeAgain, btnStoreData, btnBackToMotionList;
     String motionName;
     int practiceTime;
     double accuracy = 0.0;
@@ -39,6 +41,14 @@ public class TrainingResult extends AppCompatActivity {
     double stepCount = 0.0;
     double hold_sword_count = 0.0;
 
+    public ArrayList<Float> F_avg;
+    public ArrayList<Float> delta_theta;
+    public String timestamp_str;
+    public MotionAnalysis MA;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference Ref_WearOSRequest = database.getReference().child("WearOSRequest");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +59,18 @@ public class TrainingResult extends AppCompatActivity {
         practiceTime = i.getIntExtra("practiceTime", 0);
         accuracyList = i.getFloatArrayExtra("accuracyList");
         normal_end = i.getBooleanExtra("normal_end", true);
+        timestamp_str = i.getStringExtra("time_start");
+        Log.d("time_start", timestamp_str);
 
         textResultMotionName = findViewById(R.id.textResultMotionName);
         textExpectedPracticeTime = findViewById(R.id.textExpectedPracticeTime);
         textResultPracticeTime = findViewById(R.id.textResultPracticeTime);
         textResultAccuracy = findViewById(R.id.textResultAccuracy);
         btnPracticeAgain = findViewById(R.id.btnPracticeAgain);
-        btnDownloadVideo = findViewById(R.id.btnDownloadVideo);
+        btnStoreData = findViewById(R.id.btnStoreData);
         btnBackToMotionList = findViewById(R.id.btnBackToMotionList);
+
+        MA = new MotionAnalysis();
 
         accuracy = 0.0;
         for (int j = 0; j < accuracyList.length; j++) {
@@ -120,7 +134,7 @@ public class TrainingResult extends AppCompatActivity {
                 TrainingResult.this.finish();
             }
         });
-        btnDownloadVideo.setOnClickListener(new View.OnClickListener() {
+        btnStoreData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Download Video",Toast.LENGTH_SHORT).show();
@@ -133,8 +147,51 @@ public class TrainingResult extends AppCompatActivity {
                 TrainingResult.this.finish();
             }
         });
+        Ref_WearOSRequest.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                MA.getData();
+                Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        /*
+        Ref_WearOSRequest.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                MotionAnalysis MA = new MotionAnalysis();
+                MA.getData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+         */
 
         //讀手錶分析完的資料
+        /*
         DB_ref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference objRef = DB_ref.child("WatchResultModel");
         objRef.addChildEventListener(new ChildEventListener() {
@@ -169,6 +226,40 @@ public class TrainingResult extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+         */
+        btnStoreData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HistoryDataModel result = new HistoryDataModel(timestamp_str, motionName, "",  "",  (float) accuracy, practiceTime);
+                DAOHistoryDataModel dao = new DAOHistoryDataModel();
+                switch (motionName) {
+                    case ("正面劈刀"):
+                        F_avg = MA.F_avg;
+                        delta_theta = MA.delta_theta;
+                        result = new HistoryDataModel(timestamp_str, motionName, F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
+                        break;
+                    case ("擦足"):
+                        result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) accuracy, practiceTime);
+                        break;
+                    case ("托刀"):
+                        result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) 1.0, practiceTime);
+                        break;
+                }
+                dao.add(result).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(TrainingResult.this, "儲存成功", Toast.LENGTH_SHORT).show();
+                        //Log.d("send", "success");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(TrainingResult.this, "儲存失敗" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Log.d("send", "false");
+                    }
+                });
             }
         });
     }

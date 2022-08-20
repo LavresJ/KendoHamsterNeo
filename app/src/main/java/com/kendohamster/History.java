@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,11 @@ import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -27,6 +33,7 @@ public class History extends AppCompatActivity {
     CalendarView calendarView;
     Button btnRecord, btnDraw, btnTestPython;
     TextView txtResults;
+    private DatabaseReference DB_ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +109,24 @@ public class History extends AppCompatActivity {
                 txtResults.setText(results.toString());
             }
         });
+        DB_ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference objRef = DB_ref.child("ResultDataModel");
+        objRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot taskSnapshot) {
+                for(DataSnapshot snapshot: taskSnapshot.getChildren()){
+                    //jsonF = snapshot.child("f_avg").getValue().toString();
+                    //jsonA = snapshot.child("delta_theta").getValue().toString();
+                }
+                //Log.d("f_avg", jsonF);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
