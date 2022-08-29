@@ -103,6 +103,7 @@ public class TrainingResult extends AppCompatActivity {
                 textExpectedPracticeTime.setText("預計練習時間: "+ practiceTime +"秒");
                 textResultPracticeTime.setText("已練習時間：" +  String.format("%.0f", Math.floor(hold_sword_count)) + "秒");
                 textResultAccuracy.setText("");
+                break;
         }
         /*
         if(accuracyList.length != 0) { //是動態動作

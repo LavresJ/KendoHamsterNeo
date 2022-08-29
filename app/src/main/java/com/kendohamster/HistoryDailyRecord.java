@@ -11,12 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class HistoryDailyRecord extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -24,8 +34,9 @@ public class HistoryDailyRecord extends AppCompatActivity {
 
     private ArrayList<String> timeList = new ArrayList<>();
     private ArrayList<String> motionsList = new ArrayList<>();
-    private  ArrayList<Integer> countList = new ArrayList<>();
-    private  ArrayList<Double> correctRateList = new ArrayList<>();
+    private ArrayList<Integer> countList = new ArrayList<>();
+    private ArrayList<Double> correctRateList = new ArrayList<>();
+    private DatabaseReference DB_ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +48,7 @@ public class HistoryDailyRecord extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewHistory);
         recyclerView.setLayoutManager(new LinearLayoutManager(HistoryDailyRecord.this));
 
+        /*
         timeList.add("20:01");
         timeList.add("20:04");
         timeList.add("20:13");
@@ -69,8 +81,27 @@ public class HistoryDailyRecord extends AppCompatActivity {
         correctRateList.add(60.0);
         correctRateList.add(80.0);
 
-        adapter = new RecyclerAdapterForHistoryList(timeList, motionsList, countList, correctRateList, HistoryDailyRecord.this);
-        recyclerView.setAdapter(adapter);
+         */
+
+        //讀firebase results
+        DB_ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference objRef = DB_ref.child("HistoryDataModel");
+        objRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot taskSnapshot) {
+                for(DataSnapshot snapshot: taskSnapshot.getChildren()){
+                    addRecords(snapshot);
+                }
+                adapter = new RecyclerAdapterForHistoryList(timeList, motionsList, countList, correctRateList, HistoryDailyRecord.this);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -129,6 +160,7 @@ public class HistoryDailyRecord extends AppCompatActivity {
             }
         });
     }
+
     public void selectItem(int position) {
         Intent i = null;
         switch(position) {
@@ -161,5 +193,37 @@ public class HistoryDailyRecord extends AppCompatActivity {
         }
 
         startActivity(i);
+    }
+
+    public void addRecords(DataSnapshot snapshot){
+        String motionName = snapshot.child("action_name").getValue().toString();
+        String timestamp_str = (String) snapshot.child("timestamp").getValue();
+        Timestamp timestamp = Timestamp.valueOf(timestamp_str);
+        Float accuracy = Float.valueOf(snapshot.child("accuracy").getValue().toString()) * 100;
+        int practice_time = Integer.valueOf(snapshot.child("practice_time").getValue().toString());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp.getTime());
+        Log.d("time_history", calendar.toString());
+
+        timeList.add(String.format("%02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND)));
+        motionsList.add(motionName);
+        correctRateList.add(Double.valueOf(accuracy.toString()));
+        countList.add(practice_time);
+
+        /*
+        switch (motionName) {
+            case "正面劈刀":
+
+                break;
+            case "擦足":
+
+                break;
+            case "托刀":
+
+                break;
+        }
+
+         */
     }
 }
