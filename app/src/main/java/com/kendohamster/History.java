@@ -47,24 +47,24 @@ public class History extends AppCompatActivity {
         txtResults = findViewById(R.id.txtResults);
 
 
-//        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
-//            @Override
-//            public void onDrawerClosed(View drawerView) {  super .onDrawerClosed(drawerView);  }
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {  super .onDrawerOpened(drawerView); }
-//        };
-//
-//        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-//        actionBarDrawerToggle.syncState();
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {  super .onDrawerClosed(drawerView);  }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {  super .onDrawerOpened(drawerView); }
+        };
+
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 //        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 //            @Override
 //            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
+
 //                drawerLayout.closeDrawer(GravityCompat.START);
 //
 //                int id = item.getItemId();
