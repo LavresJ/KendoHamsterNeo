@@ -9,9 +9,6 @@
     android:id="@+id/myDrawerLayout"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".History">
@@ -30,73 +27,42 @@
             app:title="KendoHamster"
             app:titleTextColor="@color/white"
             />
+
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="55dp"
+            android:layout_height="wrap_content"
             android:firstDayOfWeek="3"
             android:shownWeekCount="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="278dp"
-            android:text="平均正確率"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.174" />
 
         <TextView
             android:id="@+id/txtResults"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="244dp"
-            android:text="Results"
+            android:text="該日有幾筆訓練紀錄"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnRecord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="41dp"
-            android:text="history Record"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <Button
-            android:id="@+id/btnDraw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="116dp"
-            android:text="history Record"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <Button
-            android:id="@+id/btnTestPython"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="188dp"
-            android:text="Test Python"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtResults"
+            tools:listitem="@layout/card_design" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView

@@ -2,16 +2,17 @@
   <library name="Gradle: androidx.drawerlayout:drawerlayout:1.0.0@aar">
     <ANNOTATIONS>
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b7a46d5ff9b5ee3ba05997413abc3a8d/transformed/drawerlayout-1.0.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/res" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/b310b3e3afdfb93777abfaddc5cc01d5/transformed/drawerlayout-1.0.0/res" />
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f9a0c86046e6dff5c617d4181a2bf177/transformed/drawerlayout-1.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b7a46d5ff9b5ee3ba05997413abc3a8d/transformed/drawerlayout-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b7a46d5ff9b5ee3ba05997413abc3a8d/transformed/drawerlayout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b7a46d5ff9b5ee3ba05997413abc3a8d/transformed/drawerlayout-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

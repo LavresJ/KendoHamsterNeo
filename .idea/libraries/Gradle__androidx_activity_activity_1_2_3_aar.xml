@@ -2,7 +2,7 @@
   <library name="Gradle: androidx.activity:activity:1.2.3@aar">
     <ANNOTATIONS>
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b5aef17f6c75fcde225f11d8b09596d9/transformed/jetified-activity-1.2.3/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/res" />
@@ -10,8 +10,9 @@
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/AndroidManifest.xml" />
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b1898d4994474c39a09e618a206fa569/transformed/jetified-activity-1.2.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b5aef17f6c75fcde225f11d8b09596d9/transformed/jetified-activity-1.2.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b5aef17f6c75fcde225f11d8b09596d9/transformed/jetified-activity-1.2.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b5aef17f6c75fcde225f11d8b09596d9/transformed/jetified-activity-1.2.3/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

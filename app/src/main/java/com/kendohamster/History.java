@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,12 +29,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 public class History extends AppCompatActivity {
     CalendarView calendarView;
-    Button btnRecord, btnDraw, btnTestPython;
     TextView txtResults;
+
+    private RecyclerView recyclerView;
+    private ArrayList<String> action_name = new ArrayList<>();
+    private ArrayList<String> start_time  = new ArrayList<>();
+    private ArrayList<String> practice_count = new ArrayList<>();
+    private ArrayList<String> accuracy_list = new ArrayList<>();
+    private ArrayList<Integer> image_list = new ArrayList<>();
+    private ArrayList<HistoryDetailsModel> history_details = new ArrayList<>();
+
+    private RecyclerAdapterCard adapter;
+
     private DatabaseReference DB_ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +56,11 @@ public class History extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         calendarView = findViewById(R.id.calendarView);
-        btnRecord = findViewById(R.id.btnRecord);
-        btnDraw = findViewById(R.id.btnDraw);
-
-        btnTestPython = findViewById(R.id.btnTestPython);
         txtResults = findViewById(R.id.txtResults);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(History.this));
 
+        txtResults.setText("");
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -102,75 +117,38 @@ public class History extends AppCompatActivity {
 //        });
 
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            Intent i = new Intent(History.this, HistoryDailyRecord.class);
-            startActivity(i);
+            Toast.makeText(this, "選擇 " + year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();
+            Log.d("year", String.valueOf(year));
+            Log.d("month", String.valueOf(month + 1));
+            Log.d("dayOfMonth", String.valueOf(dayOfMonth));
 
+            action_name.clear();
+            start_time.clear();
+            practice_count.clear();
+            accuracy_list.clear();
+            image_list.clear();
+            history_details.clear();
+
+            //Intent i = new Intent(History.this, HistoryDailyRecordCard.class);
+            //startActivity(i);
+            addDailyRecord(year, month + 1, dayOfMonth);
         });
 
-        btnRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(History.this, HistoryDailyRecord.class);
-                startActivity(i);
-            }
-        });
+    }
 
-        //此按鈕是用於嘗試java繪圖的功能
-        //所以點這邊的按鈕，會進到一個 DrawPictureTry 這個 activity 裡
-        btnDraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(History.this, DrawPictureTry.class);
-                startActivity(i);
-            }
-        });
-
-        btnTestPython.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView textView;
-                double sk1[] = {0, 0, 0.4573170731707317, 0.17119565217391303, 0.5457317073170732, 0.17527173913043478, 0.6158536585365854, 0.35054347826086957, 0, 0, 0.3597560975609756, 0.14266304347826086, 0.3384146341463415, 0.30978260869565216, 0.31097560975609756, 0.4891304347826087, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.4817073170731707, 0.028532608695652176, 0.38109756097560976, 0.024456521739130432};
-                double sk2[] = {0, 0, 0.4298780487804878, 0.19157608695652176, 0.5182926829268293, 0.1875, 0.5884146341463414, 0.3586956521739131, 0.5792682926829268, 0.5135869565217391, 0.3353658536585366, 0.17119565217391303, 0.31097560975609756, 0.30570652173913043, 0.29878048780487804, 0.47282608695652173, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.46646341463414637, 0.06521739130434782, 0.3719512195121951, 0.05706521739130435};
-                double sk3[] = {0, 0, 0.4176829268292683, 0.21195652173913043, 0.5060975609756098, 0.19972826086956524, 0.5670731707317073, 0.3586956521739131, 0.551829268292683, 0.4891304347826087, 0.3201219512195122, 0.19565217391304346, 0.3018292682926829, 0.30978260869565216, 0.2804878048780488, 0.46875, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.45121951219512196, 0.08559782608695651, 0.36585365853658536, 0.08152173913043478};
-                double sk4[] = {0, 0, 0.3871951219512195, 0.23233695652173914, 0.47560975609756095, 0.21603260869565216, 0.5182926829268293, 0.3586956521739131, 0.5274390243902439, 0.4891304347826087, 0.2896341463414634, 0.23233695652173914, 0.27134146341463417, 0.3586956521739131, 0.25914634146341464, 0.5054347826086957, 0.4481707317073171, 0.47282608695652173, 0.4481707317073171, 0.65625, 0, 0, 0.3628048780487805, 0.4483695652173913, 0, 0, 0, 0, 0, 0, 0, 0, 0.42073170731707316, 0.1141304347826087, 0.34146341463414637, 0.11820652173913043};
-                double sk5[] = {0, 0, 0.3719512195121951, 0.22418478260869565, 0.4573170731707317, 0.21603260869565216, 0.4969512195121951, 0.34239130434782605, 0.524390243902439, 0.46875, 0.28353658536585363, 0.2282608695652174, 0, 0, 0, 0, 0.4115853658536585, 0.46467391304347827, 0, 0, 0, 0, 0.3353658536585366, 0.46875, 0, 0, 0, 0, 0, 0, 0, 0, 0.4115853658536585, 0.11820652173913043, 0.3353658536585366, 0.12635869565217392};
-                double sk6[] = {0, 0, 0.3597560975609756, 0.22418478260869565, 0.4451219512195122, 0.22010869565217395, 0.47865853658536583, 0.3342391304347826, 0.5152439024390244, 0.4605978260869565, 0.2804878048780488, 0.22418478260869565, 0.24695121951219512, 0.3586956521739131, 0, 0, 0.4146341463414634, 0.47282608695652173, 0.35365853658536583, 0.6603260869565217, 0, 0, 0.31402439024390244, 0.46875, 0, 0, 0, 0, 0, 0, 0, 0, 0.40853658536585363, 0.12635869565217392, 0.3323170731707317, 0.13043478260869565};
-                double sk7[] = {0, 0, 0.35060975609756095, 0.2404891304347826, 0.4329268292682927, 0.2404891304347826, 0.4573170731707317, 0.35054347826086957, 0.4878048780487805, 0.4565217391304348, 0.2774390243902439, 0.23641304347826086, 0.2621951219512195, 0.33016304347826086, 0, 0, 0.3932926829268293, 0.4850543478260869, 0.3597560975609756, 0.6317934782608695, 0.35060975609756095, 0.7133152173913043, 0.3048780487804878, 0.46875, 0.32621951219512196, 0.6317934782608695, 0, 0, 0, 0, 0, 0, 0.4054878048780488, 0.15489130434782608, 0.3353658536585366, 0.15489130434782608};
-                double sk8[] = {0, 0, 0.3475609756097561, 0.25271739130434784, 0.4176829268292683, 0.2608695652173913, 0.43597560975609756, 0.375, 0.4634146341463415, 0.4891304347826087, 0.2804878048780488, 0.25271739130434784, 0.25914634146341464, 0.3342391304347826, 0, 0, 0.3780487804878049, 0.4932065217391305, 0.3475609756097561, 0.6358695652173914, 0, 0, 0.2926829268292683, 0.4605978260869565, 0.2926829268292683, 0.6154891304347826, 0, 0, 0, 0, 0, 0, 0.39939024390243905, 0.17527173913043478, 0.3353658536585366, 0.16304347826086957};
-                double sk9[] = {0.4024390243902439, 0.1875, 0.34146341463414637, 0.24864130434782605, 0.4054878048780488, 0.24456521739130435, 0.4115853658536585, 0.3586956521739131, 0.4329268292682927, 0.4565217391304348, 0.28353658536585363, 0.24864130434782605, 0, 0, 0, 0, 0.36585365853658536, 0.47282608695652173, 0.3445121951219512, 0.6195652173913043, 0, 0, 0.29573170731707316, 0.4565217391304348, 0.3079268292682927, 0.5991847826086957, 0, 0, 0.4024390243902439, 0.17934782608695654, 0, 0, 0.3902439024390244, 0.17527173913043478, 0.3353658536585366, 0.16304347826086957};
-                ArrayList<SK> sk = new ArrayList<>();
-                ArrayList<String> results = new ArrayList<>();
-
-                if (! Python.isStarted()) {
-                    Python.start(new AndroidPlatform(History.this));
-                }
-
-                Python py = Python.getInstance();
-                //PyObject pyobj = py.getModule("myscript");
-                //PyObject pyobj = py.getModule("./src/try");
-                PyObject pyobj = py.getModule("src/try");
-
-                sk.add(new SK(sk1)); sk.add(new SK(sk2)); sk.add(new SK(sk3)); sk.add(new SK(sk4)); sk.add(new SK(sk5)); sk.add(new SK(sk6)); sk.add(new SK(sk7)); sk.add(new SK(sk8)); sk.add(new SK(sk9));
-                for(int i = 0; i < sk.size(); i++){
-                    PyObject obj = pyobj.callAttr("main", sk.get(i).getSk());
-                    results.add(obj.toString());
-                }
-                //PyObject obj = pyobj.callAttr("main", sk1);
-
-                //textView.setText(obj.toString());
-                txtResults.setText(results.toString());
-            }
-        });
+    public void addDailyRecord(int year, int month, int dayOfMonth){
         DB_ref = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference objRef = DB_ref.child("ResultDataModel");
+        DatabaseReference objRef = DB_ref.child("HistoryDataModel");
         objRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot taskSnapshot) {
                 for(DataSnapshot snapshot: taskSnapshot.getChildren()){
-                    //jsonF = snapshot.child("f_avg").getValue().toString();
-                    //jsonA = snapshot.child("delta_theta").getValue().toString();
+                    addRecords(snapshot, year, month, dayOfMonth);
                 }
-                //Log.d("f_avg", jsonF);
+
+                adapter = new RecyclerAdapterCard(action_name, start_time, practice_count, accuracy_list, image_list, history_details, History.this);
+                recyclerView.setAdapter(adapter);
+                txtResults.setText(String.format("%04d-%02d-%02d 有 %d 筆訓練紀錄", year, month, dayOfMonth, action_name.size()));
             }
 
             @Override
@@ -178,9 +156,84 @@ public class History extends AppCompatActivity {
 
             }
         });
-
-
     }
+
+    public void addRecords(DataSnapshot snapshot, int year, int month, int dayOfMonth){
+        String motionName = snapshot.child("action_name").getValue().toString();
+        String timestamp_str = (String) snapshot.child("timestamp").getValue();
+        Timestamp timestamp = Timestamp.valueOf(timestamp_str);
+        Float accuracy = Float.valueOf(snapshot.child("accuracy").getValue().toString()) * 100;
+        int practice_time = Integer.valueOf(snapshot.child("practice_time").getValue().toString());
+        String jsonF = snapshot.child("f_avg").getValue().toString();
+        String jsonA = snapshot.child("delta_theta").getValue().toString();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp.getTime());
+        //Log.d("time_history", calendar.toString());
+        HistoryDetailsModel historyDetails;
+        boolean same_date = false;
+        same_date = compare_date(year, month, dayOfMonth, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+
+        if(same_date) {
+            action_name.add(motionName);
+            start_time.add(String.format("開始時間: %02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND)));
+            accuracy_list.add(String.format("正確率: %.2f%%", Double.valueOf(accuracy.toString())));
+
+            switch (motionName) {
+                case "正面劈刀":
+                    practice_count.add(String.format("練習次數: %d次", practice_time));
+                    historyDetails = new HistoryDetailsModel(convert_string_to_float(jsonF), convert_string_to_float(jsonA));
+                    history_details.add(historyDetails);
+                    image_list.add(R.drawable.hamster1);
+                    break;
+                case "擦足":
+                    practice_count.add(String.format("練習次數: %d次", practice_time));
+                    historyDetails = new HistoryDetailsModel(null, null);
+                    history_details.add(historyDetails);
+                    image_list.add(R.drawable.hamster2);
+                    break;
+                case "托刀":
+                    practice_count.add(String.format("練習時間: %d秒", practice_time));
+                    historyDetails = new HistoryDetailsModel(null, null);
+                    history_details.add(historyDetails);
+                    image_list.add(R.drawable.hamster3);
+                    break;
+            }
+        }
+    }
+
+    public boolean compare_date(int select_year, int select_month, int select_day, int record_year, int record_month, int record_day){
+        boolean same_date = false;
+
+        if(select_year == record_year && select_month==record_month && select_day==record_day){
+            same_date = true;
+        }else{
+            same_date = false;
+        }
+
+        return same_date;
+    }
+
+    public ArrayList<Float> convert_string_to_float(String json){
+        ArrayList<Float> input = new ArrayList<Float>();
+        String jsonD; //去除json字串的 "[", "]"
+        String[] jsonString; //將json字串分割儲存成字串陣列
+
+        jsonD = json.substring(1, json.length()-1);
+        jsonString = jsonD.split(", ");
+
+        //將string陣列轉成ArrayList
+        List<String> jsonStringList =  Arrays.asList(jsonString);
+        ArrayList<String> jsonStringArrayList = new ArrayList<String>(jsonStringList);
+
+
+        for(int i = 0; i < jsonStringArrayList.size(); i++){
+            input.add( Float.parseFloat(jsonStringArrayList.get(i)) );
+        }
+
+        return input;
+    }
+
     public void selectItem(int position) {
         Intent i = null;
         switch(position) {
@@ -202,4 +255,5 @@ public class History extends AppCompatActivity {
 
         startActivity(i);
     }
+
 }
