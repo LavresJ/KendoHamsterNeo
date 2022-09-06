@@ -8,9 +8,7 @@
     tools:context=".MainPage"
     android:id="@+id/myDrawerLayout"
     >
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".TrainingView">
@@ -34,7 +32,7 @@
             android:id="@+id/btnTrainingMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="18dp"
             android:text="訓練菜單"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,11 +44,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            android:layout_marginBottom="224dp"
             android:text="設定"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnHistory" />
+            app:layout_constraintStart_toEndOf="@+id/btnHistory"
+            app:layout_constraintTop_toBottomOf="@+id/btnTrainingMenu"
+            app:layout_constraintVertical_bias="0.157" />
 
         <Button
             android:id="@+id/btnMotionList"
@@ -71,6 +70,17 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/btnSettings"
             app:layout_constraintEnd_toStartOf="@+id/btnSettings"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="313dp"
+            android:layout_height="509dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/hamster_sword" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView

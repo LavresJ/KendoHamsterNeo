@@ -76,45 +76,45 @@ public class History extends AppCompatActivity {
 
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-//                drawerLayout.closeDrawer(GravityCompat.START);
-//
-//                int id = item.getItemId();
-//                if (id == R.id.action_action){
-//                    selectItem(R.id.action_action);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//                    return true;
-//                }
-//                else if (id == R.id.action_menu){
-//                    selectItem(R.id.action_menu);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//
-//                    return true;
-//                }
-//                else if (id == R.id.action_history){
-//                    selectItem(R.id.action_history);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//                    return true;
-//                }
-//                else if (id == R.id.action_setting){
-//                    selectItem(R.id.action_setting);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                int id = item.getItemId();
+                if (id == R.id.action_action){
+                    selectItem(R.id.action_action);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                else if (id == R.id.action_menu){
+                    selectItem(R.id.action_menu);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+
+                    return true;
+                }
+                else if (id == R.id.action_history){
+                    selectItem(R.id.action_history);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                else if (id == R.id.action_setting){
+                    selectItem(R.id.action_setting);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             Toast.makeText(this, "選擇 " + year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();

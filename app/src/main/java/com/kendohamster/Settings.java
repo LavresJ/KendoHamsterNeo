@@ -60,63 +60,63 @@ public class Settings extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"選擇" + settingsGeneral,Toast.LENGTH_LONG).show();
             }
         });
-//        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super .onDrawerClosed(drawerView);
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super .onDrawerOpened(drawerView);
-//            }
-//        };
-//
-//        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-//        actionBarDrawerToggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//                drawerLayout.closeDrawer(GravityCompat.START);
-//
-//                int id = item.getItemId();
-//                if (id == R.id.action_action){
-//                    selectItem(R.id.action_action);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//                    return true;
-//                }
-//                else if (id == R.id.action_menu){
-//                    selectItem(R.id.action_menu);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//
-//                    return true;
-//                }
-//                else if (id == R.id.action_history){
-//                    selectItem(R.id.action_history);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//                    return true;
-//                }
-//                else if (id == R.id.action_setting){
-//                    selectItem(R.id.action_setting);
-//
-//                    item.setChecked(true);
-//                    drawerLayout.closeDrawers();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super .onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super .onDrawerOpened(drawerView);
+            }
+        };
+
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                int id = item.getItemId();
+                if (id == R.id.action_action){
+                    selectItem(R.id.action_action);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                else if (id == R.id.action_menu){
+                    selectItem(R.id.action_menu);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+
+                    return true;
+                }
+                else if (id == R.id.action_history){
+                    selectItem(R.id.action_history);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                else if (id == R.id.action_setting){
+                    selectItem(R.id.action_setting);
+
+                    item.setChecked(true);
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     public void selectItem(int position) {
         Intent i = null;
