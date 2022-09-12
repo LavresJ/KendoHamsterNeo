@@ -3,12 +3,10 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/81172ebb5e3c82bf9fc9b173f95cb7a3/transformed/jetified-tensorflow-lite-support-0.3.0/res" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/d2bf15b2e2dac8bd13c1b3fe5cb8f5df/transformed/jetified-tensorflow-lite-support-0.3.0/res" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/81172ebb5e3c82bf9fc9b173f95cb7a3/transformed/jetified-tensorflow-lite-support-0.3.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/81172ebb5e3c82bf9fc9b173f95cb7a3/transformed/jetified-tensorflow-lite-support-0.3.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/81172ebb5e3c82bf9fc9b173f95cb7a3/transformed/jetified-tensorflow-lite-support-0.3.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1eed54f5580084bedb1f0a55a6123267/transformed/jetified-tensorflow-lite-support-0.3.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1eed54f5580084bedb1f0a55a6123267/transformed/jetified-tensorflow-lite-support-0.3.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1eed54f5580084bedb1f0a55a6123267/transformed/jetified-tensorflow-lite-support-0.3.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/81172ebb5e3c82bf9fc9b173f95cb7a3/transformed/jetified-tensorflow-lite-support-0.3.0/res" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/1eed54f5580084bedb1f0a55a6123267/transformed/jetified-tensorflow-lite-support-0.3.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/1eed54f5580084bedb1f0a55a6123267/transformed/jetified-tensorflow-lite-support-0.3.0/res" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/1eed54f5580084bedb1f0a55a6123267/transformed/jetified-tensorflow-lite-support-0.3.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

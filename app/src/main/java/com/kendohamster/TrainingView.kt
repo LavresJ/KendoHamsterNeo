@@ -25,7 +25,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
-import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.view.WindowManager
@@ -42,7 +41,6 @@ import com.kendohamster.data.Device
 import com.kendohamster.ml.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 import com.kendohamster.camera.CameraSource as Camera_back
 import com.kendohamster.camera.CameraSourceReverse as Camera_front
 
@@ -118,6 +116,10 @@ class TrainingView : AppCompatActivity() {
     private lateinit var vClassificationOption: View
     private var cameraSource_back: Camera_back? = null
     private var cameraSource_front: Camera_front? = null
+
+    //菜單相關
+    var menu_motion_arraylist: ArrayList<String?>? = null
+    var from_menu: Boolean? = null
 
     private var isClassifyPose = false
     private lateinit var falseView: ImageView//動作錯誤圖示
@@ -201,6 +203,10 @@ class TrainingView : AppCompatActivity() {
         timestamp_str = i.getStringExtra("time_start")
         //Log.d("time_start", timestamp_str.toString())
 
+        //Log.d("time_start", timestamp_str);
+        menu_motion_arraylist = i.getStringArrayListExtra("menu_motion_arraylist")
+        from_menu = i.getBooleanExtra("from_menu", false)
+
         motionName_public = motionName.toString()
         if(motionName.equals("正面劈刀") || motionName.equals("擦足")){
             is_dynamic_motion = true
@@ -261,6 +267,9 @@ class TrainingView : AppCompatActivity() {
 
         btnStopPractice.setOnClickListener(View.OnClickListener {
             normal_end = false
+
+            menu_motion_arraylist?.removeAt(0)
+
             val i = Intent(this, TrainingResult::class.java)
             i.putExtra("motionName", motionName)
             i.putExtra("practiceTime", practiceTime)
@@ -269,6 +278,9 @@ class TrainingView : AppCompatActivity() {
             i.putExtra("frontCount", frontCount)
             i.putExtra("stepCount", stepCount)
             i.putExtra("hold_sword_count", hold_sword_count)
+            i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
+            i.putExtra("from_menu", from_menu)
+
             finish()
             startActivity(i)
         })
@@ -300,6 +312,8 @@ class TrainingView : AppCompatActivity() {
             i.putExtra("practiceTime", practiceTime)
             i.putExtra("camera_back", camera_back)
             i.putExtra("time_start", timestamp_str)
+            i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
+            i.putExtra("from_menu", from_menu)
             this.finish()   //MotionVideo.this.finish();
             startActivity(i)
         })
@@ -344,6 +358,9 @@ class TrainingView : AppCompatActivity() {
                 when (motionName){
                     "正面劈刀" -> {
                         if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
+
+                            menu_motion_arraylist?.removeAt(0)
+
                             val i = Intent(this, TrainingResult::class.java)
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
@@ -351,6 +368,8 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("frontCount", frontCount)
                             i.putExtra("normal_end", normal_end)
                             i.putExtra("time_start", timestamp_str)
+                            i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
+                            i.putExtra("from_menu", from_menu)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()
@@ -361,6 +380,9 @@ class TrainingView : AppCompatActivity() {
 
                     "擦足" -> {
                         if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
+
+                            menu_motion_arraylist?.removeAt(0)
+
                             val i = Intent(this, TrainingResult::class.java)
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
@@ -368,6 +390,8 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("stepCount", stepCount)
                             i.putExtra("normal_end", normal_end)
                             i.putExtra("time_start", timestamp_str)
+                            i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
+                            i.putExtra("from_menu", from_menu)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()
@@ -381,6 +405,9 @@ class TrainingView : AppCompatActivity() {
                         //使用者需要連續十次被偵測到動作正確，倒數的秒數才會-1
 
                         if(practiceTime - hold_sword_count <= 0){
+
+                            menu_motion_arraylist?.removeAt(0)
+
                             val i = Intent(this, TrainingResult::class.java)
                             i.putExtra("motionName", motionName)
                             i.putExtra("practiceTime", practiceTime)
@@ -388,6 +415,8 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("hold_sword_count", hold_sword_count)
                             i.putExtra("normal_end", normal_end)
                             i.putExtra("time_start", timestamp_str)
+                            i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
+                            i.putExtra("from_menu", from_menu)
                             showToast("完成訓練")
                             startActivity(i)
                             finish()

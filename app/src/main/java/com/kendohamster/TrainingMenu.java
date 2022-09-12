@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,12 +20,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.kendohamster.R;
+
+import java.util.ArrayList;
 
 public class TrainingMenu extends AppCompatActivity {
     ListView listView;
-    String menu[];
+    String menu_list[];
     ArrayAdapter<String> adapter;
+    String[][] menu;
+    ArrayList<String> menu_motion_arraylist;
 
     Button buttonAdd;
     @Override
@@ -34,16 +39,69 @@ public class TrainingMenu extends AppCompatActivity {
 
         listView = findViewById(R.id.listGeneral);
         buttonAdd = findViewById(R.id.buttonAddMenu);
-        menu = getResources().getStringArray(R.array.menu);
+        menu_list = getResources().getStringArray(R.array.menu);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,menu);
+        //設定菜單內容
+        menu = new String[menu_list.length][];
+        for (int i = 0; i < menu.length; i++){
+            menu[i] = new String[]{"正面劈刀:5", "擦足:5", "托刀:10"};
+        }
+
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menu_list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String menu = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getApplicationContext(),"選擇" + menu,Toast.LENGTH_LONG).show();
+                String menu_name = adapterView.getItemAtPosition(i).toString();
+
+
+                String dialogMessage = "";
+                for (int k = 0; k < menu[i].length; k++){
+                    String[] parts = menu[i][k].split(":");
+                    dialogMessage += "\t";
+                    dialogMessage += menu[i][k];
+                    switch (parts[0]){
+                        case "正面劈刀":
+                        case "擦足":
+                            dialogMessage += "次";
+                            break;
+                        case "托刀":
+                            dialogMessage += "秒";
+                            break;
+                    }
+                    dialogMessage += "\n";
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(TrainingMenu.this);
+                builder.setMessage(dialogMessage)
+                        .setTitle(menu_name);
+
+                builder.setPositiveButton("開始練習", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        Toast.makeText(getApplicationContext(),"開始練習" + menu_name,Toast.LENGTH_SHORT).show();
+                        menu_motion_arraylist = new ArrayList<String>();
+                        for (int k = 0; k < menu[i].length; k++){
+                            menu_motion_arraylist.add(menu[i][k]);
+                        }
+                        String[] parts = menu_motion_arraylist.get(0).split(":");
+                        Intent i = new Intent(TrainingMenu.this, TrainingView.class);
+                        i.putExtra("motionName", parts[0]);
+                        i.putExtra("practiceTime", Integer.valueOf(parts[1]));
+                        i.putExtra("camera_back", true);
+                        i.putExtra("menu_motion_arraylist", menu_motion_arraylist);
+                        i.putExtra("from_menu", true);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                builder.create().show();
             }
         });
 

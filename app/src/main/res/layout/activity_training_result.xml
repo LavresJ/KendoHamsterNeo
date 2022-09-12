@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".TrainingResult">
 
+    <Button
+        android:id="@+id/btnNextMotion"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:drawableLeft="@drawable/ic_baseline_arrow_forward_24"
+        android:text="下一個動作"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textResultAccuracy" />
+
     <TextView
         android:id="@+id/textResultMotionName"
         android:layout_width="wrap_content"
@@ -64,12 +76,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textResultAccuracy" />
 
     <Button
-        android:id="@+id/btnBackToMotionList"
+        android:id="@+id/btnBackToMainPage"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
-        android:text="回動作列表"
+        android:text="返回首頁"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
