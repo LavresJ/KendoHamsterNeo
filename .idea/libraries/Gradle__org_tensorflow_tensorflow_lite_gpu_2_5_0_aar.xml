@@ -3,12 +3,10 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/e46b08a9521284e7e6618f57262851e7/transformed/jetified-tensorflow-lite-gpu-2.5.0/res" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/6fd1c38252188092f60518356f7d74be/transformed/jetified-tensorflow-lite-gpu-2.5.0/res" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/e46b08a9521284e7e6618f57262851e7/transformed/jetified-tensorflow-lite-gpu-2.5.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/e46b08a9521284e7e6618f57262851e7/transformed/jetified-tensorflow-lite-gpu-2.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e46b08a9521284e7e6618f57262851e7/transformed/jetified-tensorflow-lite-gpu-2.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b0630a07f4d2a084d3b2bc8b29fc881c/transformed/jetified-tensorflow-lite-gpu-2.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b0630a07f4d2a084d3b2bc8b29fc881c/transformed/jetified-tensorflow-lite-gpu-2.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b0630a07f4d2a084d3b2bc8b29fc881c/transformed/jetified-tensorflow-lite-gpu-2.5.0/res" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/e46b08a9521284e7e6618f57262851e7/transformed/jetified-tensorflow-lite-gpu-2.5.0/res" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/b0630a07f4d2a084d3b2bc8b29fc881c/transformed/jetified-tensorflow-lite-gpu-2.5.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/b0630a07f4d2a084d3b2bc8b29fc881c/transformed/jetified-tensorflow-lite-gpu-2.5.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/b0630a07f4d2a084d3b2bc8b29fc881c/transformed/jetified-tensorflow-lite-gpu-2.5.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

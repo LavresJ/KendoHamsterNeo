@@ -27,7 +27,7 @@ import java.util.List;
 public class TrainingResult extends AppCompatActivity {
 
     TextView textResultMotionName, textExpectedPracticeTime,textResultPracticeTime, textResultAccuracy;
-    Button btnPracticeAgain, btnStoreData, btnBackToMotionList;
+    Button btnPracticeAgain, btnStoreData, btnBackToMotionList, btnNextMotion;
     String motionName;
     int practiceTime;
     double accuracy = 0.0;
@@ -46,6 +46,10 @@ public class TrainingResult extends AppCompatActivity {
     public String timestamp_str;
     public MotionAnalysis MA;
 
+    ///菜單相關
+    ArrayList<String> menu_motion_arraylist;
+    Boolean from_menu;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference Ref_WearOSRequest = database.getReference().child("WearOSRequest");
 
@@ -62,13 +66,17 @@ public class TrainingResult extends AppCompatActivity {
         timestamp_str = i.getStringExtra("time_start");
         //Log.d("time_start", timestamp_str);
 
+        menu_motion_arraylist = i.getStringArrayListExtra("menu_motion_arraylist");
+        from_menu = i.getBooleanExtra("from_menu", false);
+
         textResultMotionName = findViewById(R.id.textResultMotionName);
         textExpectedPracticeTime = findViewById(R.id.textExpectedPracticeTime);
         textResultPracticeTime = findViewById(R.id.textResultPracticeTime);
         textResultAccuracy = findViewById(R.id.textResultAccuracy);
         btnPracticeAgain = findViewById(R.id.btnPracticeAgain);
         btnStoreData = findViewById(R.id.btnStoreData);
-        btnBackToMotionList = findViewById(R.id.btnBackToMotionList);
+        btnBackToMotionList = findViewById(R.id.btnBackToMainPage);
+        btnNextMotion = findViewById(R.id.btnNextMotion);
 
         MA = new MotionAnalysis();
 
@@ -124,23 +132,50 @@ public class TrainingResult extends AppCompatActivity {
         }
          */
 
-        btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(TrainingResult.this, TrainingView.class);
-                i.putExtra("motionName", motionName);
-                i.putExtra("practiceTime", practiceTime);
-                i.putExtra("camera_back", true);
-                startActivity(i);
-                TrainingResult.this.finish();
+        Log.d("1234567", "from_menu = "+from_menu);
+        if(from_menu){
+            btnPracticeAgain.setVisibility(View.INVISIBLE);
+
+            if(menu_motion_arraylist.isEmpty()){
+                btnNextMotion.setVisibility(View.INVISIBLE);
+            }else{
+                btnNextMotion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String[] parts = menu_motion_arraylist.get(0).split(":");
+
+                        Intent i = new Intent(TrainingResult.this, TrainingView.class);
+                        i.putExtra("motionName", parts[0]);
+                        i.putExtra("practiceTime", Integer.valueOf(parts[1]));
+                        i.putExtra("camera_back", true);
+                        i.putExtra("menu_motion_arraylist", menu_motion_arraylist);
+                        i.putExtra("from_menu", true);
+                        startActivity(i);
+                        TrainingResult.this.finish();
+                    }
+                });
             }
-        });
+        }else{
+            btnNextMotion.setVisibility(View.INVISIBLE);
+
+            btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(TrainingResult.this, TrainingView.class);
+                    i.putExtra("motionName", motionName);
+                    i.putExtra("practiceTime", practiceTime);
+                    i.putExtra("camera_back", true);
+                    startActivity(i);
+                    TrainingResult.this.finish();
+                }
+            });
+        }
+
+
 
         btnBackToMotionList.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TrainingResult.this.finish();
-            }
+            public void onClick(View view) { TrainingResult.this.finish(); }
         });
         Ref_WearOSRequest.addChildEventListener(new ChildEventListener() {
             @Override
