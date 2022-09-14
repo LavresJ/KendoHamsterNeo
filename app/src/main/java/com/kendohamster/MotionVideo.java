@@ -11,23 +11,30 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class MotionVideo extends AppCompatActivity {
 
     Button btnStartPractice, btnAddToMenu;
     String motionName;
     long motionId;
+    int practiceTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,18 +122,37 @@ public class MotionVideo extends AppCompatActivity {
                     //動態動作
                     case "正面劈刀":
                     case"擦足":
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MotionVideo.this);
+                        builder.setTitle("請輸入練習次數");
 
-                        PracticeTimeFragment practiceTimeFragment = new PracticeTimeFragment();
+                        final EditText edtPracticeTime = new EditText(MotionVideo.this); //final一個editText
+                        edtPracticeTime.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        builder.setView(edtPracticeTime);
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString("motionName", motionName);
-                        practiceTimeFragment.setArguments(bundle);
-
-                        fragmentTransaction.addToBackStack("PracticeTimeFragment");
-                        fragmentTransaction.add(R.id.framePracticeTime, practiceTimeFragment);
-                        fragmentTransaction.commit();
+                        builder.setPositiveButton("開始練習", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User clicked OK button
+                                practiceTime = Integer.valueOf(edtPracticeTime.getText().toString());
+                                if(practiceTime > 0){ //輸入為正整數
+                                    Intent i = new Intent(MotionVideo.this, TrainingView.class);
+                                    i.putExtra("motionName", motionName);
+                                    i.putExtra("practiceTime", practiceTime);
+                                    i.putExtra("camera_back", true);
+                                    startActivity(i);
+                                    MotionVideo.this.finish();
+                                }
+                                else{
+                                    edtPracticeTime.setText("");
+                                    Toast.makeText(MotionVideo.this, "請輸入正整數！",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                        builder.create().show();
                         break;
                     //靜態動作
                     case "托刀":

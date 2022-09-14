@@ -76,12 +76,24 @@
         app:layout_constraintTop_toBottomOf="@+id/textResultAccuracy" />
 
     <Button
-        android:id="@+id/btnBackToMainPage"
+        android:id="@+id/btnBackToMenu"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:drawableLeft="@drawable/ic_baseline_assignment_24"
+        android:text="返回訓練菜單"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textResultAccuracy" />
+
+    <Button
+        android:id="@+id/btnBackToMotionList"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
-        android:text="返回首頁"
+        android:text="返回動作列表"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"

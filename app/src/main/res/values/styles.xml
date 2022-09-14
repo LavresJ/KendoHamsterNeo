@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tool bar -->
+    <style name="actionBarTheme">
+        <item name="android:backgroundTint">@color/grey_blue_98a1a7</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+</resources>

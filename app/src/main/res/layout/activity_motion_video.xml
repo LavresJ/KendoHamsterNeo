@@ -21,14 +21,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:theme="@style/actionBarTheme"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="?attr/actionModeCloseDrawable"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             android:background="@color/purple_500"
             android:textColor="#fff"
-            app:title="KendoHamster"
+            app:title=""
             app:titleTextColor="@color/white"
 
             />
@@ -69,13 +69,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/framePracticeTime"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
         </FrameLayout>
 

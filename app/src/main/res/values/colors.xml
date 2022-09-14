@@ -13,4 +13,8 @@
     <color name="blue1_005AB5">#005AB5</color>
     <color name="blue2_2894FF">#2894FF</color>
     <color name="blue3_D2E9FF">#D2E9FF</color>
+    <color name="grey_blue_98a1a7">#98a1a7</color>
+    <color name="light_yellow_fffbf0">#fffbf0</color>
+    <color name="dark_green_646857">#646857</color>
+    <color name="dark_blue_595f5f">#595f5f</color>
 </resources>
