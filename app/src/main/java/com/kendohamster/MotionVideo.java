@@ -219,21 +219,23 @@ public class MotionVideo extends AppCompatActivity {
         Intent i = null;
         switch (position) {
             case (R.id.action_action):
-                i = new Intent(this, MotionList.class);
+                finish();
                 break;
             case R.id.action_history:
                 i = new Intent(this, History.class);
+                startActivity(i);
+                finish();
                 break;
             case R.id.action_menu:
                 i = new Intent(this, TrainingMenu.class);
+                startActivity(i);
+                finish();
                 break;
             case R.id.action_setting:
                 i = new Intent(this, Settings.class);
-                break;
-            default:
+                startActivity(i);
+                finish();
                 break;
         }
-
-        startActivity(i);
     }
 }
