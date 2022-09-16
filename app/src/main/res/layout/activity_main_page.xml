@@ -8,78 +8,99 @@
     tools:context=".MainPage"
     android:id="@+id/myDrawerLayout"
     >
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".TrainingView">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/purple_500"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/actionBarTheme"
 
+            android:textColor="#fff"
+            android:theme="@style/actionBarTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/purple_500"
-            android:textColor="#fff"
             app:title="Hamdo"
-            app:titleTextColor="@color/white"
+            app:titleTextColor="@color/white" />
 
-            />
-        <Button
-            android:id="@+id/btnTrainingMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="18dp"
-            android:text="訓練菜單"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnMotionList"
-            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/grey_blue_98a1a7"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <Button
-            android:id="@+id/btnSettings"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/hamster_blue" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:text="設定"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnHistory"
-            app:layout_constraintTop_toBottomOf="@+id/btnTrainingMenu"
-            app:layout_constraintVertical_bias="0.157" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <Button
-            android:id="@+id/btnMotionList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:text="動作列表"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btnTrainingMenu"
-            app:layout_constraintEnd_toStartOf="@+id/btnTrainingMenu"
-            app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/btnMotionList"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="7dp"
+                android:background="@drawable/ripple_main"
+                android:text="動作列表"
+                android:textColor="@color/dark_green_646857"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
 
-        <Button
-            android:id="@+id/btnHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:text="歷史紀錄"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btnSettings"
-            app:layout_constraintEnd_toStartOf="@+id/btnSettings"
-            app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/btnTrainingMenu"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="7dp"
+                android:background="@drawable/ripple_main"
+                android:text="訓練菜單"
+                android:textColor="@color/dark_green_646857"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="313dp"
-            android:layout_height="509dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/hamster_sword" />
+            <Button
+                android:id="@+id/btnHistory"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="7dp"
+                android:background="@drawable/ripple_main"
+                android:text="歷史紀錄"
+                android:textColor="@color/dark_green_646857"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/btnSettings"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="7dp"
+                android:background="@drawable/ripple_main"
+                android:text="設定"
+                android:textColor="@color/dark_green_646857"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
@@ -87,7 +108,6 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
         app:menu="@menu/drawer"
         >
 

@@ -54,6 +54,14 @@
         <item>三、分解動作三</item>
         <item>四、分解動作四</item>
     </string-array>
+
+    <string name="frontSwingInstruction_0">正面劈刀手機擺放位置指示</string>
+    <string name="frontSwingInstruction_1">正面劈刀描述1</string>
+    <string name="frontSwingInstruction_2">正面劈刀描述2</string>
+    <string name="frontSwingInstruction_3">正面劈刀描述3</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

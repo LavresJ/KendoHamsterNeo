@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,16 +27,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.kendohamster.instructionModel.Instruction;
+import com.kendohamster.instructionModel.adapter.InstructionItemAdapter;
+import com.kendohamster.instructionModel.data.Datasource;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MotionVideo extends AppCompatActivity {
 
-    Button btnStartPractice, btnAddToMenu;
+    Button btnStartPractice;
     String motionName;
     long motionId;
     int practiceTime;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +51,48 @@ public class MotionVideo extends AppCompatActivity {
         motionId = i.getIntExtra("position", 0);
 
         btnStartPractice = findViewById(R.id.btnStartPractice);
-        btnAddToMenu = findViewById(R.id.btnAddToMenu);
         motionName = MotionList.text.get(Math.toIntExact(motionId));
 
+        ///
+        ArrayList<Instruction> insList = new ArrayList<>();
+
+        Datasource datasource = new Datasource();
+
+        switch (motionName){
+            case "正面劈刀":
+                insList = datasource.loadFrontSwingIns();
+                break;
+            case "擦足":
+                insList = datasource.loadFootIns();
+                break;
+            case "托刀":
+                insList = datasource.loadHoldSwordIns();
+                break;
+        }
+
+
+
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new InstructionItemAdapter(this, insList));
+        ///
+
+        /*
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
 
         VideoFragment videoFragment = new VideoFragment();
         fragmentTransaction.add(R.id.frame,videoFragment);
         fragmentTransaction.commit();
 
+         */
+
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(motionName);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle( this, drawerLayout, toolbar, R.string.drawer_open , R.string.drawer_close){
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -129,17 +163,13 @@ public class MotionVideo extends AppCompatActivity {
                         edtPracticeTime.setInputType(InputType.TYPE_CLASS_NUMBER);
                         builder.setView(edtPracticeTime);
 
+
                         builder.setPositiveButton("開始練習", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked OK button
                                 practiceTime = Integer.valueOf(edtPracticeTime.getText().toString());
                                 if(practiceTime > 0){ //輸入為正整數
-                                    Intent i = new Intent(MotionVideo.this, TrainingView.class);
-                                    i.putExtra("motionName", motionName);
-                                    i.putExtra("practiceTime", practiceTime);
-                                    i.putExtra("camera_back", true);
-                                    startActivity(i);
-                                    MotionVideo.this.finish();
+                                    startPracticing(motionName, practiceTime);
                                 }
                                 else{
                                     edtPracticeTime.setText("");
@@ -168,15 +198,6 @@ public class MotionVideo extends AppCompatActivity {
             }
         });
 
-        btnAddToMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Add to the menu boiiiii",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
     }
 
     public void startPracticing(String motionName, int practiceTime){
@@ -194,14 +215,6 @@ public class MotionVideo extends AppCompatActivity {
         MotionVideo.this.finish();
     }
 
-    //MotionVideo關閉fragment時用到
-    public void closeFragment(int frameId){
-
-        Fragment fragment = getSupportFragmentManager().findFragmentById(frameId);
-        if(fragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
-    }
     public void selectItem(int position) {
         Intent i = null;
         switch (position) {
