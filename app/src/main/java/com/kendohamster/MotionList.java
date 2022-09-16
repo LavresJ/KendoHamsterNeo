@@ -123,6 +123,7 @@ public class MotionList extends AppCompatActivity {
         }
 
         startActivity(i);
+        finish();
     }
 
     public void fillArray(){

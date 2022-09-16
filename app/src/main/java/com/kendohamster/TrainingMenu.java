@@ -181,5 +181,6 @@ public class TrainingMenu extends AppCompatActivity {
         }
 
         startActivity(i);
+        finish();
     }
 }
