@@ -162,15 +162,21 @@ public class MotionVideo extends AppCompatActivity {
                         builder.setPositiveButton("開始練習", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked OK button
-                                practiceTime = Integer.valueOf(edtPracticeTime.getText().toString());
-                                if(practiceTime > 0){ //輸入為正整數
-                                    startPracticing(motionName, practiceTime);
+
+                                if(edtPracticeTime.getText().toString().matches("")){
+                                    Toast.makeText(MotionVideo.this, "請輸入正整數！", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    edtPracticeTime.setText("");
-                                    Toast.makeText(MotionVideo.this, "請輸入正整數！",Toast.LENGTH_SHORT).show();
+                                    practiceTime = Integer.valueOf(edtPracticeTime.getText().toString());
+                                    if (practiceTime > 0) { //輸入為正整數
+                                        startPracticing(motionName, practiceTime);
+                                    } else {
+                                        edtPracticeTime.setText("");
+                                        Toast.makeText(MotionVideo.this, "請輸入正整數！", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
+
                         });
                         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
