@@ -57,6 +57,7 @@ var single_dynamic_motion_accuracy_sum = 0.0
 var total_dynamic_motion_accuracy = 0.0
 var static_motion_detect = false
 var frontCount = 0.0
+var abdominalCount = 0.0
 var hold_sword = false
 var hold_sword_count = 0.0
 var is_dynamic_motion = false
@@ -112,6 +113,7 @@ class TrainingView : AppCompatActivity() {
     private lateinit var tvClassificationValue1: TextView
     private lateinit var tvClassificationValue2: TextView
     private lateinit var tvClassificationValue3: TextView
+    private lateinit var tvClassificationValue4: TextView
     private lateinit var swClassification: SwitchCompat
     private lateinit var vClassificationOption: View
     private var cameraSource_back: Camera_back? = null
@@ -208,7 +210,7 @@ class TrainingView : AppCompatActivity() {
         from_menu = i.getBooleanExtra("from_menu", false)
 
         motionName_public = motionName.toString()
-        if(motionName.equals("正面劈刀") || motionName.equals("擦足")){
+        if(motionName.equals("正面劈刀") || motionName.equals("擦足") || motionName.equals("右胴劈刀")){
             is_dynamic_motion = true
         }else{
             is_dynamic_motion = false
@@ -219,6 +221,7 @@ class TrainingView : AppCompatActivity() {
         lastBoolean = false
         stepCount = 0.0
         frontCount = 0.0
+        abdominalCount = 0.0
         single_dynamic_motion_frames = 0.0
         single_dynamic_motion_accuracy_sum = 0.0
         total_dynamic_motion_accuracy = 0.0
@@ -254,6 +257,7 @@ class TrainingView : AppCompatActivity() {
         tvClassificationValue1 = findViewById(com.kendohamster.R.id.tvClassificationValue1)
         tvClassificationValue2 = findViewById(com.kendohamster.R.id.tvClassificationValue2)
         tvClassificationValue3 = findViewById(com.kendohamster.R.id.tvClassificationValue3)
+        tvClassificationValue4 = findViewById(com.kendohamster.R.id.tvClassificationValue4)
         swClassification = findViewById(com.kendohamster.R.id.swPoseClassification)
         vClassificationOption = findViewById(com.kendohamster.R.id.vClassificationOption)
         initSpinner()
@@ -446,6 +450,28 @@ class TrainingView : AppCompatActivity() {
                         tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + "秒"
                         countHandler.postDelayed(countRunnable, 100)
                     }
+
+                    "右胴劈刀" -> {
+                        if ((practiceTime - Math.floor(abdominalCount).toInt()) <= 0) {
+
+                            menu_motion_arraylist?.removeAt(0)
+
+                            val i = Intent(this, TrainingResult::class.java)
+                            i.putExtra("motionName", motionName)
+                            i.putExtra("practiceTime", practiceTime)
+                            i.putExtra("accuracyList", accuracyList.toFloatArray())
+                            i.putExtra("abdominalCount", abdominalCount)
+                            i.putExtra("normal_end", normal_end)
+                            i.putExtra("time_start", timestamp_str)
+                            i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
+                            i.putExtra("from_menu", from_menu)
+                            showToast("完成訓練")
+                            startActivity(i)
+                            finish()
+                        }
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(abdominalCount).toInt()) + "次"
+                        countHandler.postDelayed(countRunnable, 100)
+                    }
                 }
 
 
@@ -514,6 +540,10 @@ class TrainingView : AppCompatActivity() {
                                     com.kendohamster.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.size >= 3) it[2] else null)
                                 )
+                                tvClassificationValue4.text = getString(
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
+                                    convertPoseLabels(if (it.size >= 4) it[3] else null)
+                                )
                             }
                         }
 
@@ -550,6 +580,10 @@ class TrainingView : AppCompatActivity() {
                                 tvClassificationValue3.text = getString(
                                     com.kendohamster.R.string.tfe_pe_tv_classification_value,
                                     convertPoseLabels(if (it.size >= 3) it[2] else null)
+                                )
+                                tvClassificationValue4.text = getString(
+                                    com.kendohamster.R.string.tfe_pe_tv_classification_value,
+                                    convertPoseLabels(if (it.size >= 4) it[3] else null)
                                 )
                             }
                         }
@@ -733,6 +767,7 @@ class TrainingView : AppCompatActivity() {
         tvClassificationValue1.visibility = visibility
         tvClassificationValue2.visibility = visibility
         tvClassificationValue3.visibility = visibility
+        tvClassificationValue4.visibility = visibility
     }
 
     // Show/hide the tracking options.

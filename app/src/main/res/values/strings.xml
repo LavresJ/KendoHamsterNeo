@@ -70,6 +70,11 @@
     <string name="wakiKiamaeInstruction_2">托刀描述2</string>
     <string name="wakiKiamaeInstruction_3">托刀描述3</string>
 
+    <string name="douUchiInstruction_0">右胴劈刀手機擺放位置指示</string>
+    <string name="douUchiInstruction_1">右胴劈刀托刀描述1</string>
+    <string name="douUchiInstruction_2">右胴劈刀托刀描述2</string>
+    <string name="douUchiInstruction_3">右胴劈刀托刀描述3</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

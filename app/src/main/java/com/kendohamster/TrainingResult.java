@@ -39,6 +39,7 @@ public class TrainingResult extends AppCompatActivity {
     double frontCount = 0.0;
     double stepCount = 0.0;
     double hold_sword_count = 0.0;
+    double abdominalCount = 0.0;
 
     public ArrayList<Float> F_avg;
     public ArrayList<Float> delta_theta;
@@ -112,6 +113,14 @@ public class TrainingResult extends AppCompatActivity {
                 textExpectedPracticeTime.setText("預計練習時間: "+ practiceTime +"秒");
                 textResultPracticeTime.setText("已練習時間：" +  String.format("%.0f", Math.floor(hold_sword_count)) + "秒");
                 textResultAccuracy.setText("");
+                break;
+
+            case "右胴劈刀":
+                abdominalCount = i.getDoubleExtra("abdominalCount", 0);
+                textResultMotionName.setText(motionName);
+                textExpectedPracticeTime.setText("預計練習次數: "+ practiceTime +"次");
+                textResultPracticeTime.setText("已練習次數：" + String.format("%.0f", Math.floor(abdominalCount)) + "次");
+                textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy * 100) + "%");
                 break;
         }
         /*

@@ -38,4 +38,15 @@ public class Datasource {
 
         return list;
     }
+
+    public ArrayList<Instruction> loadDouUchiIns(){
+
+        ArrayList<Instruction> list = new ArrayList<Instruction>();
+
+        list.add(new Instruction(R.string.douUchiInstruction_1, com.kendohamster.R.drawable.hamster1));
+        list.add(new Instruction(R.string.douUchiInstruction_2, com.kendohamster.R.drawable.hamster2));
+        list.add(new Instruction(R.string.douUchiInstruction_3, com.kendohamster.R.drawable.hamster3));
+
+        return list;
+    }
 }

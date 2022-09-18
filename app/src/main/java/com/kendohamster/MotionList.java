@@ -130,5 +130,6 @@ public class MotionList extends AppCompatActivity {
         text.add("正面劈刀");
         text.add("擦足");
         text.add("托刀");
+        text.add("右胴劈刀");
     }
 }
