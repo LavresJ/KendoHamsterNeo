@@ -10,9 +10,9 @@ public class Datasource {
 
         ArrayList<Instruction> list = new ArrayList<Instruction>();
 
-        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_1, com.kendohamster.R.drawable.hamster1));
-        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_2, com.kendohamster.R.drawable.hamster2));
-        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_3, com.kendohamster.R.drawable.hamster3));
+        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_1, R.drawable.men_uchi_step1));
+        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_2, R.drawable.men_uchi_step2));
+        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_3, R.drawable.men_uchi_step3));
 
         return list;
     }
@@ -21,9 +21,9 @@ public class Datasource {
 
         ArrayList<Instruction> list = new ArrayList<Instruction>();
 
-        list.add(new Instruction(R.string.suriAshiInstruction_1, com.kendohamster.R.drawable.hamster1));
-        list.add(new Instruction(R.string.suriAshiInstruction_2, com.kendohamster.R.drawable.hamster2));
-        list.add(new Instruction(R.string.suriAshiInstruction_3, com.kendohamster.R.drawable.hamster3));
+        list.add(new Instruction(R.string.suriAshiInstruction_1, R.drawable.suri_ashi_step1));
+        list.add(new Instruction(R.string.suriAshiInstruction_2, R.drawable.suri_ashi_step2));
+        list.add(new Instruction(R.string.suriAshiInstruction_3, R.drawable.suri_ashi_step3));
 
         return list;
     }
@@ -32,9 +32,7 @@ public class Datasource {
 
         ArrayList<Instruction> list = new ArrayList<Instruction>();
 
-        list.add(new Instruction(R.string.wakiKiamaeInstruction_1, com.kendohamster.R.drawable.hamster1));
-        list.add(new Instruction(R.string.wakiKiamaeInstruction_2, com.kendohamster.R.drawable.hamster2));
-        list.add(new Instruction(R.string.wakiKiamaeInstruction_3, com.kendohamster.R.drawable.hamster3));
+        list.add(new Instruction(R.string.wakiKiamaeInstruction, R.drawable.waki_kiamae));
 
         return list;
     }

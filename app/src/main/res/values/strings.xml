@@ -56,19 +56,26 @@
     </string-array>
 
     <string name="menUchiInstruction_0">正面劈刀手機擺放位置指示</string>
-    <string name="menUchiInstruction_1">正面劈刀描述1</string>
-    <string name="menUchiInstruction_2">正面劈刀描述2</string>
-    <string name="menUchiInstruction_3">正面劈刀描述3</string>
+    <string name="menUchiInstruction_1">step.1中段姿勢:\n
+        -左手握刀柄端部，對準自己的腹部中央(或中下)，離身體約一個拳頭的位置。\n
+        -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。</string>
+    <string name="menUchiInstruction_2">step.2上段姿勢:\n
+        -握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。</string>
+    <string name="menUchiInstruction_3">step.3 揮劍:\n
+        -揮劍軌跡順著身體中心線揮動，當竹劍揮至對手面部高度時停止竹劍揮動。</string>
 
     <string name="suriAshiInstruction_0">擦足手機擺放位置指示</string>
-    <string name="suriAshiInstruction_1">擦足描述1</string>
-    <string name="suriAshiInstruction_2">擦足描述2</string>
-    <string name="suriAshiInstruction_3">擦足描述3</string>
+    <string name="suriAshiInstruction_1">step.1\n
+        -呈中段姿勢，兩腳間隔約15公分，右腳在前，左腳尖與右腳跟成水平對齊。\n
+        右腳貼地，左腳跟稍離地面。</string>
+    <string name="suriAshiInstruction_2">step.2\n
+        -右腳先向前滑動。</string>
+    <string name="suriAshiInstruction_3">step.3\n
+        -左腳緊跟著右腳往前滑動，恢復中段姿勢。</string>
 
     <string name="wakiKiamaeInstruction_0">托刀手機擺放位置指示</string>
-    <string name="wakiKiamaeInstruction_1">托刀描述1</string>
-    <string name="wakiKiamaeInstruction_2">托刀描述2</string>
-    <string name="wakiKiamaeInstruction_3">托刀描述3</string>
+    <string name="wakiKiamaeInstruction">step.1\n
+        -雙手垂掛持刀，刀柄向上，刀尖向右側腰下方斜掛。</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
