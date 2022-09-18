@@ -1,5 +1,5 @@
 <resources>
-    <string name="tfe_pe_app_name">Kendo Hamster</string>
+    <string name="tfe_pe_app_name">Hamdo</string>
     <string name="tfe_pe_request_permission">This app needs camera permission.</string>
     <string name="tfe_pe_tv_score">Score: %.2f</string>
     <string name="tfe_pe_tv_model">Model: </string>
@@ -54,6 +54,22 @@
         <item>三、分解動作三</item>
         <item>四、分解動作四</item>
     </string-array>
+
+    <string name="menUchiInstruction_0">正面劈刀手機擺放位置指示</string>
+    <string name="menUchiInstruction_1">正面劈刀描述1</string>
+    <string name="menUchiInstruction_2">正面劈刀描述2</string>
+    <string name="menUchiInstruction_3">正面劈刀描述3</string>
+
+    <string name="suriAshiInstruction_0">擦足手機擺放位置指示</string>
+    <string name="suriAshiInstruction_1">擦足描述1</string>
+    <string name="suriAshiInstruction_2">擦足描述2</string>
+    <string name="suriAshiInstruction_3">擦足描述3</string>
+
+    <string name="wakiKiamaeInstruction_0">托刀手機擺放位置指示</string>
+    <string name="wakiKiamaeInstruction_1">托刀描述1</string>
+    <string name="wakiKiamaeInstruction_2">托刀描述2</string>
+    <string name="wakiKiamaeInstruction_3">托刀描述3</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

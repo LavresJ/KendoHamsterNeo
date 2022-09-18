@@ -138,5 +138,6 @@ public class Settings extends AppCompatActivity {
         }
 
         startActivity(i);
+        finish();
     }
 }

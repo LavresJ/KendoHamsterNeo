@@ -30,7 +30,6 @@ public class TrainingMenu extends AppCompatActivity {
     String[][] menu;
     ArrayList<String> menu_motion_arraylist;
 
-    Button buttonAdd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +37,6 @@ public class TrainingMenu extends AppCompatActivity {
 
 
         listView = findViewById(R.id.listGeneral);
-        buttonAdd = findViewById(R.id.buttonAddMenu);
         menu_list = getResources().getStringArray(R.array.menu);
 
         //設定菜單內容
@@ -105,12 +103,6 @@ public class TrainingMenu extends AppCompatActivity {
             }
         });
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -189,5 +181,6 @@ public class TrainingMenu extends AppCompatActivity {
         }
 
         startActivity(i);
+        finish();
     }
 }

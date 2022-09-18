@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +26,7 @@ import java.util.List;
 public class TrainingResult extends AppCompatActivity {
 
     TextView textResultMotionName, textExpectedPracticeTime,textResultPracticeTime, textResultAccuracy;
-    Button btnPracticeAgain, btnStoreData, btnBackToMotionList, btnNextMotion;
+    Button btnPracticeAgain, btnStoreData, btnBackToMotionList, btnNextMotion, btnBackToMenu;
     String motionName;
     int practiceTime;
     double accuracy = 0.0;
@@ -69,14 +68,16 @@ public class TrainingResult extends AppCompatActivity {
         menu_motion_arraylist = i.getStringArrayListExtra("menu_motion_arraylist");
         from_menu = i.getBooleanExtra("from_menu", false);
 
+
         textResultMotionName = findViewById(R.id.textResultMotionName);
         textExpectedPracticeTime = findViewById(R.id.textExpectedPracticeTime);
         textResultPracticeTime = findViewById(R.id.textResultPracticeTime);
         textResultAccuracy = findViewById(R.id.textResultAccuracy);
         btnPracticeAgain = findViewById(R.id.btnPracticeAgain);
         btnStoreData = findViewById(R.id.btnStoreData);
-        btnBackToMotionList = findViewById(R.id.btnBackToMainPage);
+        btnBackToMotionList = findViewById(R.id.btnBackToMotionList);
         btnNextMotion = findViewById(R.id.btnNextMotion);
+        btnBackToMenu = findViewById(R.id.btnBackToMenu);
 
         MA = new MotionAnalysis();
 
@@ -132,13 +133,21 @@ public class TrainingResult extends AppCompatActivity {
         }
          */
 
-        Log.d("1234567", "from_menu = "+from_menu);
-        if(from_menu){
+        if(from_menu){ //從菜單來的
             btnPracticeAgain.setVisibility(View.INVISIBLE);
 
-            if(menu_motion_arraylist.isEmpty()){
+            if(menu_motion_arraylist.isEmpty()){ //已完成菜單的所有動作
                 btnNextMotion.setVisibility(View.INVISIBLE);
-            }else{
+                btnBackToMenu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(TrainingResult.this, TrainingMenu.class);
+                        startActivity(i);
+                        TrainingResult.this.finish();
+                    }
+                });
+            }else{ //菜單的動作還沒做完
+                btnBackToMenu.setVisibility(View.INVISIBLE);
                 btnNextMotion.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -155,8 +164,17 @@ public class TrainingResult extends AppCompatActivity {
                     }
                 });
             }
+            btnBackToMotionList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(TrainingResult.this, MotionList.class);
+                    startActivity(i);
+                    TrainingResult.this.finish();
+                }
+            });
         }else{
             btnNextMotion.setVisibility(View.INVISIBLE);
+            btnBackToMenu.setVisibility(View.INVISIBLE);
 
             btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -169,14 +187,15 @@ public class TrainingResult extends AppCompatActivity {
                     TrainingResult.this.finish();
                 }
             });
+            btnBackToMotionList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) { TrainingResult.this.finish(); }
+            });
         }
 
 
 
-        btnBackToMotionList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { TrainingResult.this.finish(); }
-        });
+
         Ref_WearOSRequest.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {

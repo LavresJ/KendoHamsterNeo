@@ -254,6 +254,7 @@ public class History extends AppCompatActivity {
         }
 
         startActivity(i);
+        finish();
     }
 
 }

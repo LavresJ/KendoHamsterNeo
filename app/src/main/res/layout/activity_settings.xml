@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:theme="@style/actionBarTheme"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="?attr/actionModeCloseDrawable"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             android:background="@color/purple_500"
             android:textColor="#fff"
-            app:title="KendoHamster"
+            app:title="設定"
             app:titleTextColor="@color/white"
 
             />
@@ -44,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="1"
             />
 
         <!--<TextView
@@ -59,9 +58,8 @@
         <ListView
             android:id="@+id/listGeneral"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
 
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView

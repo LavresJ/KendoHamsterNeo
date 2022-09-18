@@ -97,26 +97,18 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
         Intent i = null;
         switch(position) {
             case (R.id.action_action):
-                i = new Intent(this,MotionList.class);
-                break;
-            case R.id.action_history:
-                i = new Intent(this, History.class);
-                break;
-            case R.id.action_menu:
-                i = new Intent(this, TrainingMenu.class);
-                break;
-            case R.id.action_setting:
-                i = new Intent(this, Settings.class);
-                break;
             case (R.id.btnMotionList):
                 i = new Intent(this,MotionList.class);
                 break;
+            case R.id.action_history:
             case R.id.btnHistory:
                 i = new Intent(this, History.class);
                 break;
+            case R.id.action_menu:
             case R.id.btnTrainingMenu:
                 i = new Intent(this, TrainingMenu.class);
                 break;
+            case R.id.action_setting:
             case R.id.btnSettings:
                 i = new Intent(this, Settings.class);
                 break;
