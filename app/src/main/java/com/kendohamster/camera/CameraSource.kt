@@ -69,7 +69,7 @@ class CameraSource(
     private var fpsTimer: Timer? = null
     private var frameProcessedInOneSecondInterval = 0
     private var framesPerSecond = 0
-    private val motion_labels = listOf("正面劈刀", "擦足", "托刀")
+    private val motion_labels = listOf("正面劈刀", "擦足", "托刀", "右胴劈刀")
 
     /** Detects, characterizes, and connects to a CameraDevice (used for all camera operations) */
     private val cameraManager: CameraManager by lazy {

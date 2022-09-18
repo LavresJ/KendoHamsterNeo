@@ -34,8 +34,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.decomposition import PCA
 """
+from sklearn.decomposition import PCA
+
 
 if True:
     import sys
@@ -80,7 +81,7 @@ class ClassifierOfflineTrain(object):
         n = sum(te_Y_predict == te_Y)
         accu = n / N
         return accu, te_Y_predict
-    """
+
     def train(self, X, Y):
         ''' Train model. The result is saved into self.clf '''
         n_components = min(NUM_FEATURES_FROM_PCA, X.shape[1])
@@ -91,7 +92,7 @@ class ClassifierOfflineTrain(object):
         X_new = self.pca.transform(X)
         print("After PCA, X.shape = ", X_new.shape)
         self.clf.fit(X_new, Y)
-    """
+
     def _choose_model(self, name):
         self.model_name = name
         idx = self.names.index(name)
@@ -111,7 +112,7 @@ class ClassifierOfflineTrain(object):
             DecisionTreeClassifier(max_depth=5),
             RandomForestClassifier(
                 max_depth=30, n_estimators=100, max_features="auto"),
-            MLPClassifier((20, 30, 40)),  # Neural Net
+            MLPClassifier((50, 50, 50)),  # Neural Net
             AdaBoostClassifier(),
             GaussianNB(),
             QuadraticDiscriminantAnalysis()]

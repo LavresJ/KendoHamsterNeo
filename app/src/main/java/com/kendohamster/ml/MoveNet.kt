@@ -315,7 +315,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                 //判斷托刀動作
                 "托刀" -> {
                     if (obj.toString().length > 2) {
-                        if(keyPoints[0].score > 0.2) {
+                        if(keyPoints[0].score > 0.3 && keyPoints[7].score > 0.3) {
                             if (classes_probability.get(2) > 0.5) {
                                 hold_sword = true
                             } else {
@@ -325,6 +325,50 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                         }else{
                             static_motion_detect = false
                         }
+                    }
+                }
+                "右胴劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                    val rightShoulder = keyPoints[6].coordinate.y
+                    val rightWrist = keyPoints[10].coordinate.y
+                    val bodyLength = (keyPoints[11].coordinate.y + keyPoints[12].coordinate.y) / 2 - (keyPoints[5].coordinate.y + keyPoints[6].coordinate.y) / 2
+                    if (keyPoints[6].score > 0.2 && keyPoints[10].score > 0.2) { //rightShoulder != null && rightWrist != null
+                        wristAboveShoulder = rightWrist < (rightShoulder + bodyLength / 4)
+                        //Log.d("wristAboveShoulder", wristAboveShoulder.toString())
+                        //Log.d("lastBoolean", lastBoolean.toString())
+                        if (lastBoolean != wristAboveShoulder) {
+                            abdominalCount += 0.5
+                            if ((abdominalCount * 2).toInt() % 2 == 0 && abdominalCount.toInt() >= 1) {   //揮劍次數第二次以後的case
+                                total_dynamic_motion_accuracy =
+                                    single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
+                                accuracyList.add(total_dynamic_motion_accuracy.toFloat())
+                                Log.d(
+                                    "total_dynamic_motion_accuracy",
+                                    total_dynamic_motion_accuracy.toString()
+                                )
+
+                                if (total_dynamic_motion_accuracy > 0.5) {
+                                    dynamic_motion_judgement = true
+                                } else {
+                                    dynamic_motion_judgement = false
+                                }
+                                dynamic_motion_complete = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            } else if (abdominalCount.toInt() < 1) { //揮劍次數第一次的case
+                                start_motion = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            }
+                        }
+                        if (start_motion) {
+                            single_dynamic_motion_frames += 1
+                            single_dynamic_motion_accuracy_sum += classes_probability.get(3)
+                        }
+                        lastBoolean = wristAboveShoulder
+                        Log.d("ESTI", "揮劍次數:" + abdominalCount)
+                        //Log.d("single_dynamic_motion_frames", single_dynamic_motion_frames.toString())
                     }
                 }
             }
@@ -436,6 +480,50 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                         }else{
                             static_motion_detect = false
                         }
+                    }
+                }
+                "右胴劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                    val rightShoulder = keyPoints[5].coordinate.y   //keyPoints[6].coordinate.y
+                    val rightWrist = keyPoints[9].coordinate.y  //keyPoints[10].coordinate.y
+                    val bodyLength = (keyPoints[11].coordinate.y + keyPoints[12].coordinate.y) / 2 - (keyPoints[5].coordinate.y + keyPoints[6].coordinate.y) / 2
+                    if (keyPoints[5].score > 0.2 && keyPoints[9].score > 0.2) { //rightShoulder != null && rightWrist != null
+                        wristAboveShoulder = rightWrist < (rightShoulder + bodyLength / 4)
+                        //Log.d("wristAboveShoulder", wristAboveShoulder.toString())
+                        //Log.d("lastBoolean", lastBoolean.toString())
+                        if (lastBoolean != wristAboveShoulder) {
+                            abdominalCount += 0.5
+                            if ((abdominalCount * 2).toInt() % 2 == 0 && abdominalCount.toInt() >= 1) {   //揮劍次數第二次以後的case
+                                total_dynamic_motion_accuracy =
+                                    single_dynamic_motion_accuracy_sum / single_dynamic_motion_frames
+                                accuracyList.add(total_dynamic_motion_accuracy.toFloat())
+                                Log.d(
+                                    "total_dynamic_motion_accuracy",
+                                    total_dynamic_motion_accuracy.toString()
+                                )
+
+                                if (total_dynamic_motion_accuracy > 0.5) {
+                                    dynamic_motion_judgement = true
+                                } else {
+                                    dynamic_motion_judgement = false
+                                }
+                                dynamic_motion_complete = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            } else if (abdominalCount.toInt() < 1) { //揮劍次數第一次的case
+                                start_motion = true
+                                single_dynamic_motion_frames = 0.0
+                                single_dynamic_motion_accuracy_sum = 0.0
+                                total_dynamic_motion_accuracy = 0.0
+                            }
+                        }
+                        if (start_motion) {
+                            single_dynamic_motion_frames += 1
+                            single_dynamic_motion_accuracy_sum += classes_probability.get(3)
+                        }
+                        lastBoolean = wristAboveShoulder
+                        Log.d("ESTI", "揮劍次數:" + abdominalCount)
+                        //Log.d("single_dynamic_motion_frames", single_dynamic_motion_frames.toString())
                     }
                 }
             }
