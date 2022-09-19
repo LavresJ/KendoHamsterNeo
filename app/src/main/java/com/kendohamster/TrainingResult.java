@@ -213,8 +213,17 @@ public class TrainingResult extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                MA.getData();
-                Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+                switch (motionName){
+                    case "正面劈刀":
+                        MA.getData();
+                        Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+                        break;
+                    case "右胴劈刀":
+                        MA.getData();
+                        Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
             }
 
             @Override
@@ -303,6 +312,11 @@ public class TrainingResult extends AppCompatActivity {
                         break;
                     case ("托刀"):
                         result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) 1.0, practiceTime);
+                        break;
+                    case ("右胴劈刀"):
+                        F_avg = MA.F_avg;
+                        delta_theta = MA.delta_theta;
+                        result = new HistoryDataModel(timestamp_str, motionName, F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
                         break;
                 }
                 dao.add(result).addOnSuccessListener(new OnSuccessListener<Void>() {
