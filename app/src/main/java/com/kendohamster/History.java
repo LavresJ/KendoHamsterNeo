@@ -198,6 +198,12 @@ public class History extends AppCompatActivity {
                     history_details.add(historyDetails);
                     image_list.add(R.drawable.hamster3);
                     break;
+                case "右胴劈刀":
+                    practice_count.add(String.format("練習次數: %d次", practice_time));
+                    historyDetails = new HistoryDetailsModel(convert_string_to_float(jsonF), convert_string_to_float(jsonA));
+                    history_details.add(historyDetails);
+                    image_list.add(R.drawable.hamster4);
+                    break;
             }
         }
     }

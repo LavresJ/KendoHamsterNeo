@@ -81,6 +81,24 @@ public class RecyclerAdapterCard extends RecyclerView.Adapter<RecyclerAdapterCar
                     case "托刀":
                         Toast.makeText(context, "托刀", Toast.LENGTH_SHORT).show();
                         break;
+                    case "右胴劈刀":
+                        Toast.makeText(context, "右胴劈刀", Toast.LENGTH_SHORT).show();
+                        Intent i2 = new Intent(context, DrawHistoryDetails.class);
+
+                        float f_avg2[] = new float[history_details.get(position).getF_avg().size()];
+                        float delta_theta2[] = new float[history_details.get(position).getDelta_theta().size()];
+
+                        //Log.d("f_avg", history_details.get(position).getF_avg().toString());
+                        for (int j = 0; j < history_details.get(position).getF_avg().size(); j++) {
+                            f_avg2[j] = history_details.get(position).getF_avg().get(j);
+                            delta_theta2[j] = history_details.get(position).getDelta_theta().get(j);
+                        }
+
+                        i2.putExtra("f_avg", f_avg2);
+                        i2.putExtra("delta_theta", delta_theta2);
+
+                        context.startActivity(i2);
+                        break;
                 }
             }
         });

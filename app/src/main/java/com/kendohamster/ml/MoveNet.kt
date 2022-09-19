@@ -241,7 +241,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                                     total_dynamic_motion_accuracy.toString()
                                 )
 
-                                if (total_dynamic_motion_accuracy > 0.5) {
+                                if (total_dynamic_motion_accuracy > 0.5) {  //0.5
                                     dynamic_motion_judgement = true
                                 } else {
                                     dynamic_motion_judgement = false
@@ -394,7 +394,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                                     total_dynamic_motion_accuracy.toString()
                                 )
 
-                                if (total_dynamic_motion_accuracy > 0.5) {
+                                if (total_dynamic_motion_accuracy > 0.5) {  //0.5
                                     dynamic_motion_judgement = true
                                 } else {
                                     dynamic_motion_judgement = false
