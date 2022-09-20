@@ -25,9 +25,9 @@ android {
         python {
             //buildPython "C:/Users/user/AndroidStudioProjects/Chaquopy_1/app/src/main/python/rarW8/python.exe"
             //buildPython "C:/Users/user/anaconda3/envs/rarW7/python.exe"
-            ///File pyPath = file('src/main/python/rarW8/python.exe')
+            File pyPath = file('src/main/python/rarW8/python.exe')
             //File pyPath_abs = file(pyPath.absolutePath)
-            File pyPath = file('/Users/joanne/opt/anaconda3/envs/my_env/bin/python3.9')
+            //File pyPath = file('/Users/joanne/opt/anaconda3/envs/my_env/bin/python3.9')
             buildPython pyPath.toString()
 
             pip {
