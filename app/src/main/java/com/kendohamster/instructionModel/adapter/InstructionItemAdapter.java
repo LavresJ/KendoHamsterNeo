@@ -38,6 +38,8 @@ public class InstructionItemAdapter extends RecyclerView.Adapter<InstructionItem
 
         holder.textView.setText(item.getStringId());
         holder.imageView.setImageResource(item.getImageId());
+
+        if(position == 0) holder.cameraIns.setText(R.string.cameraInstruction);
     }
 
     @Override
@@ -49,12 +51,14 @@ public class InstructionItemAdapter extends RecyclerView.Adapter<InstructionItem
         private final View view;
         private TextView textView;
         private ImageView imageView;
+        private TextView cameraIns;
 
         public ItemViewHolder(View view) {
             super(view);
             this.view = view;
             imageView = view.findViewById(R.id.item_image);
             textView = view.findViewById(R.id.item_title);
+            cameraIns = view.findViewById(R.id.camera_instruction);
         }
     }
 }
