@@ -10,9 +10,9 @@ public class Datasource {
 
         ArrayList<Instruction> list = new ArrayList<Instruction>();
 
-        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_1, R.drawable.men_uchi_step1));
-        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_2, R.drawable.men_uchi_step2));
-        list.add(new Instruction(com.kendohamster.R.string.menUchiInstruction_3, R.drawable.men_uchi_step3));
+        list.add(new Instruction(R.string.menUchiInstruction_1, R.drawable.men_uchi_step1));
+        list.add(new Instruction(R.string.menUchiInstruction_2, R.drawable.men_uchi_step2));
+        list.add(new Instruction(R.string.menUchiInstruction_3, R.drawable.men_uchi_step3));
 
         return list;
     }
@@ -41,9 +41,9 @@ public class Datasource {
 
         ArrayList<Instruction> list = new ArrayList<Instruction>();
 
-        list.add(new Instruction(R.string.douUchiInstruction_1, com.kendohamster.R.drawable.hamster1));
-        list.add(new Instruction(R.string.douUchiInstruction_2, com.kendohamster.R.drawable.hamster2));
-        list.add(new Instruction(R.string.douUchiInstruction_3, com.kendohamster.R.drawable.hamster3));
+        list.add(new Instruction(R.string.douUchiInstruction_1, R.drawable.dou_uchi_step1));
+        list.add(new Instruction(R.string.douUchiInstruction_2, R.drawable.dou_uchi_step2));
+        list.add(new Instruction(R.string.douUchiInstruction_3, R.drawable.dou_uchi_step3));
 
         return list;
     }

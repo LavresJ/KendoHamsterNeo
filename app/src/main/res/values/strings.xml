@@ -32,10 +32,13 @@
 
     <string name="app_name">Kendo Hamster</string>
     <string-array name="menu">
-        <item>菜單一</item>
-        <item>菜單二</item>
-        <item>菜單三</item>
+        <item>菜單一;正面劈刀:5,擦足:3,托刀:10,右胴劈刀:5</item>
+        <item>菜單二;托刀:10,擦足:3,正面劈刀:5,右胴劈刀:5</item>
+        <item>菜單三;正面劈刀:10,右胴劈刀:10</item>
+        <item>菜單四;托刀:10,正面劈刀:10</item>
+        <item>菜單五;正面劈刀:3,右胴劈刀:3</item>
     </string-array>
+
 
     <string-array name="PersonalInformation">
         <item>管理登錄方式</item>
@@ -55,32 +58,55 @@
         <item>四、分解動作四</item>
     </string-array>
 
-    <string name="menUchiInstruction_0">正面劈刀手機擺放位置指示</string>
-    <string name="menUchiInstruction_1">step.1中段姿勢:\n
+    <string name="menUchiInstruction_1">
+        *請將手機放置於距離身前約1.5公尺處，確保畫面能包含使用者全身，並按照以下的指示進行練習。\n\n
+        step.1中段姿勢:\n
         -左手握刀柄端部，對準自己的腹部中央(或中下)，離身體約一個拳頭的位置。\n
-        -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。</string>
-    <string name="menUchiInstruction_2">step.2上段姿勢:\n
-        -握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。</string>
-    <string name="menUchiInstruction_3">step.3 揮劍:\n
-        -揮劍軌跡順著身體中心線揮動，當竹劍揮至對手面部高度時停止竹劍揮動。</string>
+        -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。
+    </string>
+    <string name="menUchiInstruction_2">
+        step.2上段姿勢:\n
+        -握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。
+    </string>
+    <string name="menUchiInstruction_3">
+        step.3 揮劍:\n
+        -揮劍軌跡順著身體中心線揮動，當竹劍揮至對手面部高度時停止竹劍揮動。
+    </string>
 
-    <string name="suriAshiInstruction_0">擦足手機擺放位置指示</string>
-    <string name="suriAshiInstruction_1">step.1\n
+    <string name="suriAshiInstruction_1">
+        *請將手機放置於距離身前約1.5公尺處，確保畫面能包含使用者全身，並按照以下的指示進行練習。\n\n
+        step.1\n
         -呈中段姿勢，兩腳間隔約15公分，右腳在前，左腳尖與右腳跟成水平對齊。\n
-        右腳貼地，左腳跟稍離地面。</string>
-    <string name="suriAshiInstruction_2">step.2\n
-        -右腳先向前滑動。</string>
-    <string name="suriAshiInstruction_3">step.3\n
-        -左腳緊跟著右腳往前滑動，恢復中段姿勢。</string>
+        右腳貼地，左腳跟稍離地面。
+    </string>
+    <string name="suriAshiInstruction_2">
+        step.2\n
+        -右腳先向前滑動。
+    </string>
+    <string name="suriAshiInstruction_3">
+        step.3\n
+        -左腳緊跟著右腳往前滑動，恢復中段姿勢。
+    </string>
 
-    <string name="wakiKiamaeInstruction_0">托刀手機擺放位置指示</string>
-    <string name="wakiKiamaeInstruction">step.1\n
-        -雙手垂掛持刀，刀柄向上，刀尖向右側腰下方斜掛。</string>
+    <string name="wakiKiamaeInstruction">
+        *請將手機放置於距離身前約1.5公尺處，確保畫面能包含使用者全身，並按照以下的指示進行練習。\n\n
+        -雙手垂掛持刀，刀柄向上，刀尖向右側腰下方斜掛。
+    </string>
 
-    <string name="douUchiInstruction_0">右胴劈刀手機擺放位置指示</string>
-    <string name="douUchiInstruction_1">右胴劈刀托刀描述1</string>
-    <string name="douUchiInstruction_2">右胴劈刀托刀描述2</string>
-    <string name="douUchiInstruction_3">右胴劈刀托刀描述3</string>
+    <string name="douUchiInstruction_1">
+        *請將手機放置於距離身前約1.5公尺處，確保畫面能包含使用者全身，並按照以下的指示進行練習。\n\n
+        step.1\n
+        -中段姿勢:左手握刀柄端部，對準自己的腹部中央(或中下)，離身體約一個拳頭的位置。\n
+        -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。
+    </string>
+    <string name="douUchiInstruction_2">
+        step.2\n
+        -上段姿勢:握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。
+    </string>
+    <string name="douUchiInstruction_3">
+        step.3\n
+        -揮劍: 揮劍時迅速將刀向頭左側迴轉，然後劈擊對手的右胴部位。
+    </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

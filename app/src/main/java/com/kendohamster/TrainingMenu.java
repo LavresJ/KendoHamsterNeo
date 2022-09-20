@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,9 +24,12 @@ import java.util.ArrayList;
 
 public class TrainingMenu extends AppCompatActivity {
     ListView listView;
-    String menu_list[];
+    String menu[];
     ArrayAdapter<String> adapter;
-    String[][] menu;
+
+    String menuName[];
+    String menuMotion[];
+
     ArrayList<String> menu_motion_arraylist;
 
     @Override
@@ -35,18 +37,23 @@ public class TrainingMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_menu);
 
-
         listView = findViewById(R.id.listGeneral);
-        menu_list = getResources().getStringArray(R.array.menu);
+        menu = getResources().getStringArray(R.array.menu);
 
-        //設定菜單內容
-        menu = new String[menu_list.length][];
+        ///////
+
+        //取得菜單名稱list和菜單內的動作list
+        menuName = new String[menu.length];
+        menuMotion = new String[menu.length];
         for (int i = 0; i < menu.length; i++){
-            menu[i] = new String[]{"正面劈刀:5", "擦足:5", "托刀:10"};
+            String[] parts = menu[i].split(";");
+            menuName[i] = parts[0];
+            menuMotion[i] = parts[1];
         }
 
+        //////
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menu_list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuName);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,15 +61,17 @@ public class TrainingMenu extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String menu_name = adapterView.getItemAtPosition(i).toString();
 
+                String[] motions = menuMotion[i].split(",");
 
                 String dialogMessage = "";
-                for (int k = 0; k < menu[i].length; k++){
-                    String[] parts = menu[i][k].split(":");
+                for (int k = 0; k < motions.length; k++){
+                    String[] parts = motions[k].split(":");
                     dialogMessage += "\t";
-                    dialogMessage += menu[i][k];
+                    dialogMessage += motions[k];
                     switch (parts[0]){
                         case "正面劈刀":
                         case "擦足":
+                        case "右胴劈刀":
                             dialogMessage += "次";
                             break;
                         case "托刀":
@@ -80,8 +89,8 @@ public class TrainingMenu extends AppCompatActivity {
                         // User clicked OK button
                         Toast.makeText(getApplicationContext(),"開始練習" + menu_name,Toast.LENGTH_SHORT).show();
                         menu_motion_arraylist = new ArrayList<String>();
-                        for (int k = 0; k < menu[i].length; k++){
-                            menu_motion_arraylist.add(menu[i][k]);
+                        for (int k = 0; k < motions.length; k++){
+                            menu_motion_arraylist.add(motions[k]);
                         }
                         String[] parts = menu_motion_arraylist.get(0).split(":");
                         Intent i = new Intent(TrainingMenu.this, TrainingView.class);
