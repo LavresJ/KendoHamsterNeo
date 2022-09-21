@@ -1,5 +1,7 @@
 package com.kendohamster.instructionModel;
 
+import com.kendohamster.R;
+
 public class Instruction {
     private final int stringId;
     private final int imageId;
@@ -8,6 +10,7 @@ public class Instruction {
         this.stringId = stringId;
         this.imageId = imageId;
     }
+
 
     public int getImageId() {
         return imageId;
