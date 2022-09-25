@@ -213,7 +213,7 @@ public class MotionVideo extends AppCompatActivity {
         Intent i = new Intent(this, TrainingView.class);
         i.putExtra("motionName", motionName);
         i.putExtra("practiceTime", practiceTime);
-        i.putExtra("camera_back", true);
+        i.putExtra("camera_back", false);
         i.putExtra("time_start", timestamp_str);
         startActivity(i);
         MotionVideo.this.finish();

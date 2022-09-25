@@ -65,7 +65,7 @@ var dynamic_motion_complete = false //判斷動態動作有沒有完成一個週
 var dynamic_motion_judgement = true //判斷該週期的動態動作是正確or錯誤
 var dynamic_motion_times_count = 0.0
 var normal_end = true
-var camera_back = true  //是否是後鏡頭
+var camera_back = false  //是否是後鏡頭
 var timestamp_str: String? = null
 var accuracyList: ArrayList<Float> = arrayListOf()
 
@@ -201,7 +201,7 @@ class TrainingView : AppCompatActivity() {
         val i = intent
         motionName = i.getStringExtra("motionName")
         practiceTime = i.getIntExtra("practiceTime", 0)
-        camera_back = i.getBooleanExtra("camera_back", true)
+        camera_back = i.getBooleanExtra("camera_back", false)
         timestamp_str = i.getStringExtra("time_start")
         //Log.d("time_start", timestamp_str.toString())
 
