@@ -24,7 +24,7 @@
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             android:background="@color/purple_500"
             android:textColor="#fff"
-            app:title="動作列表"
+            app:title="@string/mainItem1"
             app:titleTextColor="@color/white"
             />
 

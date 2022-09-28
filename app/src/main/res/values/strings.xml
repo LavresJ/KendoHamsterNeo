@@ -30,7 +30,29 @@
         <item>Keypoint</item>
     </string-array>
 
-    <string name="app_name">Kendo Hamster</string>
+    <string name="app_name">Hamdo</string>
+
+
+    <string name="mainItem1">動作列表</string>
+    <string name="mainItem2">訓練菜單</string>
+    <string name="mainItem3">歷史紀錄</string>
+    <string name="mainItem4">設定</string>
+
+    <string name="startPracticing">開始練習</string>
+
+    <string name="nextMotion">下一個動作</string>
+    <string name="practiceAgain">再訓練一次</string>
+    <string name="backToMenu">返回訓練菜單</string>
+    <string name="backToMotionList">返回動作列表</string>
+    <string name="storeData">儲存資料</string>
+    <string name="motionName">動作名稱</string>
+    <string name="practiceTime">已練習次數</string>
+    <string name="accuracy">正確率</string>
+    <string name="expectedPracticeTime">預計練習次數</string>
+
+    <string name="stop">結束</string>
+
+
     <string-array name="menu">
         <item>菜單一;正面劈刀:5,擦足:3,托刀:10,右胴劈刀:5</item>
         <item>菜單二;托刀:10,擦足:3,正面劈刀:5,右胴劈刀:5</item>
@@ -107,6 +129,11 @@
         step.3\n
         -揮劍: 揮劍時迅速將刀向頭左側迴轉，然後劈擊對手的右胴部位。
     </string>
+
+    <string name="drawHistroyDetailsTitle">詳細記錄資料</string>
+    <string name="drawHistroyDetailsS1">單次平均出力(Nt) vs. 揮擊次數</string>
+    <string name="drawHistroyDetailsS2">單次平均角度(°) vs. 揮擊次數</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

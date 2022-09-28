@@ -25,7 +25,7 @@
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             android:background="@color/purple_500"
             android:textColor="#fff"
-            app:title="設定"
+            app:title="@string/mainItem4"
             app:titleTextColor="@color/white"
 
             />
