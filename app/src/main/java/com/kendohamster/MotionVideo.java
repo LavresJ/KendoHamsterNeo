@@ -55,15 +55,19 @@ public class MotionVideo extends AppCompatActivity {
 
         switch (motionName){
             case "正面劈刀":
+            case "Men Uchi":
                 insList = datasource.loadMenUchiIns();
                 break;
             case "擦足":
+            case "Suri Ashi":
                 insList = datasource.loadSuriAshiIns();
                 break;
             case "托刀":
+            case "Waki Kiamae":
                 insList = datasource.loadWakiKiamaeIns();
                 break;
             case "右胴劈刀":
+            case "Dou Uchi":
                 insList = datasource.loadDouUchiIns();
         }
 
@@ -154,6 +158,9 @@ public class MotionVideo extends AppCompatActivity {
                     case "正面劈刀":
                     case "擦足":
                     case "右胴劈刀":
+                    case "Men Uchi":
+                    case "Suri Ashi":
+                    case "Dou Uchi":
                         AlertDialog.Builder builder = new AlertDialog.Builder(MotionVideo.this);
                         builder.setTitle("請輸入練習次數");
 
@@ -190,6 +197,7 @@ public class MotionVideo extends AppCompatActivity {
                         break;
                     //靜態動作
                     case "托刀":
+                    case "Waki Kiamae":
                         startPracticing(motionName, 10);
                         break;
                 }

@@ -127,9 +127,9 @@ public class MotionList extends AppCompatActivity {
     }
 
     public void fillArray(){
-        text.add("正面劈刀");
-        text.add("擦足");
-        text.add("托刀");
-        text.add("右胴劈刀");
+        text.add(getResources().getString(R.string.motionMenUchi));
+        text.add(getResources().getString(R.string.motionSuriAshi));
+        text.add(getResources().getString(R.string.motionWakiKiamae));
+        text.add(getResources().getString(R.string.motionDouUchi));
     }
 }

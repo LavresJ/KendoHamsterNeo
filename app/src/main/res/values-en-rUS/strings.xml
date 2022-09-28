@@ -33,57 +33,55 @@
     <string name="app_name">Hamdo</string>
 
 
-    <string name="mainItem1">動作列表</string>
-    <string name="mainItem2">訓練菜單</string>
-    <string name="mainItem3">歷史紀錄</string>
-    <string name="mainItem4">設定</string>
+    <string name="mainItem1">Motion List</string>
+    <string name="mainItem2">Training Menu</string>
+    <string name="mainItem3">History</string>
+    <string name="mainItem4">Settings</string>
 
-    <string name="startPracticing">開始練習</string>
+    <string name="startPracticing">Start Practicing</string>
 
-    <string name="nextMotion">下一個動作</string>
-    <string name="practiceAgain">再訓練一次</string>
-    <string name="backToMenu">返回訓練菜單</string>
-    <string name="backToMotionList">返回動作列表</string>
-    <string name="storeData">儲存資料</string>
-    <string name="motionName">動作名稱</string>
-    <string name="practiceTime">已練習次數</string>
-    <string name="accuracy">正確率</string>
-    <string name="expectedPracticeTime">預計練習次數</string>
-    <string name="practiceTimeS">已練習時間</string>
-    <string name="expectedPracticeTimeS">預計練習時間</string>
+    <string name="nextMotion">Next Motion</string>
+    <string name="practiceAgain">Practice Again</string>
+    <string name="backToMenu">Back To Menu</string>
+    <string name="backToMotionList">Back To Motion List</string>
+    <string name="storeData">Save Data</string>
+    <string name="motionName">Motion Name</string>
+    <string name="practiceTime">Practice Time</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="expectedPracticeTime">Expected Practice Time</string>
+    <string name="practiceTimeS">Practice Time</string>
+    <string name="expectedPracticeTimeS">Expected Practice Time</string>
 
-    <string name="stop">結束</string>
+    <string name="stop">Stop</string>
 
-
-        <string name="motionMenUchi">正面劈刀</string>
-        <string name="motionSuriAshi">擦足</string>
-        <string name="motionWakiKiamae">托刀</string>
-        <string name="motionDouUchi">右胴劈刀</string>
-
+    <string name="motionMenUchi">Men Uchi</string>
+    <string name="motionSuriAshi">Suri Ashi</string>
+    <string name="motionWakiKiamae">Waki Kiamae</string>
+    <string name="motionDouUchi">Dou Uchi</string>
 
     <string-array name="menu">
-        <item>菜單一;正面劈刀:5,擦足:3,托刀:10,右胴劈刀:5</item>
-        <item>菜單二;托刀:10,擦足:3,正面劈刀:5,右胴劈刀:5</item>
-        <item>菜單三;正面劈刀:10,右胴劈刀:10</item>
-        <item>菜單四;托刀:10,正面劈刀:10</item>
-        <item>菜單五;正面劈刀:3,右胴劈刀:3</item>
+        <item>Menu1;Men Uchi:5,Suri Ashi:3,Waki Kiamae:10,Dou Uchi:5</item>
+        <item>Menu2;Waki Kiamae:10,Suri Ashi:3,Men Uchi:5,Dou Uchi:5</item>
+        <item>Menu3;Men Uchi:10,Dou Uchi:10</item>
+        <item>Menu4;Waki Kiamae:10,Men Uchi:10</item>
+        <item>Menu5;Men Uchi:3,Dou Uchi:3</item>
     </string-array>
 
 
     <string-array name="PersonalInformation">
-        <item>管理登錄方式</item>
-        <item>通知設定</item>
-        <item>隱私設定</item>
+        <item>Account</item>
+        <item>Notification</item>
+        <item>Privacy</item>
     </string-array>
 
     <string-array name="settingsGeneral">
-        <item>校準</item>
-        <item>語言</item>
+        <item>校準Ｅ</item>
+        <item>Language</item>
     </string-array>
 
-    <string name="plsChooseLanguage">請選擇語言</string>
+    <string name="plsChooseLanguage">Please select language.</string>
 
-    <string name="confirm">確定</string>
+    <string name="confirm">Ok</string>
 
     <string-array name="video">
         <item>一、分解動作一</item>
