@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -64,7 +65,7 @@ public class TrainingResult extends AppCompatActivity {
         accuracyList = i.getFloatArrayExtra("accuracyList");
         normal_end = i.getBooleanExtra("normal_end", true);
         timestamp_str = i.getStringExtra("time_start");
-        //Log.d("time_start", timestamp_str);
+        Log.d("time_start", "" + timestamp_str);
 
         menu_motion_arraylist = i.getStringArrayListExtra("menu_motion_arraylist");
         from_menu = i.getBooleanExtra("from_menu", false);
