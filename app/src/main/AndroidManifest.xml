@@ -18,6 +18,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoseEstimation">
         <activity
+            android:name=".SignUp"
+            android:exported="false"
+            android:parentActivityName=".EmailLogin">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".EmailLogin"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DrawHistoryDetails"
             android:exported="false" />
         <activity
