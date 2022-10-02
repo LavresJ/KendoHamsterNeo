@@ -43,7 +43,8 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String personalInformation = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getApplicationContext(),"選擇" + personalInformation,Toast.LENGTH_LONG).show();
+                    selectItem(4);
+                    Toast.makeText(getApplicationContext(), "選擇" + personalInformation, Toast.LENGTH_LONG).show();
             }
         });
         //一般設定欄位
@@ -57,7 +58,9 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String settingsGeneral = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getApplicationContext(),"選擇" + settingsGeneral,Toast.LENGTH_LONG).show();
+                    selectItem(4);
+                    Toast.makeText(getApplicationContext(), "選擇" + settingsGeneral, Toast.LENGTH_LONG).show();
+
             }
         });
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
@@ -133,6 +136,8 @@ public class Settings extends AppCompatActivity {
             case R.id.action_setting:
                 i = new Intent(this, Settings.class);
                 break;
+            case 4:
+                i = new Intent(this, EmailLogin.class);
             default:
                 break;
         }
