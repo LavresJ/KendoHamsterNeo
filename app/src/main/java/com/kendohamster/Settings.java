@@ -15,6 +15,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -73,14 +74,13 @@ public class Settings extends AppCompatActivity {
                 String[] languages = {"中文", "English"};
                 int checkedItem = 0;
 
-
                 builder.setSingleChoiceItems(languages, checkedItem, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                lan = Locale.getDefault().getLanguage();
+                                lan = "zh";
                                 break;
                             case 1:
                                 lan = "en";

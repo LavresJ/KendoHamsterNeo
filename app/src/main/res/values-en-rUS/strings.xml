@@ -38,7 +38,7 @@
     <string name="mainItem3">History</string>
     <string name="mainItem4">Settings</string>
 
-    <string name="startPracticing">Start Practicing</string>
+    <string name="startPracticing">Start</string>
 
     <string name="nextMotion">Next Motion</string>
     <string name="practiceAgain">Practice Again</string>
@@ -46,13 +46,30 @@
     <string name="backToMotionList">Back To Motion List</string>
     <string name="storeData">Save Data</string>
     <string name="motionName">Motion Name</string>
-    <string name="practiceTime">Practice Time</string>
+    <string name="practicedTime">Practice Time</string>
     <string name="accuracy">Accuracy</string>
     <string name="expectedPracticeTime">Expected Practice Time</string>
-    <string name="practiceTimeS">Practice Time</string>
+    <string name="practicedTimeS">Practice Time</string>
     <string name="expectedPracticeTimeS">Expected Practice Time</string>
 
+    <string name="practiceTime">Practice Time</string>
+    <string name="practiceTimeS">Practice Time</string>
+    <string name="startTime">Start Time</string>
+    <string name="select">Select</string>
+
     <string name="stop">Stop</string>
+
+    <string name="times"></string>
+    <string name="seconds">s</string>
+
+    <string name="finishPractice">Practice finished</string>
+
+    <string name="saveDataSuccess">Data save successfully</string>
+    <string name="saveDataFail">Data save failed</string>
+    <string name="watchDataAnalyzed">Watch data analyzed</string>
+
+    <string name="plsInputPracticeTime">Please enter practice time</string>
+    <string name="plsInputPositiveInt">Please enter positive integer!</string>
 
     <string name="motionMenUchi">Men Uchi</string>
     <string name="motionSuriAshi">Suri Ashi</string>
@@ -67,6 +84,7 @@
         <item>Menu5;Men Uchi:3,Dou Uchi:3</item>
     </string-array>
 
+    <string name="theresNRecords">%04d-%02d-%02d: %d record</string>
 
     <string-array name="PersonalInformation">
         <item>Account</item>
@@ -75,13 +93,14 @@
     </string-array>
 
     <string-array name="settingsGeneral">
-        <item>校準Ｅ</item>
+        <item>Calibration</item>
         <item>Language</item>
     </string-array>
 
     <string name="plsChooseLanguage">Please select language.</string>
 
     <string name="confirm">Ok</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="video">
         <item>一、分解動作一</item>

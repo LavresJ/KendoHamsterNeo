@@ -375,7 +375,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
@@ -397,7 +397,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
@@ -422,7 +422,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
@@ -448,7 +448,7 @@ class TrainingView : AppCompatActivity() {
                             falseView.visibility = View.GONE
                         }
 
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + "秒"
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + getResources().getString(R.string.seconds)
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
@@ -466,11 +466,11 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(abdominalCount).toInt()) + "次"
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(abdominalCount).toInt()) + getResources().getString(R.string.times)
                         countHandler.postDelayed(countRunnable, 100)
                     }
                 }

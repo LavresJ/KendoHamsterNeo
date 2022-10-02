@@ -95,8 +95,8 @@ public class TrainingResult extends AppCompatActivity {
             case "Men Uchi":
                 frontCount = i.getDoubleExtra("frontCount", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "：" + practiceTime +"次");
-                textResultPracticeTime.setText(getResources().getString(R.string.practiceTime) + "：" + String.format("%.0f",Math.floor(frontCount)) + "次");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "：" + practiceTime + getResources().getString(R.string.times));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" + String.format("%.0f",Math.floor(frontCount)) + getResources().getString(R.string.times));
                 textResultAccuracy.setText(getResources().getString(R.string.accuracy) + "：" + String.format("%.2f", accuracy * 100) + "%");
                 break;
 
@@ -104,8 +104,8 @@ public class TrainingResult extends AppCompatActivity {
             case "Suri Ashi":
                 stepCount = i.getDoubleExtra("stepCount", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "：" + practiceTime +"次");
-                textResultPracticeTime.setText(getResources().getString(R.string.practiceTime) + "：" + String.format("%.0f",Math.floor(stepCount)) + "次");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "：" + practiceTime + getResources().getString(R.string.times));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" + String.format("%.0f",Math.floor(stepCount)) + getResources().getString(R.string.times));
                 textResultAccuracy.setText(getResources().getString(R.string.accuracy) + "：" + String.format("%.2f", accuracy * 100) + "%");
                 break;
 
@@ -113,8 +113,8 @@ public class TrainingResult extends AppCompatActivity {
             case "Waki Kiamae":
                 hold_sword_count = i.getDoubleExtra("hold_sword_count", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTimeS) + "：" + practiceTime +"次");
-                textResultPracticeTime.setText(getResources().getString(R.string.practiceTime) + "：" +  String.format("%.0f", Math.floor(hold_sword_count)) + "秒");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTimeS) + "：" + practiceTime + getResources().getString(R.string.seconds));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" +  String.format("%.0f", Math.floor(hold_sword_count)) + getResources().getString(R.string.seconds));
                 textResultAccuracy.setText("");
                 break;
 
@@ -122,8 +122,8 @@ public class TrainingResult extends AppCompatActivity {
             case "Dou Uchi":
                 abdominalCount = i.getDoubleExtra("abdominalCount", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "："+ practiceTime +"次");
-                textResultPracticeTime.setText(getResources().getString(R.string.practiceTime) + "：" + String.format("%.0f", Math.floor(abdominalCount)) + "次");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "："+ practiceTime + getResources().getString(R.string.times));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" + String.format("%.0f", Math.floor(abdominalCount)) + getResources().getString(R.string.times));
                 textResultAccuracy.setText(getResources().getString(R.string.accuracy) + "：" + String.format("%.2f", accuracy * 100) + "%");
                 break;
         }
@@ -221,12 +221,12 @@ public class TrainingResult extends AppCompatActivity {
                     case "正面劈刀":
                     case "Men Uchi":
                         MA.getData();
-                        Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.watchDataAnalyzed), Toast.LENGTH_SHORT).show();
                         break;
                     case "右胴劈刀":
                     case "Dou Uchi":
                         MA.getData();
-                        Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.watchDataAnalyzed), Toast.LENGTH_SHORT).show();
                         break;
                 }
 
@@ -332,13 +332,13 @@ public class TrainingResult extends AppCompatActivity {
                 dao.add(result).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(TrainingResult.this, "儲存成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.saveDataSuccess), Toast.LENGTH_SHORT).show();
                         //Log.d("send", "success");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(TrainingResult.this, "儲存失敗" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.saveDataFail) + e.getMessage(), Toast.LENGTH_SHORT).show();
                         //Log.d("send", "false");
                     }
                 });

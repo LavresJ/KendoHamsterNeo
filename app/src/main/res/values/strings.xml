@@ -46,19 +46,35 @@
     <string name="backToMotionList">返回動作列表</string>
     <string name="storeData">儲存資料</string>
     <string name="motionName">動作名稱</string>
-    <string name="practiceTime">已練習次數</string>
+    <string name="practicedTime">已練習次數</string>
     <string name="accuracy">正確率</string>
     <string name="expectedPracticeTime">預計練習次數</string>
-    <string name="practiceTimeS">已練習時間</string>
+    <string name="practicedTimeS">已練習時間</string>
     <string name="expectedPracticeTimeS">預計練習時間</string>
+
+    <string name="practiceTime">練習次數</string>
+    <string name="practiceTimeS">練習時間</string>
+    <string name="startTime">開始時間</string>
+    <string name="select">選擇</string>
 
     <string name="stop">結束</string>
 
+    <string name="times">次</string>
+    <string name="seconds">秒</string>
 
-        <string name="motionMenUchi">正面劈刀</string>
-        <string name="motionSuriAshi">擦足</string>
-        <string name="motionWakiKiamae">托刀</string>
-        <string name="motionDouUchi">右胴劈刀</string>
+    <string name="finishPractice">完成訓練</string>
+
+    <string name="saveDataSuccess">儲存成功</string>
+    <string name="saveDataFail">儲存失敗</string>
+    <string name="watchDataAnalyzed">已分析手錶數據</string>
+
+    <string name="plsInputPracticeTime">請輸入練習次數</string>
+    <string name="plsInputPositiveInt">請輸入正整數！</string>
+
+    <string name="motionMenUchi">正面劈刀</string>
+    <string name="motionSuriAshi">擦足</string>
+    <string name="motionWakiKiamae">托刀</string>
+    <string name="motionDouUchi">右胴劈刀</string>
 
 
     <string-array name="menu">
@@ -69,6 +85,7 @@
         <item>菜單五;正面劈刀:3,右胴劈刀:3</item>
     </string-array>
 
+    <string name="theresNRecords">%04d-%02d-%02d有%d筆訓練紀錄</string>
 
     <string-array name="PersonalInformation">
         <item>管理登錄方式</item>
@@ -84,6 +101,7 @@
     <string name="plsChooseLanguage">請選擇語言</string>
 
     <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
 
     <string-array name="video">
         <item>一、分解動作一</item>

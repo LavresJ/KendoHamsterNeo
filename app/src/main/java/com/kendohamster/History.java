@@ -117,7 +117,7 @@ public class History extends AppCompatActivity {
         });
 
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            Toast.makeText(this, "選擇 " + year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.select) + " " + year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();
             Log.d("year", String.valueOf(year));
             Log.d("month", String.valueOf(month + 1));
             Log.d("dayOfMonth", String.valueOf(dayOfMonth));
@@ -148,7 +148,7 @@ public class History extends AppCompatActivity {
 
                 adapter = new RecyclerAdapterCard(action_name, start_time, practice_count, accuracy_list, image_list, history_details, History.this);
                 recyclerView.setAdapter(adapter);
-                txtResults.setText(String.format("%04d-%02d-%02d 有 %d 筆訓練紀錄", year, month, dayOfMonth, action_name.size()));
+                txtResults.setText(String.format(getResources().getString(R.string.theresNRecords), year, month, dayOfMonth, action_name.size()));
             }
 
             @Override
@@ -176,30 +176,30 @@ public class History extends AppCompatActivity {
 
         if(same_date) {
             action_name.add(motionName);
-            start_time.add(String.format("開始時間: %02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND)));
-            accuracy_list.add(String.format("正確率: %.2f%%", Double.valueOf(accuracy.toString())));
+            start_time.add(String.format(getResources().getString(R.string.startTime) + ": %02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND)));
+            accuracy_list.add(String.format(getResources().getString(R.string.accuracy) + ": %.2f%%", Double.valueOf(accuracy.toString())));
 
             switch (motionName) {
                 case "正面劈刀":
-                    practice_count.add(String.format("練習次數: %d次", practice_time));
+                    practice_count.add(String.format(getResources().getString(R.string.practiceTime) + ": %d" + getResources().getString(R.string.times), practice_time));
                     historyDetails = new HistoryDetailsModel(convert_string_to_float(jsonF), convert_string_to_float(jsonA));
                     history_details.add(historyDetails);
                     image_list.add(R.drawable.hamster1);
                     break;
                 case "擦足":
-                    practice_count.add(String.format("練習次數: %d次", practice_time));
+                    practice_count.add(String.format(getResources().getString(R.string.practiceTime) + ": %d" + getResources().getString(R.string.times), practice_time));
                     historyDetails = new HistoryDetailsModel(null, null);
                     history_details.add(historyDetails);
                     image_list.add(R.drawable.hamster2);
                     break;
                 case "托刀":
-                    practice_count.add(String.format("練習時間: %d秒", practice_time));
+                    practice_count.add(String.format(getResources().getString(R.string.practiceTimeS) + ": %d" + getResources().getString(R.string.seconds), practice_time));
                     historyDetails = new HistoryDetailsModel(null, null);
                     history_details.add(historyDetails);
                     image_list.add(R.drawable.hamster3);
                     break;
                 case "右胴劈刀":
-                    practice_count.add(String.format("練習次數: %d次", practice_time));
+                    practice_count.add(String.format(getResources().getString(R.string.practiceTime) + ": %d" + getResources().getString(R.string.times), practice_time));
                     historyDetails = new HistoryDetailsModel(convert_string_to_float(jsonF), convert_string_to_float(jsonA));
                     history_details.add(historyDetails);
                     image_list.add(R.drawable.hamster4);

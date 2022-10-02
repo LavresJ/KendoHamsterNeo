@@ -162,19 +162,19 @@ public class MotionVideo extends AppCompatActivity {
                     case "Suri Ashi":
                     case "Dou Uchi":
                         AlertDialog.Builder builder = new AlertDialog.Builder(MotionVideo.this);
-                        builder.setTitle("請輸入練習次數");
+                        builder.setTitle(getResources().getString(R.string.plsInputPracticeTime));
 
                         final EditText edtPracticeTime = new EditText(MotionVideo.this); //final一個editText
                         edtPracticeTime.setInputType(InputType.TYPE_CLASS_NUMBER);
                         builder.setView(edtPracticeTime);
 
 
-                        builder.setPositiveButton("開始練習", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(getResources().getString(R.string.startPracticing), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked OK button
 
                                 if(edtPracticeTime.getText().toString().matches("")){
-                                    Toast.makeText(MotionVideo.this, "請輸入正整數！", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MotionVideo.this, getResources().getString(R.string.plsInputPositiveInt), Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     practiceTime = Integer.valueOf(edtPracticeTime.getText().toString());
@@ -182,13 +182,13 @@ public class MotionVideo extends AppCompatActivity {
                                         startPracticing(motionName, practiceTime);
                                     } else {
                                         edtPracticeTime.setText("");
-                                        Toast.makeText(MotionVideo.this, "請輸入正整數！", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MotionVideo.this, getResources().getString(R.string.plsInputPositiveInt), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
 
                         });
-                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
                             }
