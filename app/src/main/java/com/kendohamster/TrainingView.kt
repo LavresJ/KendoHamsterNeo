@@ -379,7 +379,7 @@ class TrainingView : AppCompatActivity() {
                             startActivity(i)
                             finish()
                         }
-                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt()) + "次"
+                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt()) + getResources().getString(R.string.times)
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
@@ -401,7 +401,7 @@ class TrainingView : AppCompatActivity() {
                             startActivity(i)
                             finish()
                         }
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt()) + "次"
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt()) + getResources().getString(R.string.times)
                         countHandler.postDelayed(countRunnable, 100)
                     }
 

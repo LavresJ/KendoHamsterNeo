@@ -72,9 +72,8 @@ public class Settings extends AppCompatActivity {
                 builder.setTitle(R.string.plsChooseLanguage);
 
                 String[] languages = {"中文", "English"};
-                int checkedItem = 0;
 
-                builder.setSingleChoiceItems(languages, checkedItem, new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(languages, 3, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -91,6 +90,7 @@ public class Settings extends AppCompatActivity {
                 builder.setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
+                        Log.d("123456", lan);
                         setLocale(lan);
                     }
 
@@ -187,7 +187,7 @@ public class Settings extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, Settings.class);
+        Intent refresh = new Intent(this, MainPage.class);
         finish();
         startActivity(refresh);
     }

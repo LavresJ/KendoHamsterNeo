@@ -33,74 +33,75 @@
     <string name="app_name">Hamdo</string>
 
 
-    <string name="mainItem1">Motion List</string>
-    <string name="mainItem2">Training Menu</string>
-    <string name="mainItem3">History</string>
-    <string name="mainItem4">Settings</string>
+    <string name="mainItem1">動作列表</string>
+    <string name="mainItem2">訓練菜單</string>
+    <string name="mainItem3">歷史紀錄</string>
+    <string name="mainItem4">設定</string>
 
-    <string name="startPracticing">Start</string>
+    <string name="startPracticing">開始練習</string>
 
-    <string name="nextMotion">Next Motion</string>
-    <string name="practiceAgain">Practice Again</string>
-    <string name="backToMenu">Back To Menu</string>
-    <string name="backToMotionList">Back To Motion List</string>
-    <string name="storeData">Save Data</string>
-    <string name="motionName">Motion Name</string>
-    <string name="practicedTime">Practice Time</string>
-    <string name="accuracy">Accuracy</string>
-    <string name="expectedPracticeTime">Expected Practice Time</string>
-    <string name="practicedTimeS">Practice Time</string>
-    <string name="expectedPracticeTimeS">Expected Practice Time</string>
+    <string name="nextMotion">下一個動作</string>
+    <string name="practiceAgain">再訓練一次</string>
+    <string name="backToMenu">返回訓練菜單</string>
+    <string name="backToMotionList">返回動作列表</string>
+    <string name="storeData">儲存資料</string>
+    <string name="motionName">動作名稱</string>
+    <string name="practicedTime">已練習次數</string>
+    <string name="accuracy">正確率</string>
+    <string name="expectedPracticeTime">預計練習次數</string>
+    <string name="practicedTimeS">已練習時間</string>
+    <string name="expectedPracticeTimeS">預計練習時間</string>
 
-    <string name="practiceTime">Practice Time</string>
-    <string name="practiceTimeS">Practice Time</string>
-    <string name="startTime">Start Time</string>
-    <string name="select">Select</string>
+    <string name="practiceTime">練習次數</string>
+    <string name="practiceTimeS">練習時間</string>
+    <string name="startTime">開始時間</string>
+    <string name="select">選擇</string>
 
-    <string name="stop">Stop</string>
+    <string name="stop">結束</string>
 
-    <string name="times"></string>
-    <string name="seconds">s</string>
+    <string name="times">次</string>
+    <string name="seconds">秒</string>
 
-    <string name="finishPractice">Practice finished</string>
+    <string name="finishPractice">完成訓練</string>
 
-    <string name="saveDataSuccess">Data save successfully</string>
-    <string name="saveDataFail">Data save failed</string>
-    <string name="watchDataAnalyzed">Watch data analyzed</string>
+    <string name="saveDataSuccess">儲存成功</string>
+    <string name="saveDataFail">儲存失敗</string>
+    <string name="watchDataAnalyzed">已分析手錶數據</string>
 
-    <string name="plsInputPracticeTime">Please enter practice time</string>
-    <string name="plsInputPositiveInt">Please enter positive integer!</string>
+    <string name="plsInputPracticeTime">請輸入練習次數</string>
+    <string name="plsInputPositiveInt">請輸入正整數！</string>
 
-    <string name="motionMenUchi">Men Uchi</string>
-    <string name="motionSuriAshi">Suri Ashi</string>
-    <string name="motionWakiKiamae">Waki Kiamae</string>
-    <string name="motionDouUchi">Dou Uchi</string>
+    <string name="motionMenUchi">正面劈刀</string>
+    <string name="motionSuriAshi">擦足</string>
+    <string name="motionWakiKiamae">托刀</string>
+    <string name="motionDouUchi">右胴劈刀</string>
+
 
     <string-array name="menu">
-        <item>Menu1;Men Uchi:5,Suri Ashi:3,Waki Kiamae:10,Dou Uchi:5</item>
-        <item>Menu2;Waki Kiamae:10,Suri Ashi:3,Men Uchi:5,Dou Uchi:5</item>
-        <item>Menu3;Men Uchi:10,Dou Uchi:10</item>
-        <item>Menu4;Waki Kiamae:10,Men Uchi:10</item>
-        <item>Menu5;Men Uchi:3,Dou Uchi:3</item>
+        <item>菜單一;正面劈刀:5,擦足:3,托刀:10,右胴劈刀:5</item>
+        <item>菜單二;托刀:10,擦足:3,正面劈刀:5,右胴劈刀:5</item>
+        <item>菜單三;正面劈刀:10,右胴劈刀:10</item>
+        <item>菜單四;托刀:10,正面劈刀:10</item>
+        <item>菜單五;正面劈刀:3,右胴劈刀:3</item>
     </string-array>
 
-    <string name="theresNRecords">%04d-%02d-%02d: %d record</string>
+    <string name="theresNRecords">%04d-%02d-%02d有%d筆訓練紀錄</string>
 
     <string-array name="PersonalInformation">
-        <item>Account</item>
-        <item>Notification</item>
-        <item>Privacy</item>
+        <item>管理登錄方式</item>
+        <item>通知設定</item>
+        <item>隱私設定</item>
     </string-array>
 
     <string-array name="settingsGeneral">
-        <item>Calibration</item>
-        <item>Language</item>
+        <item>校準</item>
+        <item>語言</item>
     </string-array>
 
-    <string name="plsChooseLanguage">Please select language.</string>
+    <string name="plsChooseLanguage">請選擇語言</string>
 
-    <string name="confirm">Ok</string>
-    <string name="cancel">Cancel</string>
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
 
     <string-array name="video">
         <item>一、分解動作一</item>
@@ -159,9 +160,9 @@
         -揮劍: 揮劍時迅速將刀向頭左側迴轉，然後劈擊對手的右胴部位。
     </string>
 
-    <string name="drawHistroyDetailsTitle">Record Details</string>
-    <string name="drawHistroyDetailsS1">單次平均出力(Nt) vs. Wield Times</string>
-    <string name="drawHistroyDetailsS2">單次平均角度(°) vs. Wield Times</string>
+    <string name="drawHistroyDetailsTitle">詳細記錄資料</string>
+    <string name="drawHistroyDetailsS1">單次平均出力(Nt) vs. 揮擊次數</string>
+    <string name="drawHistroyDetailsS2">單次平均角度(°) vs. 揮擊次數</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
