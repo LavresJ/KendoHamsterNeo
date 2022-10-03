@@ -43,8 +43,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String personalInformation = adapterView.getItemAtPosition(i).toString();
-                    selectItem(4);
-                    Toast.makeText(getApplicationContext(), "選擇" + personalInformation, Toast.LENGTH_LONG).show();
+                selectItem(4);
             }
         });
         //一般設定欄位
@@ -58,8 +57,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String settingsGeneral = adapterView.getItemAtPosition(i).toString();
-                    selectItem(4);
-                    Toast.makeText(getApplicationContext(), "選擇" + settingsGeneral, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "選擇" + settingsGeneral, Toast.LENGTH_LONG).show();
 
             }
         });
