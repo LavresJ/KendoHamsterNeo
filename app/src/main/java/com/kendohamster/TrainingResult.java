@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -145,6 +146,10 @@ public class TrainingResult extends AppCompatActivity {
 
         if(from_menu){ //從菜單來的
             btnPracticeAgain.setVisibility(View.INVISIBLE);
+            Long datetime = System.currentTimeMillis();
+            Timestamp timestamp = new Timestamp(datetime);
+            String timestamp_str = timestamp.toString();
+            //Log.d("timestamp_str", timestamp_str);
 
             if(menu_motion_arraylist.isEmpty()){ //已完成菜單的所有動作
                 btnNextMotion.setVisibility(View.INVISIBLE);
@@ -166,7 +171,8 @@ public class TrainingResult extends AppCompatActivity {
                         Intent i = new Intent(TrainingResult.this, TrainingView.class);
                         i.putExtra("motionName", parts[0]);
                         i.putExtra("practiceTime", Integer.valueOf(parts[1]));
-                        i.putExtra("camera_back", true);
+                        i.putExtra("camera_back", false);
+                        i.putExtra("time_start", timestamp_str);
                         i.putExtra("menu_motion_arraylist", menu_motion_arraylist);
                         i.putExtra("from_menu", true);
                         startActivity(i);
@@ -186,13 +192,19 @@ public class TrainingResult extends AppCompatActivity {
             btnNextMotion.setVisibility(View.INVISIBLE);
             btnBackToMenu.setVisibility(View.INVISIBLE);
 
+            Long datetime = System.currentTimeMillis();
+            Timestamp timestamp = new Timestamp(datetime);
+            String timestamp_str = timestamp.toString();
+            //Log.d("timestamp_str", timestamp_str);
+
             btnPracticeAgain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(TrainingResult.this, TrainingView.class);
                     i.putExtra("motionName", motionName);
                     i.putExtra("practiceTime", practiceTime);
-                    i.putExtra("camera_back", true);
+                    i.putExtra("time_start", timestamp_str);
+                    i.putExtra("camera_back", false);
                     startActivity(i);
                     TrainingResult.this.finish();
                 }
