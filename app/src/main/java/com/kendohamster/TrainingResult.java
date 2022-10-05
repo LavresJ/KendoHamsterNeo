@@ -116,7 +116,7 @@ public class TrainingResult extends AppCompatActivity {
                 hold_sword_count = i.getDoubleExtra("hold_sword_count", 0);
                 textResultMotionName.setText(motionName);
                 textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTimeS) + "：" + practiceTime + getResources().getString(R.string.seconds));
-                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" +  String.format("%.0f", Math.floor(hold_sword_count)) + getResources().getString(R.string.seconds));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTimeS) + "：" +  String.format("%.0f", Math.floor(hold_sword_count)) + getResources().getString(R.string.seconds));
                 textResultAccuracy.setText("");
                 break;
 
