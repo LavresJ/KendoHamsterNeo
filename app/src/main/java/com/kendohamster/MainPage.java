@@ -8,7 +8,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Locale;
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener{
 
@@ -92,6 +97,11 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener{
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
     }
     public void selectItem(int position) {
         Intent i = null;

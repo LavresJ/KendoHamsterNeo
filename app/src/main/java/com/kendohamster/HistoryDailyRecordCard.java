@@ -85,22 +85,29 @@ public class HistoryDailyRecordCard extends AppCompatActivity {
 
         switch (motionName) {
             case "正面劈刀":
+            case ("Men Uchi"):
                 practice_count.add(String.format("練習次數: %d次", practice_time));
                 historyDetails = new HistoryDetailsModel(convert_string_to_float(jsonF), convert_string_to_float(jsonA));
                 history_details.add(historyDetails);
                 image_list.add(R.drawable.hamster1);
                 break;
             case "擦足":
+            case ("Suri Ashi"):
                 practice_count.add(String.format("練習次數: %d次", practice_time));
                 historyDetails = new HistoryDetailsModel(null, null);
                 history_details.add(historyDetails);
                 image_list.add(R.drawable.hamster2);
                 break;
             case "托刀":
+            case ("Waki Kiamae"):
                 practice_count.add(String.format("練習時間: %d秒", practice_time));
                 historyDetails = new HistoryDetailsModel(null, null);
                 history_details.add(historyDetails);
                 image_list.add(R.drawable.hamster3);
+                break;
+            case ("右胴劈刀"):
+            case ("Dou Uchi"):
+
                 break;
         }
     }

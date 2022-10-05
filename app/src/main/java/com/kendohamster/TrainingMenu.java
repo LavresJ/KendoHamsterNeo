@@ -75,7 +75,8 @@ public class TrainingMenu extends AppCompatActivity {
                             dialogMessage += "次";
                             break;
                         case "托刀":
-                            dialogMessage += "秒";
+                        case "Waki Kiamae":
+                            dialogMessage += getResources().getString(R.string.seconds);
                             break;
                     }
                     dialogMessage += "\n";
@@ -84,10 +85,9 @@ public class TrainingMenu extends AppCompatActivity {
                 builder.setMessage(dialogMessage)
                         .setTitle(menu_name);
 
-                builder.setPositiveButton("開始練習", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.startPracticing, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
-                        Toast.makeText(getApplicationContext(),"開始練習" + menu_name,Toast.LENGTH_SHORT).show();
                         menu_motion_arraylist = new ArrayList<String>();
                         for (int k = 0; k < motions.length; k++){
                             menu_motion_arraylist.add(motions[k]);
@@ -103,7 +103,7 @@ public class TrainingMenu extends AppCompatActivity {
                         finish();
                     }
                 });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

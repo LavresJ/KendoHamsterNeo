@@ -24,7 +24,7 @@
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             android:background="@color/purple_500"
             android:textColor="#fff"
-            app:title="詳細記錄資料"
+            app:title="@string/drawHistroyDetailsTitle"
             app:titleTextColor="@color/white"
 
             />
@@ -36,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
             android:paddingTop="5dp"
-            android:text="單次平均出力(Nt) vs. 揮擊次數" />
+            android:text="@string/drawHistroyDetailsS1" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart1"
@@ -55,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:paddingTop="20dp"
-            android:text="單次平均角度(°) vs. 揮擊次數" />
+            android:text="@string/drawHistroyDetailsS2" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart2"

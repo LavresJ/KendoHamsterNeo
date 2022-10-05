@@ -4,21 +4,21 @@
         <item
             android:id="@+id/action_action"
             android:icon="@drawable/side_action"
-            android:title="動作列表" />
+            android:title="@string/mainItem1" />
 
         <item
             android:id="@+id/action_menu"
             android:icon="@drawable/side_menu"
-            android:title="訓練菜單" />
+            android:title="@string/mainItem2" />
 
         <item
             android:id="@+id/action_history"
             android:icon="@drawable/side_history"
-            android:title="歷史紀錄" />
+            android:title="@string/mainItem3" />
 
         <item
             android:id="@+id/action_setting"
             android:icon="@drawable/side_setting"
-            android:title="設定" />
+            android:title="@string/mainItem4" />
     </group>
 </menu>

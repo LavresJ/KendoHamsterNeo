@@ -1,0 +1,185 @@
+<resources>
+    <string name="tfe_pe_app_name">Hamdo</string>
+    <string name="tfe_pe_request_permission">This app needs camera permission.</string>
+    <string name="tfe_pe_tv_score">Score: %.2f</string>
+    <string name="tfe_pe_tv_model">Model: </string>
+    <string name="tfe_pe_tv_fps">Fps: %d</string>
+    <string name="tfe_pe_tv_device">Device: </string>
+    <string name="tfe_pe_tv_classification_value">- %s</string>
+    <string name="tfe_pe_tv_pose_classification">Action Classification</string>
+    <string name="tfe_pe_tv_tracking">Tracker: </string>
+    <string name="tfe_pe_gpu_error">Movenet MultiPose does not support GPU. Fallback to CPU.</string>
+    <string name="drawer_open">Drawer opened</string>
+    <string name="drawer_close">Drawer closed</string>
+    <string-array name="tfe_pe_models_array">
+        <item>Movenet Lightning</item>
+        <item>Movenet Thunder</item>
+        <item>Movenet MultiPose</item>
+        <item>Posenet</item>
+    </string-array>
+
+    <string-array name="tfe_pe_device_name">
+        <item>GPU</item>
+        <item>CPU</item>
+        <item>NNAPI</item>
+    </string-array>
+
+    <string-array name="tfe_pe_tracker_array">
+        <item>Off</item>
+        <item>BoundingBox</item>
+        <item>Keypoint</item>
+    </string-array>
+
+    <string name="app_name">Hamdo</string>
+
+
+    <string name="mainItem1">Motion List</string>
+    <string name="mainItem2">Training Menu</string>
+    <string name="mainItem3">History</string>
+    <string name="mainItem4">Settings</string>
+
+    <string name="startPracticing">Start</string>
+
+    <string name="nextMotion">Next Motion</string>
+    <string name="practiceAgain">Practice Again</string>
+    <string name="backToMenu">Back To Menu</string>
+    <string name="backToMotionList">Back To Motion List</string>
+    <string name="storeData">Save Data</string>
+    <string name="motionName">Motion Name</string>
+    <string name="practicedTime">Practice Time</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="expectedPracticeTime">Expected Practice Time</string>
+    <string name="practicedTimeS">Practice Time</string>
+    <string name="expectedPracticeTimeS">Expected Practice Time</string>
+
+    <string name="practiceTime">Practice Time</string>
+    <string name="practiceTimeS">Practice Time</string>
+    <string name="startTime">Start Time</string>
+    <string name="select">Select</string>
+
+    <string name="stop">Stop</string>
+
+    <string name="times"></string>
+    <string name="seconds">s</string>
+
+    <string name="finishPractice">Practice finished</string>
+
+    <string name="saveDataSuccess">Data save successfully</string>
+    <string name="saveDataFail">Data save failed</string>
+    <string name="watchDataAnalyzed">Watch data analyzed</string>
+
+    <string name="plsInputPracticeTime">Please enter practice time</string>
+    <string name="plsInputPositiveInt">Please enter positive integer!</string>
+
+    <string name="motionMenUchi">Men Uchi</string>
+    <string name="motionSuriAshi">Suri Ashi</string>
+    <string name="motionWakiKiamae">Waki Kiamae</string>
+    <string name="motionDouUchi">Dou Uchi</string>
+
+    <string-array name="menu">
+        <item>Menu1;Men Uchi:5,Suri Ashi:3,Waki Kiamae:10,Dou Uchi:5</item>
+        <item>Menu2;Waki Kiamae:10,Suri Ashi:3,Men Uchi:5,Dou Uchi:5</item>
+        <item>Menu3;Men Uchi:10,Dou Uchi:10</item>
+        <item>Menu4;Waki Kiamae:10,Men Uchi:10</item>
+        <item>Menu5;Men Uchi:3,Dou Uchi:3</item>
+    </string-array>
+
+    <string name="theresNRecords">%04d-%02d-%02d: %d record</string>
+
+    <string-array name="PersonalInformation">
+        <item>Account</item>
+        <item>Notification</item>
+        <item>Privacy</item>
+    </string-array>
+
+    <string-array name="settingsGeneral">
+        <item>Calibration</item>
+        <item>Language</item>
+    </string-array>
+
+    <string name="plsChooseLanguage">Please select language.</string>
+
+    <string name="confirm">Ok</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="video">
+        <item>一、分解動作一</item>
+        <item>二、分解動作二</item>
+        <item>三、分解動作三</item>
+        <item>四、分解動作四</item>
+    </string-array>
+
+    <string name="cameraInstruction">
+        *Please place the phone about 1.5 meters away from the front of the user,
+        make sure the camera screen can cover the user\'s whole body,
+        and follow the instructions below to practice.
+    </string>
+
+    <string name="menUchiInstruction_1">
+        STEP 1: Chyu Dan\n
+        -Hold the end of the sword handle with your left hand and aim it at the center (or lower middle) of your abdomen,
+        about a fist away from your body.\n\n
+
+        -The right hand holds the upper part of the handle,
+        and the sword is inclined upward, pointing at the opponent\'s throat.
+    </string>
+    <string name="menUchiInstruction_2">
+        STEP 2: Jyo Dan\n
+        -The way of holding the sword is the same as that of Chyu Dan,
+        the difference is that the sword is raised to the head,
+        and the tip of the sword is 45 degrees upward.
+    </string>
+    <string name="menUchiInstruction_3">
+        STEP 3: Wield\n
+        -Swing the sword along the center line of the body,
+        and stop swinging when it reaches the height of the opponent\'s face.
+    </string>
+
+    <string name="suriAshiInstruction_1">
+        STEP 1\n
+        -In a Chyu Dan position, keep the feet about 15 cm apart, the right foot is in front,
+        and the left toe is horizontally aligned with the right heel.
+        Let the right foot on the ground, and the left heel slightly off the ground.
+    </string>
+    <string name="suriAshiInstruction_2">
+        STEP 2\n
+        -Slide your right foot forward first.
+    </string>
+    <string name="suriAshiInstruction_3">
+        STEP 3\n
+        -Slide your left foot forward following your right foot, returning to a Chyu Dan.
+    </string>
+
+    <string name="wakiKiamaeInstruction">
+        -Hanging the sword with both hands,
+        the handle is upward, and the tip of the sword is hanging diagonally below the right waist.
+    </string>
+
+    <string name="douUchiInstruction_1">
+        STEP 1: Chyu Dan\n
+        -Hold the end of the sword handle with your left hand and aim it at the center (or lower middle) of your abdomen,
+        about a fist away from your body.\n\n
+
+        -The right hand holds the upper part of the handle,
+        and the sword is inclined upward, pointing at the opponent\'s throat.
+    </string>
+    <string name="douUchiInstruction_2">
+        STEP 2: Jyo Dan\n
+        -The way of holding the sword is the same as that of Chyu Dan,
+        the difference is that the sword is raised to the head,
+        and the tip of the sword is 45 degrees upward.
+    </string>
+    <string name="douUchiInstruction_3">
+        STEP 3: Wield\n
+        -When swinging the sword,
+        quickly turn the sword to the left of the head, and then smash the opponent\'s right body.
+    </string>
+
+    <string name="drawHistroyDetailsTitle">Record Details</string>
+    <string name="drawHistroyDetailsS1">F_avg(Nt) vs. Wield Times</string>
+    <string name="drawHistroyDetailsS2">Δθ(°) vs. Wield Times</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

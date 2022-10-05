@@ -7,17 +7,27 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.kendohamster.R;
+
+import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
     ListView listView1;
@@ -27,6 +37,8 @@ public class Settings extends AppCompatActivity {
     ListView listView2;
     String settingsGeneral[];
     ArrayAdapter<String> adapter2;
+
+    String lan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +68,39 @@ public class Settings extends AppCompatActivity {
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+                builder.setTitle(R.string.plsChooseLanguage);
+
+                String[] languages = {"中文", "English"};
+
+                builder.setSingleChoiceItems(languages, 3, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                lan = "zh";
+                                break;
+                            case 1:
+                                lan = "en";
+                                break;
+                        }
+                    }
+                });
+                builder.setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        Log.d("123456", lan);
+                        setLocale(lan);
+                    }
+
+                });
+                builder.create().show();
                 String settingsGeneral = adapterView.getItemAtPosition(i).toString();
                 Toast.makeText(getApplicationContext(), "選擇" + settingsGeneral, Toast.LENGTH_LONG).show();
-
             }
         });
+
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.myDrawerLayout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -142,5 +182,17 @@ public class Settings extends AppCompatActivity {
 
         startActivity(i);
         finish();
+    }
+
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, MainPage.class);
+        finish();
+        startActivity(refresh);
     }
 }

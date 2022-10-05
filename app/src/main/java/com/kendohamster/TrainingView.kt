@@ -210,7 +210,8 @@ class TrainingView : AppCompatActivity() {
         from_menu = i.getBooleanExtra("from_menu", false)
 
         motionName_public = motionName.toString()
-        if(motionName.equals("正面劈刀") || motionName.equals("擦足") || motionName.equals("右胴劈刀")){
+        if(motionName.equals("正面劈刀") || motionName.equals("擦足") || motionName.equals("右胴劈刀")
+            || motionName.equals("Men Uchi") || motionName.equals("Suri Ashi") || motionName.equals("Dou Uchi")){
             is_dynamic_motion = true
         }else{
             is_dynamic_motion = false
@@ -361,7 +362,7 @@ class TrainingView : AppCompatActivity() {
                     dynamic_motion_times_count += 0.1
                 }
                 when (motionName){
-                    "正面劈刀" -> {
+                    "正面劈刀","Men Uchi" -> {
                         if ((practiceTime - Math.floor(frontCount).toInt()) <= 0){
 
                             menu_motion_arraylist?.removeAt(0)
@@ -375,15 +376,15 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
-                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt()) + "次"
+                    tvPracticeCount.text = "" + (practiceTime - Math.floor(frontCount).toInt()) + getResources().getString(R.string.times)
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
-                    "擦足" -> {
+                    "擦足","Suri Ashi" -> {
                         if ((practiceTime - Math.floor(stepCount).toInt()) <= 0){
 
                             menu_motion_arraylist?.removeAt(0)
@@ -397,15 +398,15 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt()) + "次"
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(stepCount).toInt()) + getResources().getString(R.string.times)
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
-                    "托刀" -> {
+                    "托刀","Waki Kiamae" -> {
                         //這個部分每0.1(0.2)秒會執行一次
                         //使用者需要連續十次被偵測到動作正確，倒數的秒數才會-1
 
@@ -422,7 +423,7 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
@@ -448,11 +449,11 @@ class TrainingView : AppCompatActivity() {
                             falseView.visibility = View.GONE
                         }
 
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + "秒"
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(hold_sword_count).toInt()) + getResources().getString(R.string.seconds)
                         countHandler.postDelayed(countRunnable, 100)
                     }
 
-                    "右胴劈刀" -> {
+                    "右胴劈刀","Dou Uchi" -> {
                         if ((practiceTime - Math.floor(abdominalCount).toInt()) <= 0) {
 
                             menu_motion_arraylist?.removeAt(0)
@@ -466,11 +467,11 @@ class TrainingView : AppCompatActivity() {
                             i.putExtra("time_start", timestamp_str)
                             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
                             i.putExtra("from_menu", from_menu)
-                            showToast("完成訓練")
+                            showToast(getResources().getString(R.string.finishPractice))
                             startActivity(i)
                             finish()
                         }
-                        tvPracticeCount.text = "" + (practiceTime - Math.floor(abdominalCount).toInt()) + "次"
+                        tvPracticeCount.text = "" + (practiceTime - Math.floor(abdominalCount).toInt()) + getResources().getString(R.string.times)
                         countHandler.postDelayed(countRunnable, 100)
                     }
                 }

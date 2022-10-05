@@ -94,35 +94,39 @@ public class TrainingResult extends AppCompatActivity {
         //Log.d("accuracyList", Arrays.toString(accuracyList));
         switch (motionName) {
             case "正面劈刀":
+            case "Men Uchi":
                 frontCount = i.getDoubleExtra("frontCount", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText("預計練習次數: "+ practiceTime +"次");
-                textResultPracticeTime.setText("已練習次數：" + String.format("%.0f",Math.floor(frontCount)) + "次");
-                textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy * 100) + "%");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "：" + practiceTime + getResources().getString(R.string.times));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" + String.format("%.0f",Math.floor(frontCount)) + getResources().getString(R.string.times));
+                textResultAccuracy.setText(getResources().getString(R.string.accuracy) + "：" + String.format("%.2f", accuracy * 100) + "%");
                 break;
 
             case "擦足":
+            case "Suri Ashi":
                 stepCount = i.getDoubleExtra("stepCount", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText("預計練習次數: "+ practiceTime +"次");
-                textResultPracticeTime.setText("已練習次數：" + String.format("%.0f", Math.floor(stepCount)) + "次");
-                textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy * 100) + "%");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "：" + practiceTime + getResources().getString(R.string.times));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" + String.format("%.0f",Math.floor(stepCount)) + getResources().getString(R.string.times));
+                textResultAccuracy.setText(getResources().getString(R.string.accuracy) + "：" + String.format("%.2f", accuracy * 100) + "%");
                 break;
 
             case "托刀":
+            case "Waki Kiamae":
                 hold_sword_count = i.getDoubleExtra("hold_sword_count", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText("預計練習時間: "+ practiceTime +"秒");
-                textResultPracticeTime.setText("已練習時間：" +  String.format("%.0f", Math.floor(hold_sword_count)) + "秒");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTimeS) + "：" + practiceTime + getResources().getString(R.string.seconds));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" +  String.format("%.0f", Math.floor(hold_sword_count)) + getResources().getString(R.string.seconds));
                 textResultAccuracy.setText("");
                 break;
 
             case "右胴劈刀":
+            case "Dou Uchi":
                 abdominalCount = i.getDoubleExtra("abdominalCount", 0);
                 textResultMotionName.setText(motionName);
-                textExpectedPracticeTime.setText("預計練習次數: "+ practiceTime +"次");
-                textResultPracticeTime.setText("已練習次數：" + String.format("%.0f", Math.floor(abdominalCount)) + "次");
-                textResultAccuracy.setText("正確率：" + String.format("%.2f", accuracy * 100) + "%");
+                textExpectedPracticeTime.setText(getResources().getString(R.string.expectedPracticeTime) + "："+ practiceTime + getResources().getString(R.string.times));
+                textResultPracticeTime.setText(getResources().getString(R.string.practicedTime) + "：" + String.format("%.0f", Math.floor(abdominalCount)) + getResources().getString(R.string.times));
+                textResultAccuracy.setText(getResources().getString(R.string.accuracy) + "：" + String.format("%.2f", accuracy * 100) + "%");
                 break;
         }
         /*
@@ -228,12 +232,14 @@ public class TrainingResult extends AppCompatActivity {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 switch (motionName){
                     case "正面劈刀":
+                    case "Men Uchi":
                         MA.getData();
-                        Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.watchDataAnalyzed), Toast.LENGTH_SHORT).show();
                         break;
                     case "右胴劈刀":
+                    case "Dou Uchi":
                         MA.getData();
-                        Toast.makeText(TrainingResult.this, "已分析手錶數據", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.watchDataAnalyzed), Toast.LENGTH_SHORT).show();
                         break;
                 }
 
@@ -316,17 +322,21 @@ public class TrainingResult extends AppCompatActivity {
                 DAOHistoryDataModel dao = new DAOHistoryDataModel();
                 switch (motionName) {
                     case ("正面劈刀"):
+                    case ("Men Uchi"):
                         F_avg = MA.F_avg;
                         delta_theta = MA.delta_theta;
                         result = new HistoryDataModel(timestamp_str, motionName, F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
                         break;
                     case ("擦足"):
+                    case ("Suri Ashi"):
                         result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) accuracy, practiceTime);
                         break;
                     case ("托刀"):
+                    case ("Waki Kiamae"):
                         result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) 1.0, practiceTime);
                         break;
                     case ("右胴劈刀"):
+                    case ("Dou Uchi"):
                         F_avg = MA.F_avg;
                         delta_theta = MA.delta_theta;
                         result = new HistoryDataModel(timestamp_str, motionName, F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
@@ -335,13 +345,13 @@ public class TrainingResult extends AppCompatActivity {
                 dao.add(result).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(TrainingResult.this, "儲存成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.saveDataSuccess), Toast.LENGTH_SHORT).show();
                         //Log.d("send", "success");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(TrainingResult.this, "儲存失敗" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TrainingResult.this, getResources().getString(R.string.saveDataFail) + e.getMessage(), Toast.LENGTH_SHORT).show();
                         //Log.d("send", "false");
                     }
                 });
