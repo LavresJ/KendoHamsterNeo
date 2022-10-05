@@ -161,6 +161,7 @@ public class DrawHistoryDetails extends AppCompatActivity {
         }
 
         startActivity(i);
+        finish();
     }
 
 

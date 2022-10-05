@@ -115,30 +115,30 @@
     </string>
 
     <string name="menUchiInstruction_1">
-        step.1中段姿勢:\n
+        STEP 1 :中段姿勢\n
         -左手握刀柄端部，對準自己的腹部中央(或中下)，離身體約一個拳頭的位置。\n
         -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。
     </string>
     <string name="menUchiInstruction_2">
-        step.2上段姿勢:\n
+        STEP 2 :上段姿勢\n
         -握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。
     </string>
     <string name="menUchiInstruction_3">
-        step.3 揮劍:\n
+        STEP 3 :揮劍\n
         -揮劍軌跡順著身體中心線揮動，當竹劍揮至對手面部高度時停止竹劍揮動。
     </string>
 
     <string name="suriAshiInstruction_1">
-        step.1\n
+        STEP 1\n
         -呈中段姿勢，兩腳間隔約15公分，右腳在前，左腳尖與右腳跟成水平對齊。\n
         右腳貼地，左腳跟稍離地面。
     </string>
     <string name="suriAshiInstruction_2">
-        step.2\n
+        STEP 2\n
         -右腳先向前滑動。
     </string>
     <string name="suriAshiInstruction_3">
-        step.3\n
+        STEP 3\n
         -左腳緊跟著右腳往前滑動，恢復中段姿勢。
     </string>
 
@@ -147,22 +147,22 @@
     </string>
 
     <string name="douUchiInstruction_1">
-        step.1\n
+        STEP 1\n
         -中段姿勢:左手握刀柄端部，對準自己的腹部中央(或中下)，離身體約一個拳頭的位置。\n
         -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。
     </string>
     <string name="douUchiInstruction_2">
-        step.2\n
+        STEP 2\n
         -上段姿勢:握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。
     </string>
     <string name="douUchiInstruction_3">
-        step.3\n
+        STEP 3\n
         -揮劍: 揮劍時迅速將刀向頭左側迴轉，然後劈擊對手的右胴部位。
     </string>
 
     <string name="drawHistroyDetailsTitle">詳細記錄資料</string>
     <string name="drawHistroyDetailsS1">單次平均出力(Nt) vs. 揮擊次數</string>
-    <string name="drawHistroyDetailsS2">單次平均角度(°) vs. 揮擊次數</string>
+    <string name="drawHistroyDetailsS2">單次角度變化(°) vs. 揮擊次數</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

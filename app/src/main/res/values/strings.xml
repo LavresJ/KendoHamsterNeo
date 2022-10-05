@@ -162,7 +162,7 @@
 
     <string name="drawHistroyDetailsTitle">詳細記錄資料</string>
     <string name="drawHistroyDetailsS1">單次平均出力(Nt) vs. 揮擊次數</string>
-    <string name="drawHistroyDetailsS2">單次平均角度(°) vs. 揮擊次數</string>
+    <string name="drawHistroyDetailsS2">單次角度變化(°) vs. 揮擊次數</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

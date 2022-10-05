@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class RecyclerAdapterCard extends RecyclerView.Adapter<RecyclerAdapterCard.CardViewHolder>{
     private ArrayList<String> action_name;
@@ -48,29 +49,24 @@ public class RecyclerAdapterCard extends RecyclerView.Adapter<RecyclerAdapterCar
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
 
-        String lan = "en";
-        switch (lan){
-            case "zh":
-                holder.txtViewActionName.setText(action_name.get(position));
-                break;
-            case "en":
-                switch (action_name.get(position)){
-                    case ("正面劈刀"):
-                        holder.txtViewActionName.setText("Men Uchi");
-                        break;
-                    case ("擦足"):
-                        holder.txtViewActionName.setText("Suri Ashi");
-                        break;
-                    case ("托刀"):
-                        holder.txtViewActionName.setText("Waki Kiamae");
-                        break;
-                    case ("右胴劈刀"):
-                        holder.txtViewActionName.setText("Dou Uchi");
-                        break;
-                }
+        //String lan = Locale.getDefault().getLanguage();
 
+
+        switch (action_name.get(position)){
+            case ("正面劈刀"):
+                holder.txtViewActionName.setText(R.string.motionMenUchi);
+                break;
+            case ("擦足"):
+                holder.txtViewActionName.setText(R.string.motionSuriAshi);
+                break;
+            case ("托刀"):
+                holder.txtViewActionName.setText(R.string.motionWakiKiamae);
+                break;
+            case ("右胴劈刀"):
+                holder.txtViewActionName.setText(R.string.motionDouUchi);
                 break;
         }
+
 
 
         holder.txtViewStartTime.setText(start_time.get(position));

@@ -110,58 +110,74 @@
     </string-array>
 
     <string name="cameraInstruction">
-        *請將手機放置於距離身前約1.5公尺處，確保畫面能包含使用者全身，並按照以下的指示進行練習。
+        *Please place the phone about 1.5 meters away from the front of the user,
+        make sure the camera screen can cover the user\'s whole body,
+        and follow the instructions below to practice.
     </string>
 
     <string name="menUchiInstruction_1">
-        step.1中段姿勢:\n
-        -左手握刀柄端部，對準自己的腹部中央(或中下)，離身體約一個拳頭的位置。\n
-        -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。
+        STEP 1: Chyu Dan\n
+        -Hold the end of the sword handle with your left hand and aim it at the center (or lower middle) of your abdomen,
+        about a fist away from your body.\n\n
+
+        -The right hand holds the upper part of the handle,
+        and the sword is inclined upward, pointing at the opponent\'s throat.
     </string>
     <string name="menUchiInstruction_2">
-        step.2上段姿勢:\n
-        -握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。
+        STEP 2: Jyo Dan\n
+        -The way of holding the sword is the same as that of Chyu Dan,
+        the difference is that the sword is raised to the head,
+        and the tip of the sword is 45 degrees upward.
     </string>
     <string name="menUchiInstruction_3">
-        step.3 揮劍:\n
-        -揮劍軌跡順著身體中心線揮動，當竹劍揮至對手面部高度時停止竹劍揮動。
+        STEP 3: Wield\n
+        -Swing the sword along the center line of the body,
+        and stop swinging when it reaches the height of the opponent\'s face.
     </string>
 
     <string name="suriAshiInstruction_1">
-        step.1\n
-        -呈中段姿勢，兩腳間隔約15公分，右腳在前，左腳尖與右腳跟成水平對齊。\n
-        右腳貼地，左腳跟稍離地面。
+        STEP 1\n
+        -In a Chyu Dan position, keep the feet about 15 cm apart, the right foot is in front,
+        and the left toe is horizontally aligned with the right heel.
+        Let the right foot on the ground, and the left heel slightly off the ground.
     </string>
     <string name="suriAshiInstruction_2">
-        step.2\n
-        -右腳先向前滑動。
+        STEP 2\n
+        -Slide your right foot forward first.
     </string>
     <string name="suriAshiInstruction_3">
-        step.3\n
-        -左腳緊跟著右腳往前滑動，恢復中段姿勢。
+        STEP 3\n
+        -Slide your left foot forward following your right foot, returning to a Chyu Dan.
     </string>
 
     <string name="wakiKiamaeInstruction">
-        -雙手垂掛持刀，刀柄向上，刀尖向右側腰下方斜掛。
+        -Hanging the sword with both hands,
+        the handle is upward, and the tip of the sword is hanging diagonally below the right waist.
     </string>
 
     <string name="douUchiInstruction_1">
-        step.1\n
-        -中段姿勢:左手握刀柄端部，對準自己的腹部中央(或中下)，離身體約一個拳頭的位置。\n
-        -右手握刀柄上部，刀尖向正斜上方，對淮對手咽喉部位。
+        STEP 1: Chyu Dan\n
+        -Hold the end of the sword handle with your left hand and aim it at the center (or lower middle) of your abdomen,
+        about a fist away from your body.\n\n
+
+        -The right hand holds the upper part of the handle,
+        and the sword is inclined upward, pointing at the opponent\'s throat.
     </string>
     <string name="douUchiInstruction_2">
-        step.2\n
-        -上段姿勢:握劍方式與中段方式相同，不同處在於將竹劍舉至頭上，劍尖向上45度。
+        STEP 2: Jyo Dan\n
+        -The way of holding the sword is the same as that of Chyu Dan,
+        the difference is that the sword is raised to the head,
+        and the tip of the sword is 45 degrees upward.
     </string>
     <string name="douUchiInstruction_3">
-        step.3\n
-        -揮劍: 揮劍時迅速將刀向頭左側迴轉，然後劈擊對手的右胴部位。
+        STEP 3: Wield\n
+        -When swinging the sword,
+        quickly turn the sword to the left of the head, and then smash the opponent\'s right body.
     </string>
 
     <string name="drawHistroyDetailsTitle">Record Details</string>
-    <string name="drawHistroyDetailsS1">單次平均出力(Nt) vs. Wield Times</string>
-    <string name="drawHistroyDetailsS2">單次平均角度(°) vs. Wield Times</string>
+    <string name="drawHistroyDetailsS1">F_avg(Nt) vs. Wield Times</string>
+    <string name="drawHistroyDetailsS2">Δθ(°) vs. Wield Times</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
