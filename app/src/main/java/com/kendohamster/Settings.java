@@ -68,36 +68,39 @@ public class Settings extends AppCompatActivity {
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
-                builder.setTitle(R.string.plsChooseLanguage);
+                if (i == 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+                    builder.setTitle(R.string.plsChooseLanguage);
 
-                String[] languages = {"中文", "English"};
+                    String[] languages = {"中文", "English"};
 
-                builder.setSingleChoiceItems(languages, 3, new DialogInterface.OnClickListener() {
+                    builder.setSingleChoiceItems(languages, 3, new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                lan = "zh";
-                                break;
-                            case 1:
-                                lan = "en";
-                                break;
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0:
+                                    lan = "zh";
+                                    break;
+                                case 1:
+                                    lan = "en";
+                                    break;
+                            }
                         }
-                    }
-                });
-                builder.setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK button
-                        Log.d("123456", lan);
-                        setLocale(lan);
-                    }
+                    });
+                    builder.setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+                            setLocale(lan);
+                        }
 
-                });
-                builder.create().show();
-                String settingsGeneral = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getApplicationContext(), "選擇" + settingsGeneral, Toast.LENGTH_LONG).show();
+                    });
+                    builder.create().show();
+                }
+                else {
+                    String settingsGeneral = adapterView.getItemAtPosition(i).toString();
+                    Toast.makeText(getApplicationContext(), "選擇" + settingsGeneral, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
