@@ -325,21 +325,21 @@ public class TrainingResult extends AppCompatActivity {
                     case ("Men Uchi"):
                         F_avg = MA.F_avg;
                         delta_theta = MA.delta_theta;
-                        result = new HistoryDataModel(timestamp_str, motionName, F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
+                        result = new HistoryDataModel(timestamp_str, "正面劈刀", F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
                         break;
                     case ("擦足"):
                     case ("Suri Ashi"):
-                        result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) accuracy, practiceTime);
+                        result = new HistoryDataModel(timestamp_str, "擦足", "", "", (float) accuracy, practiceTime);
                         break;
                     case ("托刀"):
                     case ("Waki Kiamae"):
-                        result = new HistoryDataModel(timestamp_str, motionName, "", "", (float) 1.0, practiceTime);
+                        result = new HistoryDataModel(timestamp_str, "托刀", "", "", (float) 1.0, practiceTime);
                         break;
                     case ("右胴劈刀"):
                     case ("Dou Uchi"):
                         F_avg = MA.F_avg;
                         delta_theta = MA.delta_theta;
-                        result = new HistoryDataModel(timestamp_str, motionName, F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
+                        result = new HistoryDataModel(timestamp_str, "右胴劈刀", F_avg.toString(), delta_theta.toString(), (float) accuracy, practiceTime);
                         break;
                 }
                 dao.add(result).addOnSuccessListener(new OnSuccessListener<Void>() {
