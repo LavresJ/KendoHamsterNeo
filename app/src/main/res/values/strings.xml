@@ -78,8 +78,8 @@
 
 
     <string-array name="menu">
-        <item>菜單一;正面劈刀:5,擦足:3,托刀:10,右胴劈刀:5</item>
-        <item>菜單二;托刀:10,擦足:3,正面劈刀:5,右胴劈刀:5</item>
+        <item>菜單一;正面劈刀:5,擦足:2,托刀:10,右胴劈刀:5</item>
+        <item>菜單二;托刀:10,擦足:2,正面劈刀:5,右胴劈刀:5</item>
         <item>菜單三;正面劈刀:10,右胴劈刀:10</item>
         <item>菜單四;托刀:10,正面劈刀:10</item>
         <item>菜單五;正面劈刀:3,右胴劈刀:3</item>
@@ -88,9 +88,7 @@
     <string name="theresNRecords">%04d-%02d-%02d有%d筆訓練紀錄</string>
 
     <string-array name="PersonalInformation">
-        <item>管理登錄方式</item>
-        <item>通知設定</item>
-        <item>隱私設定</item>
+        <item>管理帳號</item>
     </string-array>
 
     <string-array name="settingsGeneral">

@@ -283,6 +283,7 @@ class TrainingView : AppCompatActivity() {
             i.putExtra("frontCount", frontCount)
             i.putExtra("stepCount", stepCount)
             i.putExtra("hold_sword_count", hold_sword_count)
+            i.putExtra("time_start", timestamp_str)
             i.putExtra("menu_motion_arraylist", menu_motion_arraylist)
             i.putExtra("from_menu", from_menu)
 
