@@ -89,14 +89,15 @@
 
     <string-array name="PersonalInformation">
         <item>管理登錄方式</item>
-        <item>通知設定</item>
-        <item>隱私設定</item>
     </string-array>
 
     <string-array name="settingsGeneral">
-        <item>校準</item>
         <item>語言</item>
+        <item>校準</item>
     </string-array>
+
+    <string name="login">登入</string>
+    <string name="signup">註冊</string>
 
     <string name="plsChooseLanguage">請選擇語言</string>
 

@@ -88,14 +88,15 @@
 
     <string-array name="PersonalInformation">
         <item>Account</item>
-        <item>Notification</item>
-        <item>Privacy</item>
     </string-array>
 
     <string-array name="settingsGeneral">
-        <item>Calibration</item>
         <item>Language</item>
+        <item>Calibration</item>
     </string-array>
+
+    <string name="login">Log In</string>
+    <string name="signup">Sign Up</string>
 
     <string name="plsChooseLanguage">Please select language.</string>
 

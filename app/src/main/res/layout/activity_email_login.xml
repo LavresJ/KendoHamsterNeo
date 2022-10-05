@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
 
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:title="登入"
+            app:title="@string/login"
             app:titleTextColor="@color/white" />
 
         <Button
@@ -36,8 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="註冊"
-            app:layout_constraintStart_toStartOf="@+id/buttonSignin"
+            android:text="@string/signup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonSignin" />
 
         <EditText
@@ -71,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
-            android:text="登入"
+            android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
