@@ -223,7 +223,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
 
         if(camera_back) {
             when (motionName_public) {
-                "正面劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                "正面劈刀", "Men Uchi" -> {//判斷手腕是否高於肩膀(數字小的較高)
                     val rightShoulder = keyPoints[6].coordinate.y
                     val rightWrist = keyPoints[10].coordinate.y
                     if (keyPoints[6].score > 0.2 && keyPoints[10].score > 0.2) { //rightShoulder != null && rightWrist != null
@@ -267,7 +267,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                     }
                 }
                 //判斷腳步步數
-                "擦足" -> {
+                "擦足", "Suri Ashi" -> {
                     val rightAnkle = keyPoints[16].coordinate.x
                     val leftAnkle = keyPoints[15].coordinate.x
                     if (keyPoints[16].score > 0.2 && keyPoints[15].score > 0.2) {       //rightAnkle != null && leftAnkle != null
@@ -313,7 +313,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                 }
 
                 //判斷托刀動作
-                "托刀" -> {
+                "托刀", "Waki Kiamae" -> {
                     if (obj.toString().length > 2) {
                         if(keyPoints[0].score > 0.3 && keyPoints[7].score > 0.3) {
                             if (classes_probability.get(2) > 0.5) {
@@ -327,7 +327,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                         }
                     }
                 }
-                "右胴劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                "右胴劈刀", "Dou Uchi" -> {//判斷手腕是否高於肩膀(數字小的較高)
                     val rightShoulder = keyPoints[6].coordinate.y
                     val rightWrist = keyPoints[10].coordinate.y
                     val bodyLength = (keyPoints[11].coordinate.y + keyPoints[12].coordinate.y) / 2 - (keyPoints[5].coordinate.y + keyPoints[6].coordinate.y) / 2
@@ -376,7 +376,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
             //Log.d("keyPoints_float", keyPoints_float.toString())
         }else{
             when (motionName_public) {
-                "正面劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                "正面劈刀", "Men Uchi" -> {//判斷手腕是否高於肩膀(數字小的較高)
                     val rightShoulder = keyPoints[5].coordinate.y   //keyPoints[6].coordinate.y
                     val rightWrist = keyPoints[9].coordinate.y  //keyPoints[10].coordinate.y
                     if (keyPoints[5].score > 0.2 && keyPoints[9].score > 0.2) { //rightShoulder != null && rightWrist != null
@@ -420,7 +420,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                     }
                 }
                 //判斷腳步步數
-                "擦足" -> {
+                "擦足", "Suri Ashi" -> {
                     val rightAnkle = 1 -  keyPoints[15].coordinate.x  //keyPoints[16].coordinate.x
                     val leftAnkle = 1 -  keyPoints[16].coordinate.x   //keyPoints[15].coordinate.x
                     Log.d("rightAnkle", rightAnkle.toString())
@@ -468,7 +468,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                 }
 
                 //判斷托刀動作
-                "托刀" -> {
+                "托刀", "Waki Kiamae" -> {
                     if (obj.toString().length > 2) {
                         if(keyPoints[0].score > 0.2) {
                             if (classes_probability.get(2) > 0.5) {
@@ -482,7 +482,7 @@ class MoveNet(private val interpreter: Interpreter, private var gpuDelegate: Gpu
                         }
                     }
                 }
-                "右胴劈刀" -> {//判斷手腕是否高於肩膀(數字小的較高)
+                "右胴劈刀", "Dou Uchi" -> {//判斷手腕是否高於肩膀(數字小的較高)
                     val rightShoulder = keyPoints[5].coordinate.y   //keyPoints[6].coordinate.y
                     val rightWrist = keyPoints[9].coordinate.y  //keyPoints[10].coordinate.y
                     val bodyLength = (keyPoints[11].coordinate.y + keyPoints[12].coordinate.y) / 2 - (keyPoints[5].coordinate.y + keyPoints[6].coordinate.y) / 2
